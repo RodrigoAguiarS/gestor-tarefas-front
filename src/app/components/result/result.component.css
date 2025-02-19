@@ -1,0 +1,17 @@
+.result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+nz-result {
+  max-width: 600px;
+  width: 100%;
+}
+
+nz-result-extra {
+  display: flex;
+  justify-content: space-between;
+}

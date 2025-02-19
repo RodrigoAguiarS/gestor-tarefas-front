@@ -1,0 +1,30 @@
+/* Container principal */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.search-container input,
+.search-container nz-select {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-container button {
+  align-self: flex-end;
+}

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="search-container">
+    <h2>Buscar Usuários</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarUsuario()">
+      <input nz-input placeholder="Nome" formControlName="nome" />
+      <input nz-input placeholder="CPF" formControlName="cpf" />
+      <input nz-input placeholder="Email" formControlName="email" />
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Perfil" formControlName="perfilId">
+        <nz-option *ngFor="let perfil of perfis" [nzValue]="perfil.id" [nzLabel]="perfil.nome"></nz-option>
+      </nz-select>
+      <button nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+  <h2>Lista de Usuários</h2>
+  <nz-table
+    #basicTable
+    [nzData]="usuarios"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Email</th>
+        <th scope="col">Perfil</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.pessoa.nome }}</td>
+        <td>{{ usuario.pessoa.cpf | CPF }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+          <ng-container *ngFor="let perfil of usuario.perfis; let i = index">
+            {{ perfil.nome }}<span *ngIf="i < usuario.perfis.length - 1">, </span>
+          </ng-container>
+        </td>
+        <td>
+          <a [routerLink]="['/usuarios/update', usuario.id]">
+            <i nz-icon nzType="edit" nzTheme="outline" title="Atualizar usuário"></i>
+          </a>
+          <a [routerLink]="['/usuarios/delete', usuario.id]">
+            <i nz-icon nzType="delete" nzTheme="outline" title="Deletar usuário"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

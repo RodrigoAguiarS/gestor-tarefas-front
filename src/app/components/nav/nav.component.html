@@ -12,7 +12,7 @@
     >
       <ul nz-menu nzTheme="dark" nzMode="inline">
         <li
-          *ngIf="roles.includes('USUARIO') || roles.includes('Adminstrador')"
+          *ngIf="roles.includes(ACESSO.ADMINISTRADOR) || roles.includes(ACESSO.OPERADOR)"
           nz-menu-item
           routerLink="/home"
         >
