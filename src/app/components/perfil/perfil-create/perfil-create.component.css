@@ -1,46 +1,56 @@
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-form {
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
+.container-wrapper {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f5f5f5;
+  padding: 20px;
 }
 
-nz-form-item {
+.container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.perfil-form nz-form-item {
   margin-bottom: 16px;
 }
 
-input[nz-input], textarea[nz-input] {
-  width: 100%;
-}
 textarea[nz-input] {
-  height: 150px;
+  min-height: 100px;
+  resize: none;
 }
 
-button {
-  display: block;
-  width: 100%;
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
   margin-top: 20px;
 }
 
-@media (max-width: 576px) {
-  nz-form-label, nz-form-control {
-    display: block;
-    width: 100%;
-  }
-
-  nz-form-label {
-    margin-bottom: 8px;
-  }
-
-  nz-form-control {
-    margin-bottom: 16px;
-  }
+.form-actions button {
+  min-width: 120px;
 }

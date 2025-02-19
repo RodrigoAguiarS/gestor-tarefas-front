@@ -8,6 +8,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { CommonModule } from '@angular/common';
+import { NzCardModule } from 'ng-zorro-antd/card';
 @Component({
   selector: 'app-perfil-create',
   imports: [
@@ -17,7 +18,8 @@ import { CommonModule } from '@angular/common';
     NzFormModule,
     NzInputModule,
     NzButtonModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzCardModule,
   ],
   templateUrl: './perfil-create.component.html',
   styleUrl: './perfil-create.component.css'

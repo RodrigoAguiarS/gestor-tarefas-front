@@ -8,6 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'app-perfil-delete',
@@ -18,7 +19,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
         NzFormModule,
         NzInputModule,
         NzButtonModule,
-        NzCheckboxModule
+        NzCheckboxModule,
+        NzCardModule,
       ],
   templateUrl: './perfil-delete.component.html',
   styleUrl: './perfil-delete.component.css'
@@ -87,5 +89,9 @@ export class PerfilDeleteComponent {
       descricao: ['', Validators.required],
       ativo: ['', Validators.required],
     });
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/home']);
   }
 }
