@@ -10,6 +10,10 @@ import { UsuarioCreateComponent } from './components/usuario/usuario-create/usua
 import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
 import { UsuarioUpdateComponent } from './components/usuario/usuario-update/usuario-update.component';
 import { UsuarioDeleteComponent } from './components/usuario/usuario-delete/usuario-delete.component';
+import { PerfilCreateComponent } from './components/perfil/perfil-create/perfil-create.component';
+import { PerfilListComponent } from './components/perfil/perfil-list/perfil-list.component';
+import { PerfilUpdateComponent } from './components/perfil/perfil-update/perfil-update.component';
+import { PerfilDeleteComponent } from './components/perfil/perfil-delete/perfil-delete.component';
 import { ResultComponent } from './components/result/result.component';
 
 export const routes: Routes = [
@@ -34,6 +38,17 @@ export const routes: Routes = [
           { path: 'update/:id', component: UsuarioUpdateComponent },
           { path: 'delete/:id', component: UsuarioDeleteComponent },
           { path: 'list', component: UsuarioListComponent },
+        ],
+      },
+      {
+        path: 'perfis',
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR] },
+        children: [
+          { path: 'create', component: PerfilCreateComponent },
+          { path: 'update/:id', component: PerfilUpdateComponent },
+          { path: 'delete/:id', component: PerfilDeleteComponent },
+          { path: 'list', component: PerfilListComponent },
         ],
       },
       {

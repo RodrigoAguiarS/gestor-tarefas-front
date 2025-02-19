@@ -1,0 +1,47 @@
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+form {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+nz-form-item {
+  margin-bottom: 16px;
+}
+
+input[nz-input], textarea[nz-input] {
+  width: 100%;
+}
+textarea[nz-input] {
+  height: 150px; /* Ajuste para deixar o textarea maior */
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Ajustes específicos para telas pequenas */
+@media (max-width: 576px) {
+  nz-form-label, nz-form-control {
+    display: block;
+    width: 100%;
+  }
+
+  nz-form-label {
+    margin-bottom: 8px;
+  }
+
+  nz-form-control {
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <nz-table
+    #basicTable
+    [nzData]="perfis"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="loading"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Destrição</th>
+        <th scope="col">Ativo</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let perfil of perfis">
+        <td>{{ perfil.id }}</td>
+        <td>{{ perfil.nome }}</td>
+        <td>{{ perfil.descricao }}</td>
+        <td>{{ perfil.ativo ? "Sim" : "Não" }}</td>
+
+        <td>
+          <a [routerLink]="['/perfis/update', perfil.id]">
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar perfil"
+            ></i>
+          </a>
+          <a [routerLink]="['/perfis/delete', perfil.id]">
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar perfil"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

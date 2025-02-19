@@ -1,0 +1,72 @@
+<div class="container">
+  <form
+    nz-form
+    [formGroup]="perfilForm"
+    (submit)="update()"
+    fxLayout="column"
+    fxLayoutGap="16px"
+  >
+    <h3>Dados da Perfil</h3>
+    <div fxLayout="column" fxLayoutGap="16px">
+      <!-- Nome -->
+      <nz-form-item fxFlex>
+        <nz-form-label [nzSpan]="24" nzFor="nome">Nome</nz-form-label>
+        <nz-form-control
+          nzRequired
+          [nzSpan]="24"
+          nzRequired
+          nzErrorTip="O nome é obrigatório"
+        >
+          <input
+            nz-input
+            formControlName="nome"
+            id="nome"
+            placeholder="Ex. Nome da Perfil..."
+            required
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Descrição -->
+      <nz-form-item fxFlex>
+        <nz-form-label [nzSpan]="24" nzFor="descricao">Descrição</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="A descrição é obrigatória">
+          <div style="position: relative">
+            <textarea
+              nz-input
+              formControlName="descricao"
+              nzRequired
+              maxlength="255"
+              #descricaoTextarea
+              id="descricao"
+              placeholder="Ex. Descrição da Perfil..."
+              style="padding-bottom: 20px"
+            ></textarea>
+            <span
+              class="contador"
+              style="position: absolute; bottom: 5px; right: 10px; color: #aaa"
+            >
+              {{
+                descricaoTextarea.value ? descricaoTextarea.value.length : 0
+              }}/255
+            </span>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <!-- Ativo -->
+    <nz-form-item>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzOffset="6">
+        <label nz-checkbox formControlName="ativo">
+          <span>Ativo</span>
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" [disabled]="!perfilForm.valid">
+      Atualizar
+    </button>
+  </form>
+  <button nz-button nzType="default" (click)="cancelar()">Cancelar</button>
+</div>

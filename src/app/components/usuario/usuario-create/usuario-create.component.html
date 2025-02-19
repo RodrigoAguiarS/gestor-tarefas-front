@@ -95,7 +95,7 @@
             <nz-form-item>
               <nz-form-label [nzRequired]="true" nzFor="confirmarSenha">Confirmar Senha</nz-form-label>
               <nz-form-control>
-                <input id="confirmarSenha" nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required />
+                <input id="confirmarSenha" nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required (blur)="verificarSenhasIguais()"/>
               </nz-form-control>
             </nz-form-item>
           </div>
