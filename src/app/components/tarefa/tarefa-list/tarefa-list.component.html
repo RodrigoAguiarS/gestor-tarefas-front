@@ -1,1 +1,56 @@
-<p>tarefa-list works!</p>
+<div class="container">
+  <div class="search-container">
+    <h2>Buscar Tarefas</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefa()">
+      <input nz-input placeholder="Número" formControlName="id" />
+      <input nz-input placeholder="Título" formControlName="titulo" />
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Responsável" formControlName="responsavelId">
+        <nz-option *ngFor="let usuario of usuarios" [nzValue]="usuario.id" [nzLabel]="usuario.pessoa.nome"></nz-option>
+      </nz-select>
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Situação" formControlName="situacao">
+        <nz-option *ngFor="let situacao of situacoes" [nzValue]="situacao" [nzLabel]="situacao"></nz-option>
+      </nz-select>
+      <button nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+  <h2>Lista de Tarefas</h2>
+  <nz-table
+    #basicTable
+    [nzData]="tarefas"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Título</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Situação</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tarefa of tarefas">
+        <td>{{ tarefa.id }}</td>
+        <td>{{ tarefa.titulo }}</td>
+        <td>{{ tarefa.responsavel.pessoa.nome }}</td>
+        <td>{{ tarefa.situacao }}</td>
+        <td>
+          <a [routerLink]="['/tarefas/update', tarefa.id]">
+            <i nz-icon nzType="edit" nzTheme="outline" title="Atualizar tarefa"></i>
+          </a>
+          <a [routerLink]="['/tarefas/delete', tarefa.id]">
+            <i nz-icon nzType="delete" nzTheme="outline" title="Deletar tarefa"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,10 +1,9 @@
-/* Estilização geral */
 .container-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
+  min-height: 80vh;
+  background-color: #f5f5f5;
   padding: 20px;
 }
 
@@ -14,56 +13,55 @@
 }
 
 .form-container {
-  padding: 20px;
   background: #fff;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Título do formulário */
 .form-title {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-/* Estilização dos itens do formulário */
-nz-form-item {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
-
-nz-form-label {
+  font-size: 24px;
   font-weight: bold;
-  color: #555;
+  margin-bottom: 20px;
 }
 
-nz-form-control input,
-nz-form-control textarea,
-nz-form-control nz-select,
-nz-form-control nz-date-picker {
-  width: 100%;
+.form-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
 }
 
-/* Responsável e Prioridade na mesma linha */
-.row {
-  display: flex;
-  gap: 15px;
+.perfil-form nz-form-item {
+  margin-bottom: 16px;
 }
 
-.col {
-  flex: 1;
+textarea[nz-input] {
+  min-height: 100px;
+  resize: none;
 }
 
-/* Botões */
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 10px;
   margin-top: 20px;
 }
 
 .form-actions button {
-  width: 48%;
+  min-width: 120px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.col {
+  flex: 1;
+  min-width: 200px;
 }
