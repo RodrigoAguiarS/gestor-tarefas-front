@@ -19,6 +19,7 @@ import { TarefaCreateComponent } from './components/tarefa/tarefa-create/tarefa-
 import { TarefaListComponent } from './components/tarefa/tarefa-list/tarefa-list.component';
 import { TarefaUpdateComponent } from './components/tarefa/tarefa-update/tarefa-update.component';
 import { TarefaDeleteComponent } from './components/tarefa/tarefa-delete/tarefa-delete.component';
+import { UsuarioTarefasComponent } from './components/usuario/usuario-tarefas/usuario-tarefas.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -53,6 +54,14 @@ export const routes: Routes = [
           { path: 'update/:id', component: PerfilUpdateComponent },
           { path: 'delete/:id', component: PerfilDeleteComponent },
           { path: 'list', component: PerfilListComponent },
+        ],
+      },
+      {
+        path: 'tarefas',
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.OPERADOR] },
+        children: [
+          { path: 'usuario/list', component: UsuarioTarefasComponent},
         ],
       },
       {

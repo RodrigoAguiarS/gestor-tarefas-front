@@ -18,12 +18,20 @@ export class TarefaService {
     return this.http.post<Tarefa>(`${API_CONFIG.baseUrl}/tarefas`, tarefa);
   }
 
+  findByUsuarioId(id: number): Observable<Tarefa[]> {
+    return this.http.get<Tarefa[]>(`${API_CONFIG.baseUrl}/tarefas/responsavel/${id}/tarefas`);
+  }
+
   update(tarefa: Tarefa): Observable<Tarefa> {
     return this.http.put<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${tarefa.id}`, tarefa);
   }
 
   concluirTarefa(id: number): Observable<Tarefa> {
     return this.http.put<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${id}/concluir`, {});
+  }
+
+  andamentoTarefa(id: number): Observable<Tarefa> {
+    return this.http.put<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${id}/andamento`, {});
   }
 
   delete(id: any): Observable<Tarefa> {
@@ -36,6 +44,7 @@ export class TarefaService {
     id?: string;
     titulo?: string;
     descricao?: string;
+    prioridade?: string;
     responsavelId?: string;
     situacao?: string;
   }): Observable<{ content: Tarefa[], totalElements: number }> {
@@ -55,6 +64,10 @@ export class TarefaService {
 
     if (params.responsavelId) {
       url += `&responsavelId=${params.responsavelId}`;
+    }
+
+    if (params.prioridade) {
+      url += `&prioridade=${params.prioridade}`;
     }
 
     if (params.situacao) {

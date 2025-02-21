@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     this.carregarUsuario();
   }
 
-  private carregarUsuario(): void {
+ private carregarUsuario(): void {
     this.usuarioService.obterDadosUsuario().subscribe({
       next: (usuario: Usuario) => {
         this.usuario = usuario;

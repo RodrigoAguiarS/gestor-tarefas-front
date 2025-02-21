@@ -58,6 +58,20 @@
           </ul>
         </li>
 
+        <li
+        *ngIf="roles.includes(ACESSO.OPERADOR)"
+          nz-submenu
+          nzTitle="Minhas Tarefas"
+          nzIcon="check-square"
+        >
+          <ul>
+            <li nz-menu-item routerLink="/tarefas/usuario/list">
+              <i nz-icon nzType="unordered-list"></i>
+              <span>Listar</span>
+            </li>
+          </ul>
+        </li>
+
         <!-- Submenu Perfil -->
         <li
           *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"

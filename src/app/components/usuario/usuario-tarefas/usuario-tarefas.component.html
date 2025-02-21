@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="search-container">
+    <h2>Buscar Tarefas</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefas()">
+      <input nz-input placeholder="Número" formControlName="id" />
+      <input nz-input placeholder="Título" formControlName="titulo" />
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Situação"
+        formControlName="situacao"
+      >
+        <nz-option
+          *ngFor="let situacao of situacoes"
+          [nzValue]="situacao"
+          [nzLabel]="situacao"
+        ></nz-option>
+      </nz-select>
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Prioridade"
+        formControlName="prioridade"
+      >
+        <nz-option
+          *ngFor="let prioridade of prioridades"
+          [nzValue]="prioridade"
+          [nzLabel]="prioridade"
+        ></nz-option>
+      </nz-select>
+      <button nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+  <h2>Lista de Tarefas</h2>
+  <nz-table
+    #basicTable
+    [nzData]="tarefas"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Título</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Situação</th>
+        <th scope="col">Prioridade</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tarefa of tarefas">
+        <td>{{ tarefa.id }}</td>
+        <td>{{ tarefa.titulo }}</td>
+        <td>{{ tarefa.descricao }}</td>
+        <td>{{ tarefa.situacao }}</td>
+        <td>{{ tarefa.prioridade }}</td>
+        <td>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja colocar esta tarefa em andamento?"
+            (nzOnConfirm)="colocarEmAndamento(tarefa.id)"
+            (nzOnCancel)="cancel()"
+          >
+            <i
+              nz-icon
+              nzType="play-circle"
+              nzTheme="outline"
+              title="Colocar em Andamento"
+            ></i>
+          </a>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?"
+            (nzOnConfirm)="confirm(tarefa.id)"
+            (nzOnCancel)="cancel()"
+          >
+            <i
+              nz-icon
+              nzType="check-circle"
+              nzTheme="outline"
+              title="Concluir tarefa"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
