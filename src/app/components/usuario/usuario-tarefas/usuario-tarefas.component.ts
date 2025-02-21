@@ -68,7 +68,6 @@ export class UsuarioTarefasComponent implements OnInit {
     this.usuarioService.obterDadosUsuario().subscribe({
       next: (usuario: Usuario) => {
         this.usuarioId = usuario.id;
-        this.buscarTarefas();
       },
       error: (error) => {
         this.message.error(error.error.message);

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tarefa } from '../model/Tarefa';
 import { API_CONFIG } from '../config/api.config';
+import { UsuarioComTarefasConcluidas } from '../model/UsuarioComTarefasConcluidas';
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +76,13 @@ export class TarefaService {
     }
 
     return this.http.get<{ content: Tarefa[], totalElements: number }>(url);
+  }
+
+  getTarefasCountBySituacao(): Observable<{ EM_ANDAMENTO: number, PENDENTE: number, CONCLUIDA: number }> {
+    return this.http.get<{ EM_ANDAMENTO: number, PENDENTE: number, CONCLUIDA: number }>(`${API_CONFIG.baseUrl}/tarefas/contagem-por-situacao`);
+  }
+
+  getUsuarioComMaisTarefasConcluidas(): Observable<UsuarioComTarefasConcluidas[]> {
+    return this.http.get<UsuarioComTarefasConcluidas[]>(`${API_CONFIG.baseUrl}/tarefas/responsavel/tarefas-concluidas`);
   }
 }

@@ -59,7 +59,7 @@ export const routes: Routes = [
       {
         path: 'tarefas',
         canActivate: [RoleGuard],
-        data: { roles: [ACESSO.OPERADOR] },
+        data: { roles: [ACESSO.OPERADOR, ACESSO.ADMINISTRADOR] },
         children: [
           { path: 'usuario/list', component: UsuarioTarefasComponent},
         ],
