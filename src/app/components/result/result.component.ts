@@ -14,6 +14,7 @@ export class ResultComponent {
   tituloResultado: string = '';
   mensagemResultado: string = '';
   rotaCriacao: string = '';
+  rotaListagem: string = '';
 
   constructor(private readonly rota: ActivatedRoute, private readonly roteador: Router) {
     this.rota.queryParams.subscribe(params => {
@@ -21,12 +22,19 @@ export class ResultComponent {
       this.tituloResultado = params['title'] || '';
       this.mensagemResultado = params['message'] || '';
       this.rotaCriacao = params['createRoute'] || '';
+      this.rotaListagem = params['listRoute'] || '';
     });
   }
 
   navegarParaCriar(): void {
     if (this.rotaCriacao) {
       this.roteador.navigate([this.rotaCriacao]);
+    }
+  }
+
+  navegarParaListagem(): void {
+    if (this.rotaListagem) {
+      this.roteador.navigate([this.rotaListagem]);
     }
   }
 

@@ -1,0 +1,123 @@
+<div class="container-wrapper">
+  <div class="container">
+    <nz-card [nzBordered]="false" class="form-container">
+      <form
+        nz-form
+        nzLayout="vertical"
+        [formGroup]="tarefaForm"
+        (ngSubmit)="update()"
+        class="tarefa-form"
+      >
+        <!-- Cabeçalho -->
+        <h2 class="form-title">Cadastrar Tarefa</h2>
+
+        <!-- Título -->
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true" nzFor="titulo"
+            >Título</nz-form-label
+          >
+          <nz-form-control>
+            <input
+              id="titulo"
+              nz-input
+              formControlName="titulo"
+              placeholder="Digite o título da tarefa"
+              required
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Descrição -->
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true" nzFor="descricao"
+            >Descrição</nz-form-label
+          >
+          <nz-form-control>
+            <textarea
+              id="descricao"
+              nz-input
+              formControlName="descricao"
+              placeholder="Digite a descrição da tarefa"
+              required
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Responsável e Prioridade na mesma linha -->
+        <div class="row">
+          <nz-form-item class="col">
+            <nz-form-label [nzRequired]="true" nzFor="responsavel"
+              >Responsável</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                id="responsavel"
+                formControlName="responsavel"
+                nzPlaceHolder="Selecione o responsável"
+                required
+              >
+                <nz-option
+                  *ngFor="let usuario of usuarios"
+                  [nzValue]="usuario.id"
+                  [nzLabel]="usuario.pessoa.nome"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="col">
+            <nz-form-label [nzRequired]="true" nzFor="prioridade"
+              >Prioridade</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                id="prioridade"
+                formControlName="prioridade"
+                nzPlaceHolder="Selecione a prioridade"
+                required
+              >
+                <nz-option
+                  *ngFor="let prioridade of prioridades"
+                  [nzValue]="prioridade"
+                  [nzLabel]="prioridade"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Deadline -->
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true" nzFor="deadline"
+              >Deadline</nz-form-label
+            >
+            <nz-form-control>
+              <nz-date-picker
+                id="deadline"
+                formControlName="deadline"
+                nzPlaceHolder="Selecione a data de deadline"
+                nzFormat="dd-MM-yyyy"
+                required
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- Ações -->
+        <div class="form-actions">
+          <button type="button" nz-button nzType="default" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            nz-button
+            nzType="primary"
+            [disabled]="!tarefaForm.valid"
+          >
+            Atualizar
+          </button>
+        </div>
+      </form>
+    </nz-card>
+  </div>
+</div>
+

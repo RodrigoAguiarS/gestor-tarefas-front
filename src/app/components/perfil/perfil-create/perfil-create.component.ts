@@ -48,6 +48,7 @@ export class PerfilCreateComponent {
             title: 'Perfil ' + resposta.nome + ' criado com sucesso!',
             message: 'O perfil foi criado com sucesso!',
             createRoute: '/perfis/create',
+            listRoute: '/perfis/list'
           }
         });
       },

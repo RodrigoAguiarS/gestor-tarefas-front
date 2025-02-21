@@ -68,6 +68,7 @@ export class PerfilDeleteComponent {
             title: 'Perfil Apagado com sucesso!',
             message: 'O perfil foi apagado com sucesso!',
             createRoute: '/perfis/create',
+            perfisRoute: '/perfis/list',
           }
         });
       },

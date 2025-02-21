@@ -1,21 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { TarefaService } from '../../../services/tarefa.service';
-import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { Usuario } from '../../../model/Usuario';
-import { UsuarioService } from '../../../services/usuario.service';
-import { CommonModule } from '@angular/common';
 import { Prioridade } from '../../../model/Prioridade';
+import { Usuario } from '../../../model/Usuario';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TarefaService } from '../../../services/tarefa.service';
+import { UsuarioService } from '../../../services/usuario.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tarefa-create',
+  selector: 'app-tarefa-update',
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -24,38 +29,46 @@ import { Prioridade } from '../../../model/Prioridade';
     NzButtonModule,
     NzSelectModule,
     NzCardModule,
-    NzDatePickerModule
+    NzDatePickerModule,
   ],
-  templateUrl: './tarefa-create.component.html',
-  styleUrl: './tarefa-create.component.css',
+  templateUrl: './tarefa-update.component.html',
+  styleUrl: './tarefa-update.component.css',
 })
-export class TarefaCreateComponent {
+export class TarefaUpdateComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
+  id!: number;
 
   constructor(
     private readonly message: NzMessageService,
     private readonly tarefaservice: TarefaService,
     private readonly usuarioService: UsuarioService,
     private readonly formBuilder: FormBuilder,
+    private readonly route: ActivatedRoute,
     private readonly router: Router
+
   ) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
     this.initForm();
     this.carregarUsuarios();
+    this.carregarTarafa();
   }
 
-  criar(): void {
-    this.tarefaservice.create(this.tarefaForm.value).subscribe({
+  update(): void {
+    this.tarefaForm.value.id = this.id;
+    this.tarefaservice.update(this.tarefaForm.value).subscribe({
       next: (resposta) => {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
             title:
-              'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
-            message: 'A Tarefa foi criado com sucesso!',
+              'Tarefa de titulo ' +
+              resposta.titulo +
+              ' atualizada com sucesso!',
+            message: 'A Tarefa foi atualizada com sucesso!',
             createRoute: '/tarefas/create',
             listRoute: '/tarefas/list',
           },
@@ -73,6 +86,20 @@ export class TarefaCreateComponent {
     });
   }
 
+  carregarTarafa(): void {
+    this.tarefaservice.findById(this.id).subscribe({
+      next: (tarefa) => {
+        console.log('Tarefa carregada:', tarefa);
+        this.tarefaForm.patchValue(tarefa);
+        this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
+      },
+      error: (ex) => {
+        console.error('Erro ao carregar tarefa:', ex);
+        this.message.error(ex.error.message);
+      },
+    });
+  }
+
   carregarUsuarios(): void {
     this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
       next: (response) => {
@@ -80,7 +107,7 @@ export class TarefaCreateComponent {
       },
       error: (ex) => {
         this.message.error(ex.error.message);
-      }
+      },
     });
   }
 

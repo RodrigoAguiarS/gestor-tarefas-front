@@ -67,6 +67,7 @@ export class UsuarioCreateComponent implements OnInit {
             title: 'Usuário ' + resposta.pessoa.nome + ' criado com sucesso!',
             message: 'O usuário foi criado com sucesso!',
             createRoute: '/usuarios/create',
+            listRoute: '/usuarios/list',
           }
         });
       },

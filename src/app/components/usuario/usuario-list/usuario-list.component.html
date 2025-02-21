@@ -8,9 +8,11 @@
       <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Perfil" formControlName="perfilId">
         <nz-option *ngFor="let perfil of perfis" [nzValue]="perfil.id" [nzLabel]="perfil.nome"></nz-option>
       </nz-select>
-      <button nz-button nzType="primary" type="submit">
-        <i nz-icon nzType="search"></i> Buscar
-      </button>
+      <div class="form-actions">
+        <button nz-button nzType="primary" type="submit">
+          <i nz-icon nzType="search"></i> Buscar
+        </button>
+      </div>
     </form>
   </div>
   <h2>Lista de Usuários</h2>

@@ -22,6 +22,10 @@ export class TarefaService {
     return this.http.put<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${tarefa.id}`, tarefa);
   }
 
+  concluirTarefa(id: number): Observable<Tarefa> {
+    return this.http.put<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${id}/concluir`, {});
+  }
+
   delete(id: any): Observable<Tarefa> {
     return this.http.delete<Tarefa>(`${API_CONFIG.baseUrl}/tarefas/${id}`);
   }

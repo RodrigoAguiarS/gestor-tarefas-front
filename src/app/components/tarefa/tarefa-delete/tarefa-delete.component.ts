@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Prioridade } from '../../../model/Prioridade';
+import { Usuario } from '../../../model/Usuario';
 import { TarefaService } from '../../../services/tarefa.service';
-import { Router } from '@angular/router';
+import { UsuarioService } from '../../../services/usuario.service';
+import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { Usuario } from '../../../model/Usuario';
-import { UsuarioService } from '../../../services/usuario.service';
-import { CommonModule } from '@angular/common';
-import { Prioridade } from '../../../model/Prioridade';
 
 @Component({
-  selector: 'app-tarefa-create',
+  selector: 'app-tarefa-delete',
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -24,38 +29,41 @@ import { Prioridade } from '../../../model/Prioridade';
     NzButtonModule,
     NzSelectModule,
     NzCardModule,
-    NzDatePickerModule
+    NzDatePickerModule,
   ],
-  templateUrl: './tarefa-create.component.html',
-  styleUrl: './tarefa-create.component.css',
+  templateUrl: './tarefa-delete.component.html',
+  styleUrl: './tarefa-delete.component.css',
 })
-export class TarefaCreateComponent {
+export class TarefaDeleteComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
+  id!: number;
 
   constructor(
     private readonly message: NzMessageService,
     private readonly tarefaservice: TarefaService,
     private readonly usuarioService: UsuarioService,
     private readonly formBuilder: FormBuilder,
+    private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
     this.initForm();
     this.carregarUsuarios();
+    this.carregarTarafa();
   }
 
-  criar(): void {
-    this.tarefaservice.create(this.tarefaForm.value).subscribe({
-      next: (resposta) => {
+  delete(): void {
+    this.tarefaservice.delete(this.id).subscribe({
+      next: () => {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title:
-              'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
-            message: 'A Tarefa foi criado com sucesso!',
+            title: 'Tarefa deletada com sucesso!',
+            message: 'A Tarefa foi deletada com sucesso!',
             createRoute: '/tarefas/create',
             listRoute: '/tarefas/list',
           },
@@ -73,6 +81,21 @@ export class TarefaCreateComponent {
     });
   }
 
+  carregarTarafa(): void {
+    this.tarefaservice.findById(this.id).subscribe({
+      next: (tarefa) => {
+        console.log('Tarefa carregada:', tarefa);
+        this.tarefaForm.patchValue(tarefa);
+        this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
+        this.tarefaForm.disable();
+      },
+      error: (ex) => {
+        console.error('Erro ao carregar tarefa:', ex);
+        this.message.error(ex.error.message);
+      },
+    });
+  }
+
   carregarUsuarios(): void {
     this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
       next: (response) => {
@@ -80,7 +103,7 @@ export class TarefaCreateComponent {
       },
       error: (ex) => {
         this.message.error(ex.error.message);
-      }
+      },
     });
   }
 

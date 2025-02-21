@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Situacao } from '../../../model/Situacao';
 import { Usuario } from '../../../model/Usuario';
 import { Tarefa } from '../../../model/Tarefa';
@@ -13,29 +18,32 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-tarefa-list',
-    imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      NzTableModule,
-      NzButtonModule,
-      NzIconModule,
-      NzSelectModule,
-      NzPaginationModule,
-      RouterModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzTableModule,
+    NzButtonModule,
+    NzIconModule,
+    NzSelectModule,
+    NzPaginationModule,
+    RouterModule,
+    NzPopconfirmModule,
+  ],
   templateUrl: './tarefa-list.component.html',
-  styleUrl: './tarefa-list.component.css'
+  styleUrl: './tarefa-list.component.css',
 })
 export class TarefaListComponent {
-
   filtroForm!: FormGroup;
   tarefas: Tarefa[] = [];
   usuarios: Usuario[] = [];
-  situacoes = Object.values(Situacao).filter(situacao => situacao !== Situacao.CONCLUIDA);
+  situacoes = Object.values(Situacao).filter(
+    (situacao) => situacao !== Situacao.CONCLUIDA
+  );
   carregando = false;
   totalElementos = 0;
   itensPorPagina = 10;
@@ -59,7 +67,7 @@ export class TarefaListComponent {
       titulo: [''],
       descricao: [''],
       responsavelId: [''],
-      situacao: ['']
+      situacao: [''],
     });
   }
 
@@ -70,7 +78,7 @@ export class TarefaListComponent {
       },
       error: (ex) => {
         this.message.error(ex.error.message);
-      }
+      },
     });
   }
 
@@ -79,7 +87,7 @@ export class TarefaListComponent {
     const params = {
       ...this.filtroForm.value,
       page: this.paginaAtual - 1,
-      size: this.itensPorPagina
+      size: this.itensPorPagina,
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {
@@ -90,7 +98,26 @@ export class TarefaListComponent {
       error: (ex) => {
         this.message.error(ex.error.message);
         this.carregando = false;
-      }
+      },
+    });
+  }
+
+  cancel(): void {
+    this.message.info('Ação Cancelada');
+  }
+
+  confirm(id: number): void {
+    this.tarefaService.concluirTarefa(id).subscribe({
+      next: () => {
+        this.message.success(`Tarefa ${id} concluída com sucesso!`);
+        this.buscarTarefa();
+      },
+      error: (ex) => {
+        this.message.error(`Erro ao concluir a tarefa: ${ex.error.message}`);
+      },
+      complete: () => {
+        this.carregando = false;
+      },
     });
   }
 

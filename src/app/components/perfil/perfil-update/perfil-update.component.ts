@@ -67,6 +67,7 @@ export class PerfilUpdateComponent {
             title: 'Perfil ' + resposta.nome + ' atualizado com sucesso!',
             message: 'O perfil foi atualizado com sucesso!',
             createRoute: '/perfis/create',
+            listRoute: '/perfis/list'
           }
         });
       },

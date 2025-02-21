@@ -17,6 +17,8 @@ import { PerfilDeleteComponent } from './components/perfil/perfil-delete/perfil-
 import { ResultComponent } from './components/result/result.component';
 import { TarefaCreateComponent } from './components/tarefa/tarefa-create/tarefa-create.component';
 import { TarefaListComponent } from './components/tarefa/tarefa-list/tarefa-list.component';
+import { TarefaUpdateComponent } from './components/tarefa/tarefa-update/tarefa-update.component';
+import { TarefaDeleteComponent } from './components/tarefa/tarefa-delete/tarefa-delete.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -59,6 +61,8 @@ export const routes: Routes = [
         data: { roles: [ACESSO.ADMINISTRADOR] },
         children: [
           { path: 'create', component: TarefaCreateComponent },
+          { path: 'update/:id', component: TarefaUpdateComponent },
+          { path: 'delete/:id', component: TarefaDeleteComponent },
           { path: 'list', component: TarefaListComponent },
         ],
       },

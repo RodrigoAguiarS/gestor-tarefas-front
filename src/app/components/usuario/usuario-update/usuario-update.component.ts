@@ -68,6 +68,7 @@ export class UsuarioUpdateComponent {
             title: 'Usuário ' + resposta.pessoa.nome + ' atualizado com sucesso!',
             message: 'O usuário foi atualizado com sucesso!',
             createRoute: '/usuarios/create',
+            listRoute: '/usuarios/list',
           }
         });
       },

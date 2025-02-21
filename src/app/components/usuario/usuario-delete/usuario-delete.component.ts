@@ -68,6 +68,7 @@ export class UsuarioDeleteComponent {
               'Usuário apagado com sucesso!',
             message: 'O usuário foi apagado com sucesso!',
             createRoute: '/usuarios/create',
+            listRoute: '/usuarios/list',
           },
         });
       },
