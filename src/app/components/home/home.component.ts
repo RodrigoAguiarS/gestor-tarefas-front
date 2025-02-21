@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
     this.tarefaService.getTarefasCountBySituacao().subscribe({
       next: (count) => {
         this.tarefasCount = {
-          EM_ANDAMENTO: count.EM_ANDAMENTO,
-          PENDENTE: count.PENDENTE,
-          CONCLUIDA: count.CONCLUIDA
+          EM_ANDAMENTO: count.EM_ANDAMENTO || 0,
+          PENDENTE: count.PENDENTE || 0,
+          CONCLUIDA: count.CONCLUIDA || 0
         };
       },
       error: (error) => {
