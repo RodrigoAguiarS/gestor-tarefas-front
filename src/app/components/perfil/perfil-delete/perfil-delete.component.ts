@@ -62,15 +62,8 @@ export class PerfilDeleteComponent {
     this.perfilForm.value.id = this.id;
     this.perfilService.delete(this.perfilForm.value.id).subscribe({
       next: () => {
-        this.router.navigate(['/result'], {
-          queryParams: {
-            type: 'success',
-            title: 'Perfil Apagado com sucesso!',
-            message: 'O perfil foi apagado com sucesso!',
-            createRoute: '/perfis/create',
-            perfisRoute: '/perfis/list',
-          }
-        });
+        this.message.success('Perfil excluído com sucesso!');
+        this.router.navigate(['/perfis/list']);
       },
       error: (ex) => {
         if (ex.error.errors) {
