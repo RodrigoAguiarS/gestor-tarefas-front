@@ -20,6 +20,7 @@ import { TarefaListComponent } from './components/tarefa/tarefa-list/tarefa-list
 import { TarefaUpdateComponent } from './components/tarefa/tarefa-update/tarefa-update.component';
 import { TarefaDeleteComponent } from './components/tarefa/tarefa-delete/tarefa-delete.component';
 import { UsuarioTarefasComponent } from './components/usuario/usuario-tarefas/usuario-tarefas.component';
+import { AcessoNegadoComponent } from './components/acesso-negado/acesso-negado.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     component: NavComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'home',
         component: HomeComponent,
@@ -61,7 +63,7 @@ export const routes: Routes = [
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.OPERADOR, ACESSO.ADMINISTRADOR] },
         children: [
-          { path: 'usuario/list', component: UsuarioTarefasComponent},
+          { path: 'usuario/list', component: UsuarioTarefasComponent },
         ],
       },
       {
@@ -80,6 +82,11 @@ export const routes: Routes = [
         component: ResultComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'acesso-negado',
+        component: AcessoNegadoComponent, // Adiciona a rota de acesso negado
+      },
     ],
   },
+  { path: '**', redirectTo: 'home' }, // Redireciona para /home para qualquer rota não encontrada
 ];

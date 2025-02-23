@@ -19,6 +19,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -33,6 +34,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzPaginationModule,
     RouterModule,
     NzPopconfirmModule,
+    NzSkeletonModule
   ],
   templateUrl: './tarefa-list.component.html',
   styleUrl: './tarefa-list.component.css',
@@ -88,6 +90,8 @@ export class TarefaListComponent {
       ...this.filtroForm.value,
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
+      titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() || '',
+      descricao: this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {

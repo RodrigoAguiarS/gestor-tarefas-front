@@ -62,6 +62,7 @@ export class UsuarioTarefasComponent implements OnInit {
     this.filtroForm = this.formBuilder.group({
       id: [''],
       titulo: [''],
+      descricao: [''],
       situacao: [''],
       prioridade: [''],
     });
@@ -88,6 +89,8 @@ export class UsuarioTarefasComponent implements OnInit {
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
       responsavelId: this.usuarioId.toString(),
+      titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() || '',
+      descricao: this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {

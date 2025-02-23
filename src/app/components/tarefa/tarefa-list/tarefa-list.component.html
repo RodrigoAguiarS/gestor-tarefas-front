@@ -4,6 +4,7 @@
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefa()">
       <input nz-input placeholder="Número" formControlName="id" />
       <input nz-input placeholder="Título" formControlName="titulo" />
+      <input nz-input placeholder="Descrição" formControlName="descricao" />
       <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Responsável" formControlName="responsavelId">
         <nz-option *ngFor="let usuario of usuarios" [nzValue]="usuario.id" [nzLabel]="usuario.pessoa.nome"></nz-option>
       </nz-select>
@@ -31,6 +32,7 @@
       <tr>
         <th scope="col">Número</th>
         <th scope="col">Título</th>
+        <th scope="col">Descrição</th>
         <th scope="col">Responsável</th>
         <th scope="col">Situação</th>
         <th scope="col">Ações</th>
@@ -40,6 +42,7 @@
       <tr *ngFor="let tarefa of tarefas">
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
+        <td>{{ tarefa.descricao }}</td>
         <td>{{ tarefa.responsavel.pessoa.nome }}</td>
         <td>{{ tarefa.situacao }}</td>
         <td>

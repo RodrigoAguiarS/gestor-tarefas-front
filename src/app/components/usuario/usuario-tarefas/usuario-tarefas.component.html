@@ -4,6 +4,7 @@
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefas()">
       <input nz-input placeholder="Número" formControlName="id" />
       <input nz-input placeholder="Título" formControlName="titulo" />
+      <input nz-input placeholder="Descrição" formControlName="descricao" />
       <nz-select
         nzShowSearch
         nzAllowClear
