@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TarefaService } from '../../../services/tarefa.service';
 import { Router } from '@angular/router';
@@ -13,6 +18,7 @@ import { Usuario } from '../../../model/Usuario';
 import { UsuarioService } from '../../../services/usuario.service';
 import { CommonModule } from '@angular/common';
 import { Prioridade } from '../../../model/Prioridade';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-tarefa-create',
@@ -24,7 +30,8 @@ import { Prioridade } from '../../../model/Prioridade';
     NzButtonModule,
     NzSelectModule,
     NzCardModule,
-    NzDatePickerModule
+    NzSpinModule,
+    NzDatePickerModule,
   ],
   templateUrl: './tarefa-create.component.html',
   styleUrl: './tarefa-create.component.css',
@@ -33,10 +40,11 @@ export class TarefaCreateComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
-    private readonly tarefaservice: TarefaService,
+    private readonly tarefaService: TarefaService,
     private readonly usuarioService: UsuarioService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router
@@ -48,29 +56,32 @@ export class TarefaCreateComponent {
   }
 
   criar(): void {
-    this.tarefaservice.create(this.tarefaForm.value).subscribe({
-      next: (resposta) => {
-        this.router.navigate(['/result'], {
-          queryParams: {
-            type: 'success',
-            title:
-              'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
-            message: 'A Tarefa foi criado com sucesso!',
-            createRoute: '/tarefas/create',
-            listRoute: '/tarefas/list',
-          },
-        });
-      },
-      error: (ex) => {
-        if (ex.error.errors) {
-          ex.error.errors.forEach((element: ErrorEvent) => {
-            this.message.error(element.message);
+    if (this.tarefaForm.valid) {
+      this.carregando = true;
+      this.tarefaService.create(this.tarefaForm.value).subscribe({
+        next: (resposta) => {
+          this.router.navigate(['/result'], {
+            queryParams: {
+              type: 'success',
+              title:
+                'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
+              message: 'A Tarefa foi criado com sucesso!',
+              createRoute: '/tarefas/create',
+              listRoute: '/tarefas/list',
+            },
           });
-        } else {
-          this.message.error(ex.error.message);
-        }
-      },
-    });
+        },
+        error: (ex) => {
+          if (ex.error.errors) {
+            ex.error.errors.forEach((element: ErrorEvent) => {
+              this.message.error(element.message);
+            });
+          } else {
+            this.message.error(ex.error.message);
+          }
+        },
+      });
+    }
   }
 
   carregarUsuarios(): void {
@@ -80,7 +91,7 @@ export class TarefaCreateComponent {
       },
       error: (ex) => {
         this.message.error(ex.error.message);
-      }
+      },
     });
   }
 

@@ -111,9 +111,12 @@
             type="submit"
             nz-button
             nzType="primary"
-            [disabled]="!tarefaForm.valid"
+            [disabled]="!tarefaForm.valid || carregando"
           >
-            Cadastrar
+            <ng-container *ngIf="!carregando">Cadastrar</ng-container>
+            <ng-container *ngIf="carregando">
+              <nz-spin nzSimple></nz-spin>
+            </ng-container>
           </button>
         </div>
       </form>

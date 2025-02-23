@@ -107,12 +107,14 @@ export class TarefaListComponent {
   }
 
   confirm(id: number): void {
+    this.carregando = true;
     this.tarefaService.concluirTarefa(id).subscribe({
       next: () => {
         this.message.success(`Tarefa ${id} concluída com sucesso!`);
         this.buscarTarefa();
       },
       error: (ex) => {
+        this.carregando = true;
         this.message.error(`Erro ao concluir a tarefa: ${ex.error.message}`);
       },
       complete: () => {

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { TarefaService } from '../../../services/tarefa.service';
@@ -58,16 +63,17 @@ export class UsuarioTarefasComponent implements OnInit {
       id: [''],
       titulo: [''],
       situacao: [''],
-      prioridade: ['']
+      prioridade: [''],
     });
 
     this.carregarUsuario();
   }
 
   private carregarUsuario(): void {
-    this.usuarioService.obterDadosUsuario().subscribe({
+    this.usuarioService.usuarioLogado().subscribe({
       next: (usuario: Usuario) => {
         this.usuarioId = usuario.id;
+        this.buscarTarefas();
       },
       error: (error) => {
         this.message.error(error.error.message);
@@ -101,6 +107,7 @@ export class UsuarioTarefasComponent implements OnInit {
   }
 
   confirm(id: number): void {
+    this.carregando = true;
     this.tarefaService.concluirTarefa(id).subscribe({
       next: () => {
         this.message.success(`Tarefa ${id} concluída com sucesso!`);
@@ -108,6 +115,7 @@ export class UsuarioTarefasComponent implements OnInit {
       },
       error: (ex) => {
         this.message.error(`Erro ao concluir a tarefa: ${ex.error.message}`);
+        this.carregando = false;
       },
       complete: () => {
         this.carregando = false;
@@ -116,6 +124,7 @@ export class UsuarioTarefasComponent implements OnInit {
   }
 
   colocarEmAndamento(id: number): void {
+    this.carregando = true;
     this.tarefaService.andamentoTarefa(id).subscribe({
       next: () => {
         this.message.success(`Tarefa ${id} foi colocada em andamento!`);
@@ -123,14 +132,13 @@ export class UsuarioTarefasComponent implements OnInit {
       },
       error: (ex) => {
         this.message.error(`Erro ao concluir a tarefa: ${ex.error.message}`);
+        this.carregando = false;
       },
       complete: () => {
         this.carregando = false;
       },
     });
   }
-
-
 
   aoMudarPagina(pageIndex: number): void {
     this.paginaAtual = pageIndex;

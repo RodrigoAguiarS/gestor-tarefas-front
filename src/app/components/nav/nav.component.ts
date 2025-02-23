@@ -43,7 +43,7 @@ export class NavComponent {
   }
 
   private carregarUsuario(): void {
-    this.usuarioService.obterDadosUsuario().subscribe({
+    this.usuarioService.usuarioLogado().subscribe({
       next: (usuario: Usuario) => {
         this.usuario = usuario;
         this.roles = usuario.perfis.map((perfil) => perfil.nome);

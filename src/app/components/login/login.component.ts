@@ -13,6 +13,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CommonModule } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NzFormModule,
     NzInputModule,
     NzButtonModule,
+    NzSpinModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -29,6 +31,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class LoginComponent {
   form: FormGroup = new FormGroup({});
   credenciais: Credenciais = new Credenciais();
+  carregando = false;
 
   constructor(
     private readonly authservice: AuthService,
@@ -48,16 +51,19 @@ export class LoginComponent {
 
   logar() {
     if (this.form.valid) {
+      this.carregando = true;
       localStorage.removeItem('token');
       this.credenciais = this.form.value;
       this.authservice.authenticate(this.credenciais).subscribe({
         next: (resposta) => {
+          this.carregando = false;
           const token = resposta.headers.get('Authorization')?.substring(7) ?? '';
           this.authservice.successfulLogin(token);
           this.message.success('Login efetuado com sucesso!');
           this.router.navigate(['home']);
         },
         error: (error) => {
+          this.carregando = false;
           const errorMessage = JSON.parse(error.error).message;
           this.message.error(errorMessage);
         },

@@ -11,8 +11,8 @@ export class UsuarioService {
 
   constructor(private readonly http: HttpClient) { }
 
-  obterDadosUsuario(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${API_CONFIG.baseUrl}/usuarios/dados`);
+  usuarioLogado(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${API_CONFIG.baseUrl}/usuarios/logado`);
   }
 
   findAll(page: number, size: number, sort: string): Observable<{ content: Usuario[], totalElements: number }> {

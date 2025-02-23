@@ -29,8 +29,11 @@
     </nz-form-item>
 
     <!-- botão de login -->
-    <button nz-button nzType="primary" [disabled]="!validaCampos()">
-      Login
+    <button nz-button nzType="primary" [disabled]="!validaCampos() || carregando">
+      <ng-container *ngIf="!carregando">Login</ng-container>
+      <ng-container *ngIf="carregando">
+        <nz-spin nzSimple></nz-spin>
+      </ng-container>
     </button>
   </form>
 </div>
