@@ -20,6 +20,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { PdfService } from '../../../services/pdf.service';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -55,7 +56,8 @@ export class TarefaListComponent {
     private readonly message: NzMessageService,
     private readonly tarefaService: TarefaService,
     private readonly usuarioService: UsuarioService,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly pdfService: PdfService,
   ) {}
 
   ngOnInit(): void {
@@ -130,5 +132,9 @@ export class TarefaListComponent {
   aoMudarPagina(pageIndex: number): void {
     this.paginaAtual = pageIndex;
     this.buscarTarefa();
+  }
+
+  exportarTarefaParaPDF(tarefa: Tarefa): void {
+    this.pdfService.exportarTarefaParaPDF(tarefa);
   }
 }

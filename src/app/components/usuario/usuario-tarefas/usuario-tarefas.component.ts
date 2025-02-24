@@ -20,6 +20,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Situacao } from '../../../model/Situacao';
 import { Prioridade } from '../../../model/Prioridade';
+import { PdfService } from '../../../services/pdf.service';
 
 @Component({
   selector: 'app-usuario-tarefas',
@@ -55,7 +56,8 @@ export class UsuarioTarefasComponent implements OnInit {
     private readonly tarefaService: TarefaService,
     private readonly formBuilder: FormBuilder,
     private readonly usuarioService: UsuarioService,
-    private readonly message: NzMessageService
+    private readonly message: NzMessageService,
+    private readonly pdfService: PdfService
   ) {}
 
   ngOnInit(): void {
@@ -88,9 +90,10 @@ export class UsuarioTarefasComponent implements OnInit {
       ...this.filtroForm.value,
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
-      responsavelId: this.usuarioId.toString(),
+      responsavelId: this.usuarioId,
       titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() || '',
-      descricao: this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
+      descricao:
+        this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {
@@ -109,7 +112,7 @@ export class UsuarioTarefasComponent implements OnInit {
     this.message.info('Ação Cancelada');
   }
 
-  confirm(id: number): void {
+  concluirTarefa(id: number): void {
     this.carregando = true;
     this.tarefaService.concluirTarefa(id).subscribe({
       next: () => {
@@ -134,7 +137,9 @@ export class UsuarioTarefasComponent implements OnInit {
         this.buscarTarefas();
       },
       error: (ex) => {
-        this.message.error(`Erro ao concluir a tarefa: ${ex.error.message}`);
+        this.message.error(
+          `Erro ao colocar a tarefa em andamento: ${ex.error.message}`
+        );
         this.carregando = false;
       },
       complete: () => {
@@ -146,5 +151,9 @@ export class UsuarioTarefasComponent implements OnInit {
   aoMudarPagina(pageIndex: number): void {
     this.paginaAtual = pageIndex;
     this.buscarTarefas();
+  }
+
+  exportarTarefaParaPDF(tarefa: Tarefa): void {
+    this.pdfService.exportarTarefaParaPDF(tarefa);
   }
 }

@@ -80,7 +80,7 @@
           <a
             nz-popconfirm
             nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?"
-            (nzOnConfirm)="confirm(tarefa.id)"
+            (nzOnConfirm)="concluirTarefa(tarefa.id)"
             (nzOnCancel)="cancel()"
           >
             <i
@@ -88,6 +88,19 @@
               nzType="check-circle"
               nzTheme="outline"
               title="Concluir tarefa"
+            ></i>
+          </a>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja exportar esta tarefa para PDF?"
+            (nzOnConfirm)="exportarTarefaParaPDF(tarefa)"
+            (nzOnCancel)="cancel()"
+          >
+            <i
+              nz-icon
+              nzType="file-pdf"
+              nzTheme="outline"
+              title="Exportar para PDF"
             ></i>
           </a>
         </td>

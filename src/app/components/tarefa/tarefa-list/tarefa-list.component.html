@@ -5,11 +5,29 @@
       <input nz-input placeholder="Número" formControlName="id" />
       <input nz-input placeholder="Título" formControlName="titulo" />
       <input nz-input placeholder="Descrição" formControlName="descricao" />
-      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Responsável" formControlName="responsavelId">
-        <nz-option *ngFor="let usuario of usuarios" [nzValue]="usuario.id" [nzLabel]="usuario.pessoa.nome"></nz-option>
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Responsável"
+        formControlName="responsavelId"
+      >
+        <nz-option
+          *ngFor="let usuario of usuarios"
+          [nzValue]="usuario.id"
+          [nzLabel]="usuario.pessoa.nome"
+        ></nz-option>
       </nz-select>
-      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Situação" formControlName="situacao">
-        <nz-option *ngFor="let situacao of situacoes" [nzValue]="situacao" [nzLabel]="situacao"></nz-option>
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Situação"
+        formControlName="situacao"
+      >
+        <nz-option
+          *ngFor="let situacao of situacoes"
+          [nzValue]="situacao"
+          [nzLabel]="situacao"
+        ></nz-option>
       </nz-select>
       <button nz-button nzType="primary" type="submit">
         <i nz-icon nzType="search"></i> Buscar
@@ -47,13 +65,46 @@
         <td>{{ tarefa.situacao }}</td>
         <td>
           <a [routerLink]="['/tarefas/update', tarefa.id]">
-            <i nz-icon nzType="edit" nzTheme="outline" title="Atualizar tarefa"></i>
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar tarefa"
+            ></i>
           </a>
           <a [routerLink]="['/tarefas/delete', tarefa.id]">
-            <i nz-icon nzType="delete" nzTheme="outline" title="Deletar tarefa"></i>
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar tarefa"
+            ></i>
           </a>
-          <a nz-popconfirm nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?" (nzOnConfirm)="confirm(tarefa.id)" (nzOnCancel)="cancel()">
-            <i nz-icon nzType="check-circle" nzTheme="outline" title="Concluir tarefa"></i>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?"
+            (nzOnConfirm)="confirm(tarefa.id)"
+            (nzOnCancel)="cancel()"
+          >
+            <i
+              nz-icon
+              nzType="check-circle"
+              nzTheme="outline"
+              title="Concluir tarefa"
+            ></i>
+          </a>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja exportar esta tarefa para PDF?"
+            (nzOnConfirm)="exportarTarefaParaPDF(tarefa)"
+            (nzOnCancel)="cancel()"
+          >
+            <i
+              nz-icon
+              nzType="file-pdf"
+              nzTheme="outline"
+              title="Exportar para PDF"
+            ></i>
           </a>
         </td>
       </tr>

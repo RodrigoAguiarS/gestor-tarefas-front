@@ -46,7 +46,6 @@ export class UsuarioListComponent implements OnInit {
     private readonly usuarioService: UsuarioService,
     private readonly perfilService: PerfilService,
     private readonly message: NzMessageService,
-    private readonly router: Router
   ) {
     this.filtroForm = this.fb.group({
       nome: [''],

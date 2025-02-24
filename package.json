@@ -21,6 +21,8 @@
     "@ant-design/icons-angular": "^19.0.0",
     "@auth0/angular-jwt": "^5.2.0",
     "gestor-tarefas-front": "file:",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.4",
     "ng-zorro-antd": "^19.0.2",
     "ngx-mask": "^19.0.6",
     "rxjs": "~7.8.0",
