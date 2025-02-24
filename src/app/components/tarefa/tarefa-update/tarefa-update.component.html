@@ -108,13 +108,16 @@
             Cancelar
           </button>
           <button
-            type="submit"
-            nz-button
-            nzType="primary"
-            [disabled]="!tarefaForm.valid"
-          >
-            Atualizar
-          </button>
+          type="submit"
+          nz-button
+          nzType="primary"
+          [disabled]="!tarefaForm.valid || carregando"
+        >
+          <ng-container *ngIf="!carregando">Atualizar</ng-container>
+          <ng-container *ngIf="carregando">
+            <nz-spin nzSimple></nz-spin>
+          </ng-container>
+        </button>
         </div>
       </form>
     </nz-card>

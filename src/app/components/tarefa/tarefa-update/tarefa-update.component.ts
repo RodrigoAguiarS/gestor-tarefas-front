@@ -18,6 +18,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TarefaService } from '../../../services/tarefa.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-tarefa-update',
@@ -28,6 +29,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
+    NzSpinModule,
     NzCardModule,
     NzDatePickerModule,
   ],
@@ -39,6 +41,7 @@ export class TarefaUpdateComponent {
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
   id!: number;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -59,6 +62,7 @@ export class TarefaUpdateComponent {
 
   update(): void {
     this.tarefaForm.value.id = this.id;
+    this.carregando = true;
     this.tarefaservice.update(this.tarefaForm.value).subscribe({
       next: (resposta) => {
         this.router.navigate(['/result'], {
@@ -78,9 +82,11 @@ export class TarefaUpdateComponent {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false
           });
         } else {
           this.message.error(ex.error.message);
+          this.carregando = false;
         }
       },
     });
@@ -89,12 +95,10 @@ export class TarefaUpdateComponent {
   carregarTarafa(): void {
     this.tarefaservice.findById(this.id).subscribe({
       next: (tarefa) => {
-        console.log('Tarefa carregada:', tarefa);
         this.tarefaForm.patchValue(tarefa);
         this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
       },
       error: (ex) => {
-        console.error('Erro ao carregar tarefa:', ex);
         this.message.error(ex.error.message);
       },
     });

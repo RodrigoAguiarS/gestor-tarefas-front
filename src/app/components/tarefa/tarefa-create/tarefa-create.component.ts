@@ -75,9 +75,11 @@ export class TarefaCreateComponent {
           if (ex.error.errors) {
             ex.error.errors.forEach((element: ErrorEvent) => {
               this.message.error(element.message);
+              this.carregando = false;
             });
           } else {
             this.message.error(ex.error.message);
+            this.carregando = false;
           }
         },
       });
