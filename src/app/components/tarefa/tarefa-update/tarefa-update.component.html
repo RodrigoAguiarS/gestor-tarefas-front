@@ -20,10 +20,14 @@
             <input
               id="titulo"
               nz-input
+              maxlength="100"
               formControlName="titulo"
               placeholder="Digite o título da tarefa"
               required
             />
+            <div class="char-counter">
+              {{ tarefaForm.get("titulo")?.value.length || 0 }}/100 caracteres
+            </div>
           </nz-form-control>
         </nz-form-item>
 
@@ -36,10 +40,15 @@
             <textarea
               id="descricao"
               nz-input
+              maxlength="500"
               formControlName="descricao"
               placeholder="Digite a descrição da tarefa"
               required
             ></textarea>
+            <div class="char-counter">
+              {{ tarefaForm.get("descricao")?.value.length || 0 }}/500
+              caracteres
+            </div>
           </nz-form-control>
         </nz-form-item>
 
@@ -108,19 +117,18 @@
             Cancelar
           </button>
           <button
-          type="submit"
-          nz-button
-          nzType="primary"
-          [disabled]="!tarefaForm.valid || carregando"
-        >
-          <ng-container *ngIf="!carregando">Atualizar</ng-container>
-          <ng-container *ngIf="carregando">
-            <nz-spin nzSimple></nz-spin>
-          </ng-container>
-        </button>
+            type="submit"
+            nz-button
+            nzType="primary"
+            [disabled]="!tarefaForm.valid || carregando"
+          >
+            <ng-container *ngIf="!carregando">Atualizar</ng-container>
+            <ng-container *ngIf="carregando">
+              <nz-spin nzSimple></nz-spin>
+            </ng-container>
+          </button>
         </div>
       </form>
     </nz-card>
   </div>
 </div>
-
