@@ -12,5 +12,5 @@ export const tarefaRoutes: Routes = [
   { path: 'update/:id', component: TarefaUpdateComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR] } },
   { path: 'delete/:id', component: TarefaDeleteComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR] } },
   { path: 'list', component: TarefaListComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR] } },
-  { path: 'usuario/list', component: UsuarioTarefasComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.OPERADOR] } },
+  { path: 'usuario/list', component: UsuarioTarefasComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] } },
 ];
