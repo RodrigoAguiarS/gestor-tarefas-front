@@ -74,7 +74,7 @@ export class TarefaUpdateComponent {
               ' atualizada com sucesso!',
             message: 'A Tarefa foi atualizada com sucesso!',
             createRoute: '/tarefas/create',
-            listRoute: '/usuario/list',
+            listRoute: '/tarefas/usuario/list',
           },
         });
       },

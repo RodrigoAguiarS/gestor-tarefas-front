@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,7 +20,8 @@ import { Situacao } from '../../../model/Situacao';
 import { Prioridade } from '../../../model/Prioridade';
 import { PdfService } from '../../../services/pdf.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { UsuarioStateService } from '../../../services/usuario-state.service';
+import { UsuarioService } from '../../../services/usuario.service';
+import { Usuario } from '../../../model/Usuario';
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -41,6 +42,7 @@ import { UsuarioStateService } from '../../../services/usuario-state.service';
 })
 export class UsuarioTarefasComponent implements OnInit {
   tarefas: Tarefa[] = [];
+  @Input() usuario!: Usuario;
   filtroForm!: FormGroup;
   situacoes = Object.values(Situacao).filter(
     (situacao) => situacao !== Situacao.CONCLUIDA
@@ -58,7 +60,7 @@ export class UsuarioTarefasComponent implements OnInit {
   constructor(
     private readonly tarefaService: TarefaService,
     private readonly formBuilder: FormBuilder,
-    private readonly usuarioStateService: UsuarioStateService,
+    private readonly usuarioService: UsuarioService,
     private readonly message: NzMessageService,
     private readonly pdfService: PdfService
   ) {}
@@ -71,15 +73,18 @@ export class UsuarioTarefasComponent implements OnInit {
       situacao: [''],
       prioridade: [''],
     });
-    this.usuarioStateService.getUsuario().subscribe({
-      next: (usuario) => {
-        if (usuario) {
-          this.usuarioId = usuario.id;
-          this.buscarTarefas();
-        }
+
+    this.carregarUsuario();
+  }
+
+  private carregarUsuario(): void {
+    this.usuarioService.usuarioLogado().subscribe({
+      next: (usuario: Usuario) => {
+        this.usuarioId = usuario.id;
+        this.buscarTarefas();
       },
-      error: (error) => {
-        this.message.error(error.error.message);
+      error: (ex) => {
+        this.message.error(ex.error.message);
       },
     });
   }

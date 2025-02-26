@@ -9,7 +9,7 @@ import { HeaderComponent } from '../header/header.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ACESSO } from '../../model/Acesso';
-import { UsuarioStateService } from '../../services/usuario-state.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-nav',
@@ -34,7 +34,7 @@ export class NavComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
-    private readonly usuarioStateService: UsuarioStateService,
+    private readonly usuarioService: UsuarioService,
     private readonly message: NzMessageService,
   ) {}
 
@@ -43,7 +43,7 @@ export class NavComponent implements OnInit {
   }
 
   private carregarUsuario(): void {
-    this.usuarioStateService.getUsuario().subscribe({
+    this.usuarioService.usuarioLogado().subscribe({
       next: (usuario: Usuario | null) => {
         if (usuario) {
           this.usuario = usuario;
