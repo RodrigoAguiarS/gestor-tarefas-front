@@ -67,7 +67,7 @@ export class TarefaCreateComponent {
                 'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
               message: 'A Tarefa foi criado com sucesso!',
               createRoute: '/tarefas/create',
-              listRoute: '/tarefas/list',
+              listRoute: '/usuario/list',
             },
           });
         },

@@ -12,8 +12,6 @@ import { TarefaService } from '../../../services/tarefa.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Tarefa } from '../../../model/Tarefa';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../../../services/usuario.service';
-import { Usuario } from '../../../model/Usuario';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
@@ -22,6 +20,7 @@ import { Situacao } from '../../../model/Situacao';
 import { Prioridade } from '../../../model/Prioridade';
 import { PdfService } from '../../../services/pdf.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { UsuarioStateService } from '../../../services/usuario-state.service';
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -59,7 +58,7 @@ export class UsuarioTarefasComponent implements OnInit {
   constructor(
     private readonly tarefaService: TarefaService,
     private readonly formBuilder: FormBuilder,
-    private readonly usuarioService: UsuarioService,
+    private readonly usuarioStateService: UsuarioStateService,
     private readonly message: NzMessageService,
     private readonly pdfService: PdfService
   ) {}
@@ -72,15 +71,12 @@ export class UsuarioTarefasComponent implements OnInit {
       situacao: [''],
       prioridade: [''],
     });
-
-    this.carregarUsuario();
-  }
-
-  private carregarUsuario(): void {
-    this.usuarioService.usuarioLogado().subscribe({
-      next: (usuario: Usuario) => {
-        this.usuarioId = usuario.id;
-        this.buscarTarefas();
+    this.usuarioStateService.getUsuario().subscribe({
+      next: (usuario) => {
+        if (usuario) {
+          this.usuarioId = usuario.id;
+          this.buscarTarefas();
+        }
       },
       error: (error) => {
         this.message.error(error.error.message);
