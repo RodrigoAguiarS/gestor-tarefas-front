@@ -44,6 +44,7 @@
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
     [nzBordered]="true"
+    [nzNoResult]="carregando ? '' : 'Nenhuma tarefa encontrada.'"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"
   >
@@ -61,7 +62,7 @@
       <tr *ngFor="let tarefa of tarefas" (click)="abrirModalTarefa(tarefa)">
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
-        <td>{{ tarefa.descricao | slice : 0 : 15 }}...</td>
+        <td>{{ tarefa.descricao | slice:0:15 }}...</td>
         <td>{{ tarefa.situacao }}</td>
         <td>{{ tarefa.prioridade }}</td>
         <td>
@@ -70,6 +71,7 @@
             nzPopconfirmTitle="Tem certeza que deseja colocar esta tarefa em andamento?"
             (nzOnConfirm)="colocarEmAndamento(tarefa.id)"
             (nzOnCancel)="cancel()"
+            (click)="$event.stopPropagation()"
           >
             <i
               nz-icon
@@ -83,6 +85,7 @@
             nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?"
             (nzOnConfirm)="concluirTarefa(tarefa.id)"
             (nzOnCancel)="cancel()"
+            (click)="$event.stopPropagation()"
           >
             <i
               nz-icon
@@ -96,6 +99,7 @@
             nzPopconfirmTitle="Tem certeza que deseja exportar esta tarefa para PDF?"
             (nzOnConfirm)="exportarTarefaParaPDF(tarefa)"
             (nzOnCancel)="cancel()"
+            (click)="$event.stopPropagation()"
           >
             <i
               nz-icon

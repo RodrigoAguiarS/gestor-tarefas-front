@@ -118,11 +118,9 @@
             nz-button
             nzType="primary"
             [disabled]="!tarefaForm.valid || carregando"
+            [nzLoading]="carregando"
           >
-            <ng-container *ngIf="!carregando">Cadastrar</ng-container>
-            <ng-container *ngIf="carregando">
-              <nz-spin nzSimple></nz-spin> Carregando
-            </ng-container>
+            Cadastrar
           </button>
         </div>
       </form>

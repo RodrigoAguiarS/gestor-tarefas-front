@@ -120,12 +120,10 @@
             type="submit"
             nz-button
             nzType="primary"
-            [disabled]="!tarefaForm.valid"
+            [disabled]="!tarefaForm.valid || carregando"
+            [nzLoading]="carregando"
           >
-            <ng-container *ngIf="!carregando">Atualizar</ng-container>
-            <ng-container *ngIf="carregando">
-              <nz-spin nzSimple></nz-spin> carregando...
-            </ng-container>
+            Atualizar
           </button>
         </div>
       </form>

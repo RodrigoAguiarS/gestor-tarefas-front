@@ -13,7 +13,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { CommonModule } from '@angular/common';
-
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 @Component({
   selector: 'app-usuario-list',
   standalone: true,
@@ -27,7 +28,10 @@ import { CommonModule } from '@angular/common';
     NzIconModule,
     NzSelectModule,
     NzPaginationModule,
-    RouterModule
+    RouterModule,
+    NzFormModule,
+    NzInputModule,
+
   ],
   templateUrl: './usuario-list.component.html',
   styleUrls: ['./usuario-list.component.css']

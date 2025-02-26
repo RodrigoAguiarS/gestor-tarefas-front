@@ -104,12 +104,15 @@
         <!-- Ações -->
         <div class="form-actions">
           <button type="button" nz-button nzType="default" (click)="cancelar()">Cancelar</button>
-          <button type="submit" nz-button nzType="primary" [disabled]="carregando">
-            <ng-container *ngIf="!carregando">Apagar</ng-container>
-            <ng-container *ngIf="carregando">
-              <nz-spin nzSimple></nz-spin> Carregando
-            </ng-container>
-          </button>
+          <button
+          type="submit"
+          nz-button
+          nzType="primary"
+          [disabled]="carregando"
+          [nzLoading]="carregando"
+        >
+          Apagar
+        </button>
         </div>
       </form>
     </nz-card>

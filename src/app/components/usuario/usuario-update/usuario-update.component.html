@@ -1,7 +1,13 @@
 <div class="container-wrapper">
   <div class="container">
     <nz-card [nzBordered]="false" class="form-container">
-      <form nz-form nzLayout="vertical" [formGroup]="usuarioForm" (ngSubmit)="atualizar()" class="usuario-form">
+      <form
+        nz-form
+        nzLayout="vertical"
+        [formGroup]="usuarioForm"
+        (ngSubmit)="atualizar()"
+        class="usuario-form"
+      >
         <!-- Cabeçalho -->
         <h2 class="form-title">Cadastrar Usuário</h2>
 
@@ -10,9 +16,17 @@
         <div nz-row [nzGutter]="16">
           <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="nome">Nome</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="nome"
+                >Nome</nz-form-label
+              >
               <nz-form-control>
-                <input id="nome" nz-input formControlName="nome" placeholder="Ex. João Silva" required />
+                <input
+                  id="nome"
+                  nz-input
+                  formControlName="nome"
+                  placeholder="Ex. João Silva"
+                  required
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -20,13 +34,22 @@
             <nz-form-item>
               <nz-form-label [nzRequired]="true" nzFor="cpf">CPF</nz-form-label>
               <nz-form-control>
-                <input id="cpf" mask="000.000.000-00" nz-input formControlName="cpf" placeholder="Digite seu CPF" required />
+                <input
+                  id="cpf"
+                  mask="000.000.000-00"
+                  nz-input
+                  formControlName="cpf"
+                  placeholder="Digite seu CPF"
+                  required
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="dataNascimento">Data de Nascimento</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="dataNascimento"
+                >Data de Nascimento</nz-form-label
+              >
               <nz-form-control>
                 <nz-date-picker
                   id="dataNascimento"
@@ -44,17 +67,35 @@
         <div nz-row [nzGutter]="16">
           <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="email">E-mail</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="email"
+                >E-mail</nz-form-label
+              >
               <nz-form-control>
-                <input id="email" type="email" nz-input formControlName="email" placeholder="Ex. email@exemplo.com" required />
+                <input
+                  id="email"
+                  type="email"
+                  nz-input
+                  formControlName="email"
+                  placeholder="Ex. email@exemplo.com"
+                  required
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="telefone">Telefone</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="telefone"
+                >Telefone</nz-form-label
+              >
               <nz-form-control>
-                <input id="telefone" mask="(00) 0 0000-0000" nz-input formControlName="telefone" placeholder="Ex. (99) 99999-9999" required />
+                <input
+                  id="telefone"
+                  mask="(00) 0 0000-0000"
+                  nz-input
+                  formControlName="telefone"
+                  placeholder="Ex. (99) 99999-9999"
+                  required
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -65,10 +106,21 @@
         <div nz-row [nzGutter]="16">
           <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="perfil">Perfil</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="perfil"
+                >Perfil</nz-form-label
+              >
               <nz-form-control>
-                <nz-select id="perfil" formControlName="perfil" nzPlaceHolder="Selecione o perfil" required>
-                  <nz-option *ngFor="let perfil of perfis" [nzValue]="perfil.id" [nzLabel]="perfil.nome"></nz-option>
+                <nz-select
+                  id="perfil"
+                  formControlName="perfil"
+                  nzPlaceHolder="Selecione o perfil"
+                  required
+                >
+                  <nz-option
+                    *ngFor="let perfil of perfis"
+                    [nzValue]="perfil.id"
+                    [nzLabel]="perfil.nome"
+                  ></nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
@@ -80,22 +132,46 @@
         <div nz-row [nzGutter]="16">
           <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="senha">Senha</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="senha"
+                >Senha</nz-form-label
+              >
               <nz-form-control>
                 <nz-input-group [nzSuffix]="suffixIcon">
-                  <input id="senha" nz-input [type]="hide ? 'password' : 'text'" formControlName="senha" placeholder="Digite sua senha" required />
+                  <input
+                    id="senha"
+                    nz-input
+                    [type]="hide ? 'password' : 'text'"
+                    formControlName="senha"
+                    placeholder="Digite sua senha"
+                    required
+                  />
                 </nz-input-group>
                 <ng-template #suffixIcon>
-                  <i nz-icon [nzType]="hide ? 'eye-invisible' : 'eye'" (click)="hide = !hide" (keydown)="hide = !hide"></i>
+                  <i
+                    nz-icon
+                    [nzType]="hide ? 'eye-invisible' : 'eye'"
+                    (click)="hide = !hide"
+                    (keydown)="hide = !hide"
+                  ></i>
                 </ng-template>
               </nz-form-control>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="confirmarSenha">Confirmar Senha</nz-form-label>
+              <nz-form-label [nzRequired]="true" nzFor="confirmarSenha"
+                >Confirmar Senha</nz-form-label
+              >
               <nz-form-control>
-                <input id="confirmarSenha" nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required (blur)="verificarSenhasIguais()"/>
+                <input
+                  id="confirmarSenha"
+                  nz-input
+                  type="password"
+                  formControlName="confirmarSenha"
+                  placeholder="Confirme sua senha"
+                  required
+                  (blur)="verificarSenhasIguais()"
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -103,12 +179,17 @@
 
         <!-- Ações -->
         <div class="form-actions">
-          <button type="button" nz-button nzType="default" (click)="cancelar()">Cancelar</button>
-          <button type="submit" nz-button nzType="primary" [disabled]="!usuarioForm.valid">
-            <ng-container *ngIf="!carregando">Atualizar</ng-container>
-            <ng-container *ngIf="carregando">
-              <nz-spin nzSimple></nz-spin> carregando...
-            </ng-container>
+          <button type="button" nz-button nzType="default" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            nz-button
+            nzType="primary"
+            [disabled]="!usuarioForm.valid || carregando"
+            [nzLoading]="carregando"
+          >
+            Atualizar
           </button>
         </div>
       </form>

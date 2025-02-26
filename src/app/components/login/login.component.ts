@@ -14,6 +14,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CommonModule } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzInputModule,
     NzButtonModule,
     NzSpinModule,
+    NzAlertModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

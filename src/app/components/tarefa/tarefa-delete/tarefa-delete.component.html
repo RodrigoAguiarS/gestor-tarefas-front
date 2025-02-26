@@ -111,11 +111,10 @@
             type="submit"
             nz-button
             nzType="primary"
+            [disabled]="carregando"
+            [nzLoading]="carregando"
           >
-            <ng-container *ngIf="!carregando">Apagar</ng-container>
-            <ng-container *ngIf="carregando">
-              <nz-spin nzSimple></nz-spin> carregando...
-            </ng-container>
+            Apagar
           </button>
         </div>
       </form>

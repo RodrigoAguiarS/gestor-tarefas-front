@@ -43,6 +43,7 @@
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
     [nzBordered]="true"
+    [nzNoResult]="carregando ? '' : 'Nenhuma tarefa encontrado.'"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"
   >

@@ -23,6 +23,7 @@
     [nzFrontPagination]="false"
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
+    [nzNoResult]="carregando ? '' : 'Nenhum usuário encontrado.'"
     [nzBordered]="true"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"
