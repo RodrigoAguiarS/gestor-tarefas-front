@@ -4,35 +4,39 @@
 
 <div *ngIf="!carregando">
   <section class="dashboard-summary">
-    <nz-card style="margin-bottom: 16px;">
+    <nz-card style="margin-bottom: 16px">
       <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.EM_ANDAMENTO"
         nzPrefix="🔄"
-        style="margin-top: 16px;"
+        style="margin-top: 16px"
       ></nz-statistic>
     </nz-card>
-    <nz-card style="margin-bottom: 16px;">
+    <nz-card style="margin-bottom: 16px">
       <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.PENDENTE"
         nzPrefix="⏳"
-        style="margin-top: 16px;"
+        style="margin-top: 16px"
       ></nz-statistic>
     </nz-card>
-    <nz-card style="margin-bottom: 16px;">
+    <nz-card style="margin-bottom: 16px">
       <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.CONCLUIDA"
         nzPrefix="✅"
-        style="margin-top: 16px;"
+        style="margin-top: 16px"
       ></nz-statistic>
     </nz-card>
   </section>
-
+</div>
+<div>
   <section class="usuarios-tarefas-concluidas">
+    <h2>Usuários com Mais Tarefas Concluídas</h2>
     <ul>
-      <li *ngFor="let usuario of usuarioComMaisTarefasConcluidas; let i = index">
+      <li
+        *ngFor="let usuario of usuarioComMaisTarefasConcluidas; let i = index"
+      >
         <nz-statistic
           [nzValue]="usuario.quantidadeTarefasConcluidas"
           [nzTitle]="usuario.usuario.pessoa.nome"
