@@ -1,98 +1,79 @@
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Container geral do dashboard */
-.dashboard-summary,
-.usuarios-tarefas-concluidas {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-/* Estilos para a seção de resumo */
-.dashboard-summary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.summary-card {
-  flex: 1 1 300px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-/* Diferenciação por status */
-.summary-andamento {
-  border-top: 4px solid #3498db;
-}
-
-.summary-pendente {
-  border-top: 4px solid #f39c12;
-}
-
-.summary-concluida {
-  border-top: 4px solid #2ecc71;
-}
-
-.summary-card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.summary-card .status {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-/* Estilos para a lista de usuários com tarefas concluídas */
-.usuarios-tarefas-concluidas h2 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.usuarios-tarefas-concluidas ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.usuarios-tarefas-concluidas li {
-  background-color: #ecf0f1;
-  padding: 10px 15px;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.usuario-nome {
-  font-weight: bold;
-}
-
-.usuario-tarefas {
-  color: #555;
-}
-
+/* Estilo para o overlay do spinner */
 .spinner-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+/* Estilo para o container do dashboard */
+.dashboard-summary {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 16px;
+}
+
+/* Estilo para os cards de resumo */
+.dashboard-summary nz-card {
+  flex: 1 1 30%;
+  margin: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.dashboard-summary nz-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para as estatísticas dentro dos cards */
+.dashboard-summary nz-statistic {
+  text-align: center;
+}
+
+/* Estilo para a seção de usuários com mais tarefas concluídas */
+.usuarios-tarefas-concluidas {
+  margin: 16px;
+}
+
+.usuarios-tarefas-concluidas h2 {
+  margin-bottom: 16px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.usuarios-tarefas-concluidas ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.usuarios-tarefas-concluidas li {
+  margin-bottom: 8px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.usuarios-tarefas-concluidas li:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para as estatísticas de usuários */
+.usuarios-tarefas-concluidas nz-statistic {
+  text-align: center;
+}
+
+/* Estilo responsivo para telas menores */
+@media (max-width: 768px) {
+  .dashboard-summary nz-card {
+    flex: 1 1 100%;
+  }
 }

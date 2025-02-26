@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { TarefaService } from '../../services/tarefa.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CommonModule } from '@angular/common';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { UsuarioComTarefasConcluidas } from '../../model/UsuarioComTarefasConcluidas';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
 @Component({
   selector: 'app-home',
     imports: [
       CommonModule,
       NzSpinModule,
+      NzStatisticModule,
+      NzCardModule,
     ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
