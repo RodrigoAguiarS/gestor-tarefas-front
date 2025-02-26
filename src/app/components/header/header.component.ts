@@ -1,21 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../model/Usuario';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-header',
+  imports: [],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-
-  @Input() usuario: Usuario = new Usuario();
+  usuario: Usuario = new Usuario();
   papel: string[] = [];
 
   constructor(
+    private readonly message: NzMessageService,
+    private readonly usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
-    this.papel = this.usuario?.perfis?.map((perfil) => perfil.nome) ?? [];
+    this.carregarUsuario();
+  }
+
+ private carregarUsuario(): void {
+    this.usuarioService.usuarioLogado().subscribe({
+      next: (usuario: Usuario) => {
+        this.usuario = usuario;
+        this.papel = usuario.perfis.map((perfil) => perfil.nome);
+      },
+      error: (error) => {
+        this.message.error(error.error.message);
+      },
+    });
   }
 }
