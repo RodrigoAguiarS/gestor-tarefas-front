@@ -15,6 +15,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-usuario-delete',
@@ -30,6 +31,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
         NzCardModule,
         NzResultModule,
         NgxMaskDirective,
+        NzSpinModule,
       ],
   templateUrl: './usuario-delete.component.html',
   styleUrl: './usuario-delete.component.css',
@@ -39,6 +41,7 @@ export class UsuarioDeleteComponent {
   perfis: Perfil[] = [];
   hide: boolean = true;
   id!: number;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -57,6 +60,7 @@ export class UsuarioDeleteComponent {
   }
 
   delete(): void {
+    this.carregando = true;
     this.usuarioForm.value.id = this.id;
     this.usuarioService.delete(this.usuarioForm.value.id).subscribe({
       next: () => {
@@ -76,22 +80,33 @@ export class UsuarioDeleteComponent {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
           this.message.error(ex.error.message);
+          this.carregando = false;
         }
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
   carregarPerfis(): void {
+    this.carregando = true;
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
         this.perfis = perfis;
+        this.carregando = false;
       },
       error: (ex) => {
         this.message.error(ex.error.message);
+        this.carregando = false;
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
@@ -110,6 +125,7 @@ export class UsuarioDeleteComponent {
   }
 
   carregarUsuario(): void {
+    this.carregando = true;
     this.usuarioService.findById(this.id).subscribe({
       next: (usuario) => {
         console.log(' aquiUsuario:', usuario);
@@ -126,6 +142,9 @@ export class UsuarioDeleteComponent {
         });
         this.usuarioForm.disable();
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 

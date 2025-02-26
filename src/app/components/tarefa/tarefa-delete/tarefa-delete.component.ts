@@ -18,6 +18,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-tarefa-delete',
@@ -29,6 +30,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzButtonModule,
     NzSelectModule,
     NzCardModule,
+    NzSpinModule,
     NzDatePickerModule,
   ],
   templateUrl: './tarefa-delete.component.html',
@@ -39,6 +41,7 @@ export class TarefaDeleteComponent {
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
   id!: number;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -57,6 +60,7 @@ export class TarefaDeleteComponent {
   }
 
   delete(): void {
+    this.carregando = true;
     this.tarefaservice.delete(this.id).subscribe({
       next: () => {
         this.router.navigate(['/result'], {
@@ -73,36 +77,49 @@ export class TarefaDeleteComponent {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
           this.message.error(ex.error.message);
+          this.carregando = false;
         }
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
   }
 
   carregarTarafa(): void {
+    this.carregando = true;
     this.tarefaservice.findById(this.id).subscribe({
       next: (tarefa) => {
-        console.log('Tarefa carregada:', tarefa);
         this.tarefaForm.patchValue(tarefa);
         this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
         this.tarefaForm.disable();
       },
       error: (ex) => {
-        console.error('Erro ao carregar tarefa:', ex);
         this.message.error(ex.error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
   }
 
   carregarUsuarios(): void {
+    this.carregando = true;
     this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
       next: (response) => {
         this.usuarios = response.content;
       },
       error: (ex) => {
         this.message.error(ex.error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
   }

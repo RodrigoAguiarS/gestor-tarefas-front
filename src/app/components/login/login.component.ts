@@ -56,17 +56,20 @@ export class LoginComponent {
       this.credenciais = this.form.value;
       this.authservice.authenticate(this.credenciais).subscribe({
         next: (resposta) => {
-          this.carregando = false;
           const token = resposta.headers.get('Authorization')?.substring(7) ?? '';
           this.authservice.successfulLogin(token);
-          this.message.success('Login efetuado com sucesso!');
-          this.router.navigate(['home']);
+
         },
         error: (error) => {
           this.carregando = false;
           const errorMessage = JSON.parse(error.error).message;
           this.message.error(errorMessage);
         },
+        complete: () => {
+          this.carregando = false;
+          this.message.success('Login efetuado com sucesso!');
+          this.router.navigate(['home']);
+        }
       });
     }
   }

@@ -1,4 +1,5 @@
 <div class="container">
+  <h1>Minhas Tarefas</h1>
   <div class="search-container">
     <h2>Buscar Tarefas</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefas()">
@@ -57,10 +58,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tarefa of tarefas">
+      <tr *ngFor="let tarefa of tarefas" (click)="abrirModalTarefa(tarefa)">
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
-        <td>{{ tarefa.descricao }}</td>
+        <td>{{ tarefa.descricao | slice : 0 : 15 }}...</td>
         <td>{{ tarefa.situacao }}</td>
         <td>{{ tarefa.prioridade }}</td>
         <td>
@@ -107,4 +108,31 @@
       </tr>
     </tbody>
   </nz-table>
+
+  <!-- Modal para exibir os detalhes da tarefa -->
+  <nz-modal
+    [(nzVisible)]="modalVisible"
+    nzTitle="Detalhes da Tarefa"
+    [nzFooter]="modalFooter"
+    (nzOnOk)="fecharModal()"
+  >
+    <ng-container *nzModalContent>
+      <div class="modal-content">
+        <p><strong>Título:</strong> {{ tarefaSelecionada?.titulo }}</p>
+        <p><strong>Descrição:</strong> {{ tarefaSelecionada?.descricao }}</p>
+        <p>
+          <strong>Responsável:</strong>
+          {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
+        </p>
+        <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
+      </div>
+    </ng-container>
+  </nz-modal>
+
+  <!-- Template do rodapé do modal -->
+  <ng-template #modalFooter>
+    <div class="modal-footer">
+      <button nz-button nzType="primary" (click)="fecharModal()">OK</button>
+    </div>
+  </ng-template>
 </div>

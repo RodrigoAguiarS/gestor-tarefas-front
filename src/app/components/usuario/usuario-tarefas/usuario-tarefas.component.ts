@@ -21,7 +21,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Situacao } from '../../../model/Situacao';
 import { Prioridade } from '../../../model/Prioridade';
 import { PdfService } from '../../../services/pdf.service';
-
+import { NzModalModule } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -35,6 +35,7 @@ import { PdfService } from '../../../services/pdf.service';
     NzPaginationModule,
     RouterModule,
     NzPopconfirmModule,
+    NzModalModule,
   ],
   templateUrl: './usuario-tarefas.component.html',
   styleUrl: './usuario-tarefas.component.css',
@@ -51,6 +52,9 @@ export class UsuarioTarefasComponent implements OnInit {
   itensPorPagina = 10;
   paginaAtual = 1;
   usuarioId!: number;
+  modalVisible = false;
+  descricaoCompleta = '';
+  tarefaSelecionada: Tarefa | null = null;
 
   constructor(
     private readonly tarefaService: TarefaService,
@@ -127,6 +131,16 @@ export class UsuarioTarefasComponent implements OnInit {
         this.carregando = false;
       },
     });
+  }
+
+  abrirModalTarefa(tarefa: Tarefa): void {
+    this.tarefaSelecionada = tarefa;
+    this.modalVisible = true;
+  }
+
+  fecharModal(): void {
+    this.modalVisible = false;
+    this.tarefaSelecionada = null;
   }
 
   colocarEmAndamento(id: number): void {

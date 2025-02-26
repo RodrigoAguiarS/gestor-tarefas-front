@@ -82,17 +82,25 @@ export class TarefaCreateComponent {
             this.carregando = false;
           }
         },
+        complete: () => {
+          this.carregando = false;
+        },
       });
     }
   }
 
   carregarUsuarios(): void {
-    this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
+    this.carregando = true;
+    this.usuarioService.findAll(0, 10, 'pessoa.nome').subscribe({
       next: (response) => {
         this.usuarios = response.content;
       },
       error: (ex) => {
         this.message.error(ex.error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
   }

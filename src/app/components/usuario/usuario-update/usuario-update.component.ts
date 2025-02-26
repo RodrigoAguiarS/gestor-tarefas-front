@@ -15,6 +15,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-usuario-update',
@@ -30,6 +31,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
       NzCardModule,
       NzResultModule,
       NgxMaskDirective,
+      NzSpinModule,
     ],
   templateUrl: './usuario-update.component.html',
   styleUrl: './usuario-update.component.css'
@@ -40,6 +42,7 @@ export class UsuarioUpdateComponent {
   perfis: Perfil[] = [];
   hide: boolean = true;
   id!: number;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -58,6 +61,7 @@ export class UsuarioUpdateComponent {
   }
 
   atualizar(): void {
+    this.carregando = true;
     this.usuarioForm.value.id = this.id;
     this.usuarioService.update(this.usuarioForm.value).subscribe({
       next: (resposta) => {
@@ -76,22 +80,32 @@ export class UsuarioUpdateComponent {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
           this.message.error(ex.error.message);
+          this.carregando = false;
         }
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
   carregarPerfis(): void {
+    this.carregando = true;
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
         this.perfis = perfis;
       },
       error: (ex) => {
         this.message.error(ex.error.message);
+        this.carregando = false;
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
@@ -110,6 +124,7 @@ export class UsuarioUpdateComponent {
   }
 
   carregarUsuario(): void {
+    this.carregando = true;
     this.usuarioService.findById(this.id).subscribe({
       next: (usuario) => {
         console.log(' aquiUsuario:', usuario);
@@ -125,6 +140,9 @@ export class UsuarioUpdateComponent {
           dataNascimento: usuario.pessoa.dataNascimento,
         });
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 

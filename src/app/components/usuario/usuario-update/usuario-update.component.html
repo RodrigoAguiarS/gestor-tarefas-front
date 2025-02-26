@@ -95,7 +95,7 @@
             <nz-form-item>
               <nz-form-label [nzRequired]="true" nzFor="confirmarSenha">Confirmar Senha</nz-form-label>
               <nz-form-control>
-                <input id="confirmarSenha" nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required />
+                <input id="confirmarSenha" nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required (blur)="verificarSenhasIguais()"/>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -104,10 +104,14 @@
         <!-- Ações -->
         <div class="form-actions">
           <button type="button" nz-button nzType="default" (click)="cancelar()">Cancelar</button>
-          <button type="submit" nz-button nzType="primary" [disabled]="!usuarioForm.valid">Atualizar</button>
+          <button type="submit" nz-button nzType="primary" [disabled]="!usuarioForm.valid">
+            <ng-container *ngIf="!carregando">Atualizar</ng-container>
+            <ng-container *ngIf="carregando">
+              <nz-spin nzSimple></nz-spin> carregando...
+            </ng-container>
+          </button>
         </div>
       </form>
     </nz-card>
   </div>
 </div>
-

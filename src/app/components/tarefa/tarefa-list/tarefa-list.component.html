@@ -57,14 +57,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tarefa of tarefas">
+      <tr *ngFor="let tarefa of tarefas" (click)="abrirModalTarefa(tarefa)">
         <td>{{ tarefa.id }}</td>
         <td>{{ tarefa.titulo }}</td>
-        <td>{{ tarefa.descricao }}</td>
+        <td>
+          {{ tarefa.descricao | slice:0:15 }}...
+        </td>
         <td>{{ tarefa.responsavel.pessoa.nome }}</td>
         <td>{{ tarefa.situacao }}</td>
         <td>
-          <a [routerLink]="['/tarefas/update', tarefa.id]">
+          <a [routerLink]="['/tarefas/update', tarefa.id]" (click)="$event.stopPropagation()">
             <i
               nz-icon
               nzType="edit"
@@ -72,7 +74,7 @@
               title="Atualizar tarefa"
             ></i>
           </a>
-          <a [routerLink]="['/tarefas/delete', tarefa.id]">
+          <a [routerLink]="['/tarefas/delete', tarefa.id]" (click)="$event.stopPropagation()">
             <i
               nz-icon
               nzType="delete"
@@ -85,6 +87,7 @@
             nzPopconfirmTitle="Tem certeza que deseja concluir esta tarefa?"
             (nzOnConfirm)="confirm(tarefa.id)"
             (nzOnCancel)="cancel()"
+            (click)="$event.stopPropagation()"
           >
             <i
               nz-icon
@@ -98,6 +101,7 @@
             nzPopconfirmTitle="Tem certeza que deseja exportar esta tarefa para PDF?"
             (nzOnConfirm)="exportarTarefaParaPDF(tarefa)"
             (nzOnCancel)="cancel()"
+            (click)="$event.stopPropagation()"
           >
             <i
               nz-icon
@@ -110,4 +114,28 @@
       </tr>
     </tbody>
   </nz-table>
+
+  <!-- Modal para exibir os detalhes da tarefa -->
+  <nz-modal
+    [(nzVisible)]="modalVisible"
+    nzTitle="Detalhes da Tarefa"
+    [nzFooter]="modalFooter"
+    (nzOnOk)="fecharModal()"
+  >
+    <ng-container *nzModalContent>
+      <div class="modal-content">
+        <p><strong>Título:</strong> {{ tarefaSelecionada?.titulo }}</p>
+        <p><strong>Descrição:</strong> {{ tarefaSelecionada?.descricao }}</p>
+        <p><strong>Responsável:</strong> {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}</p>
+        <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
+      </div>
+    </ng-container>
+  </nz-modal>
+
+  <!-- Template do rodapé do modal -->
+  <ng-template #modalFooter>
+    <div class="modal-footer">
+      <button nz-button nzType="primary" (click)="fecharModal()">OK</button>
+    </div>
+  </ng-template>
 </div>

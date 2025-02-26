@@ -21,6 +21,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { PdfService } from '../../../services/pdf.service';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -35,7 +36,8 @@ import { PdfService } from '../../../services/pdf.service';
     NzPaginationModule,
     RouterModule,
     NzPopconfirmModule,
-    NzSkeletonModule
+    NzSkeletonModule,
+    NzModalModule,
   ],
   templateUrl: './tarefa-list.component.html',
   styleUrl: './tarefa-list.component.css',
@@ -51,13 +53,16 @@ export class TarefaListComponent {
   totalElementos = 0;
   itensPorPagina = 10;
   paginaAtual = 1;
+  modalVisible = false;
+  descricaoCompleta = '';
+  tarefaSelecionada: Tarefa | null = null;
 
   constructor(
     private readonly message: NzMessageService,
     private readonly tarefaService: TarefaService,
     private readonly usuarioService: UsuarioService,
     private readonly formBuilder: FormBuilder,
-    private readonly pdfService: PdfService,
+    private readonly pdfService: PdfService
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +98,8 @@ export class TarefaListComponent {
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
       titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() || '',
-      descricao: this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
+      descricao:
+        this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {
@@ -127,6 +133,16 @@ export class TarefaListComponent {
         this.carregando = false;
       },
     });
+  }
+
+  abrirModalTarefa(tarefa: Tarefa): void {
+    this.tarefaSelecionada = tarefa;
+    this.modalVisible = true;
+  }
+
+  fecharModal(): void {
+    this.modalVisible = false;
+    this.tarefaSelecionada = null;
   }
 
   aoMudarPagina(pageIndex: number): void {

@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { PerfilService } from '../../../services/perfil.service';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   standalone: true,
@@ -36,6 +37,7 @@ import { PerfilService } from '../../../services/perfil.service';
     NzIconModule,
     NzDatePickerModule,
     NzCardModule,
+    NzSpinModule,
     NzResultModule,
     NgxMaskDirective,
   ],
@@ -44,6 +46,7 @@ export class UsuarioCreateComponent implements OnInit {
   usuarioForm!: FormGroup;
   perfis: Perfil[] = [];
   hide: boolean = true;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -59,6 +62,7 @@ export class UsuarioCreateComponent implements OnInit {
   }
 
   criar(): void {
+    this.carregando = true;
     this.usuarioService.create(this.usuarioForm.value).subscribe({
       next: (resposta) => {
         this.router.navigate(['/result'], {
@@ -76,15 +80,21 @@ export class UsuarioCreateComponent implements OnInit {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
           this.message.error(ex.error.message);
+          this.carregando = false;
         }
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
   carregarPerfis(): void {
+    this.carregando = true;
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
         this.perfis = perfis;
@@ -92,6 +102,9 @@ export class UsuarioCreateComponent implements OnInit {
       error: (ex) => {
         this.message.error(ex.error.message);
       },
+      complete: () => {
+        this.carregando = false;
+      }
     });
   }
 
