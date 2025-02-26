@@ -4,30 +4,44 @@
 
 <div *ngIf="!carregando">
   <section class="dashboard-summary">
-    <article class="summary-card summary-andamento">
-      <h2>Tarefas em Andamento:</h2>
-      <p class="status">{{ tarefasCount.EM_ANDAMENTO }}</p>
-    </article>
-    <article class="summary-card summary-pendente">
-      <h2>Tarefas Pendentes:</h2>
-      <p class="status">{{ tarefasCount.PENDENTE }}</p>
-    </article>
-    <article class="summary-card summary-concluida">
-      <h2>Tarefas Concluídas:</h2>
-      <p class="status">{{ tarefasCount.CONCLUIDA }}</p>
-    </article>
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.EM_ANDAMENTO"
+        nzPrefix="🔄"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.PENDENTE"
+        nzPrefix="⏳"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.CONCLUIDA"
+        nzPrefix="✅"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
   </section>
-
+</div>
+<div>
   <section class="usuarios-tarefas-concluidas">
+    <h2>Usuários com Mais Tarefas Concluídas</h2>
     <ul>
       <li
         *ngFor="let usuario of usuarioComMaisTarefasConcluidas; let i = index"
       >
-        <span class="ranking-posicao">{{ i + 1 }}.</span>
-        <span class="usuario-nome">{{ usuario.usuario.pessoa.nome }}</span>
-        <span class="usuario-tarefas"
-          >{{ usuario.quantidadeTarefasConcluidas }} tarefas concluídas</span
-        >
+        <nz-statistic
+          [nzValue]="usuario.quantidadeTarefasConcluidas"
+          [nzTitle]="usuario.usuario.pessoa.nome"
+          nzSuffix="tarefas concluídas"
+        ></nz-statistic>
       </li>
     </ul>
   </section>
