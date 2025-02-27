@@ -16,18 +16,31 @@
 </button>
 
 <div [hidden]="carregando">
-  <section class="chart-section">
-    <h2>Distribuição de Tarefas por Status</h2>
-    <div>
-      <canvas
-        id="pieChart"
-        baseChart
-        [data]="pieChartData"
-        [options]="pieChartOptions"
-        chartType="pie"
-      >
-      </canvas>
-    </div>
+  <section class="dashboard-summary">
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.EM_ANDAMENTO"
+        nzPrefix="🔄"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.PENDENTE"
+        nzPrefix="⏳"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
+    <nz-card style="margin-bottom: 16px">
+      <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
+      <nz-statistic
+        [nzValue]="tarefasCount.CONCLUIDA"
+        nzPrefix="✅"
+        style="margin-top: 16px"
+      ></nz-statistic>
+    </nz-card>
   </section>
 
   <section class="chart-section">
@@ -35,7 +48,6 @@
     <div>
       <canvas
         baseChart
-        id="barChart"
         [data]="barChartData"
         [labels]="barChartLabels"
         [options]="barChartOptions"
