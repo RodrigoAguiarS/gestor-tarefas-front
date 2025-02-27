@@ -46,7 +46,7 @@ export class PerfilDeleteComponent {
     this.carregarPerfis();
   }
 
-  carregarPerfis(): void {
+  private carregarPerfis(): void {
     this.perfilService.findById(this.id).subscribe({
       next: (perfil) => {
         this.perfilForm.patchValue(perfil);
@@ -77,7 +77,7 @@ export class PerfilDeleteComponent {
     });
   }
 
-  iniciarForm(): void {
+  private iniciarForm(): void {
     this.perfilForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: ['', Validators.required],

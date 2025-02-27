@@ -30,7 +30,7 @@
           [nzLabel]="prioridade"
         ></nz-option>
       </nz-select>
-      <button nz-button nzType="primary" type="submit">
+      <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
         <i nz-icon nzType="search"></i> Buscar
       </button>
     </form>
@@ -44,7 +44,6 @@
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
     [nzBordered]="true"
-    [nzNoResult]="carregando ? '' : 'Nenhuma tarefa encontrada.'"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"
   >
@@ -61,8 +60,8 @@
     <tbody>
       <tr *ngFor="let tarefa of tarefas" (click)="abrirModalTarefa(tarefa)">
         <td>{{ tarefa.id }}</td>
-        <td>{{ tarefa.titulo | slice:0:30 }}...</td>
-        <td>{{ tarefa.descricao | slice:0:15 }}...</td>
+        <td>{{ tarefa.titulo | slice : 0 : 30 }}...</td>
+        <td>{{ tarefa.descricao | slice : 0 : 15 }}...</td>
         <td>{{ tarefa.situacao }}</td>
         <td>{{ tarefa.prioridade }}</td>
         <td>

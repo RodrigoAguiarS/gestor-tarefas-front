@@ -10,6 +10,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ACESSO } from '../../model/Acesso';
 import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioChangeService } from '../../services/usuario-change.service';
 
 @Component({
   selector: 'app-nav',
@@ -19,13 +20,12 @@ import { UsuarioService } from '../../services/usuario.service';
     RouterModule,
     NzIconModule,
     NzMenuModule,
-    HeaderComponent
+    HeaderComponent,
   ],
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-
   ACESSO = ACESSO;
   isCollapsed = false;
   roles: string[] = [];
@@ -36,10 +36,14 @@ export class NavComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly usuarioService: UsuarioService,
     private readonly message: NzMessageService,
+    private readonly usuarioChange: UsuarioChangeService
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuario();
+    this.usuarioChange.userChanged$.subscribe(() => {
+      this.carregarUsuario();
+    });
   }
 
   private carregarUsuario(): void {

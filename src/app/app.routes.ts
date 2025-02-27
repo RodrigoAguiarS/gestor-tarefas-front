@@ -1,3 +1,4 @@
+import { AdministracaoComponent } from './components/administracao/administracao.component';
 import { Routes } from '@angular/router';
 import { NoAuthGuard } from './auth/noauth.guard';
 import { LoginComponent } from './components/login/login.component';
@@ -45,6 +46,12 @@ export const routes: Routes = [
         path: 'result',
         component: ResultComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'administrativo',
+        component: AdministracaoComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'acesso-negado',

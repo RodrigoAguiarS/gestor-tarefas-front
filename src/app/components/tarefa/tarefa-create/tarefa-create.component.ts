@@ -67,7 +67,7 @@ export class TarefaCreateComponent {
                 'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
               message: 'A Tarefa foi criado com sucesso!',
               createRoute: '/tarefas/create',
-              listRoute: '/usuario/list',
+              listRoute: '/tarefas/usuario/list',
             },
           });
         },
@@ -89,7 +89,7 @@ export class TarefaCreateComponent {
     }
   }
 
-  carregarUsuarios(): void {
+  private carregarUsuarios(): void {
     this.carregando = true;
     this.usuarioService.findAll(0, 10, 'pessoa.nome').subscribe({
       next: (response) => {
@@ -105,7 +105,7 @@ export class TarefaCreateComponent {
     });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.tarefaForm = this.formBuilder.group({
       titulo: ['', Validators.required],
       descricao: ['', Validators.required],

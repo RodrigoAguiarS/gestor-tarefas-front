@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Credenciais } from '../model/Credenciais';
 import { API_CONFIG } from '../config/api.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   jwtService: JwtHelperService = new JwtHelperService();
 
   constructor(private readonly http: HttpClient) {}
@@ -40,5 +39,44 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+  }
+
+  logarComoUsuario(email: string): Observable<string> {
+    const tokenOriginal = localStorage.getItem('token');
+    if (tokenOriginal) {
+      localStorage.setItem('tokenOriginal', tokenOriginal);
+    }
+
+    return this.http
+      .post(
+        `${API_CONFIG.baseUrl}/impersonate/logarComo`,
+        { email },
+        { responseType: 'text' }
+      )
+      .pipe(
+        tap((token: string) => {
+          localStorage.setItem('impersonateToken', token);
+          localStorage.setItem('token', token);
+        })
+      );
+  }
+
+  voltarAoUsuarioAnterior(): Observable<string> {
+    return this.http
+      .post(
+        `${API_CONFIG.baseUrl}/impersonate/voltarAoUsuarioLogado`,
+        {},
+        { responseType: 'text' }
+      )
+      .pipe(
+        tap(() => {
+          const tokenOriginal = localStorage.getItem('tokenOriginal');
+          if (tokenOriginal) {
+            localStorage.setItem('token', tokenOriginal);
+            localStorage.removeItem('tokenOriginal');
+          }
+          localStorage.removeItem('impersonateToken');
+        })
+      );
   }
 }

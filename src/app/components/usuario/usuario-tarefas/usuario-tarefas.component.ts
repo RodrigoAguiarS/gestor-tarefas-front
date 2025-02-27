@@ -73,7 +73,6 @@ export class UsuarioTarefasComponent implements OnInit {
       situacao: [''],
       prioridade: [''],
     });
-
     this.carregarUsuario();
   }
 

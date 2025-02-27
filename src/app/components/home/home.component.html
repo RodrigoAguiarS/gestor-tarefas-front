@@ -2,6 +2,19 @@
   <nz-spin nzSize="large" nzSimple></nz-spin>
 </div>
 
+<button
+  *ngIf="impersonateAtivo"
+  nzType="primary"
+  [nzLoading]="carregando"
+  nz-button
+  nzSize="large"
+  nzShape="round"
+  nzIcon="rollback"
+  (click)="pararImpersonate()"
+>
+  Voltar ao Usuário
+</button>
+
 <div *ngIf="!carregando">
   <section class="dashboard-summary">
     <nz-card style="margin-bottom: 16px">

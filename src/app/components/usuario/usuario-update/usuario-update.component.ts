@@ -93,7 +93,7 @@ export class UsuarioUpdateComponent {
     });
   }
 
-  carregarPerfis(): void {
+  private carregarPerfis(): void {
     this.carregando = true;
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
@@ -109,7 +109,7 @@ export class UsuarioUpdateComponent {
     });
   }
 
-  iniciarForm(): void {
+  private iniciarForm(): void {
     this.usuarioForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(3)]],
@@ -123,7 +123,7 @@ export class UsuarioUpdateComponent {
     });
   }
 
-  carregarUsuario(): void {
+  private carregarUsuario(): void {
     this.carregando = true;
     this.usuarioService.findById(this.id).subscribe({
       next: (usuario) => {

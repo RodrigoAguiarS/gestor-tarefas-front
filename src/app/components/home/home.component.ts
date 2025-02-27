@@ -6,6 +6,10 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { UsuarioComTarefasConcluidas } from '../../model/UsuarioComTarefasConcluidas';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { UsuarioChangeService } from '../../services/usuario-change.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +17,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
       CommonModule,
       NzSpinModule,
       NzStatisticModule,
+      NzButtonModule,
       NzCardModule,
     ],
   templateUrl: './home.component.html',
@@ -22,12 +27,19 @@ export class HomeComponent implements OnInit {
   tarefasCount: { EM_ANDAMENTO: number, PENDENTE: number, CONCLUIDA: number } = { EM_ANDAMENTO: 0, PENDENTE: 0, CONCLUIDA: 0 };
   usuarioComMaisTarefasConcluidas: UsuarioComTarefasConcluidas[] = [];
   carregando = true;
+  impersonateAtivo: boolean = false;
+
+
   constructor(
     private readonly tarefaService: TarefaService,
-    private readonly message: NzMessageService
+    private readonly message: NzMessageService,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+      private readonly userChangeService: UsuarioChangeService
   ) {}
 
   ngOnInit(): void {
+    this.verificarImpersonate();
     this.carregarTarefasCount();
     this.carregarUsuarioComMaisTarefasConcluidas();
   }
@@ -66,5 +78,29 @@ export class HomeComponent implements OnInit {
     if (this.tarefasCount && this.usuarioComMaisTarefasConcluidas) {
       this.carregando = false;
     }
+  }
+
+  private verificarImpersonate(): void {
+    this.impersonateAtivo = !!localStorage.getItem('impersonateToken');
+  }
+
+  public pararImpersonate(): void {
+    this.carregando = true;
+    this.authService.voltarAoUsuarioAnterior().subscribe({
+      next: () => {
+        this.impersonateAtivo = false;
+        this.userChangeService.notifyUserChanged();
+        this.router.navigate(['home']);
+      },
+      error: (error) => {
+        this.message.error(error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        localStorage.removeItem('impersonateToken');
+        this.carregando = false;
+        this.message.success('Impersonate finalizado com sucesso!');
+      }
+    });
   }
 }

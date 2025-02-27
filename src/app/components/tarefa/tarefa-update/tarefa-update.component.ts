@@ -92,7 +92,7 @@ export class TarefaUpdateComponent {
     });
   }
 
-  carregarTarafa(): void {
+  private carregarTarafa(): void {
     this.tarefaservice.findById(this.id).subscribe({
       next: (tarefa) => {
         this.tarefaForm.patchValue(tarefa);
@@ -106,7 +106,7 @@ export class TarefaUpdateComponent {
     });
   }
 
-  carregarUsuarios(): void {
+  private carregarUsuarios(): void {
     this.carregando = true;
     this.usuarioService.findAll(0, 20, 'pessoa.nome').subscribe({
       next: (response) => {
@@ -123,7 +123,7 @@ export class TarefaUpdateComponent {
     });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.tarefaForm = this.formBuilder.group({
       titulo: ['', Validators.required],
       descricao: ['', Validators.required],

@@ -46,7 +46,7 @@ export class PerfilUpdateComponent {
     this.carregarPerfil();
   }
 
-  carregarPerfil(): void {
+  private carregarPerfil(): void {
     this.perfilService.findById(this.id).subscribe({
       next: (perfil) => {
         this.perfilForm.patchValue(perfil);
@@ -84,7 +84,7 @@ export class PerfilUpdateComponent {
     });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.perfilForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: ['', Validators.required],

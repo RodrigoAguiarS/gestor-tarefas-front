@@ -70,7 +70,7 @@ export class TarefaListComponent {
     this.carregarUsuarios();
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.filtroForm = this.formBuilder.group({
       id: [''],
       titulo: [''],
@@ -80,7 +80,7 @@ export class TarefaListComponent {
     });
   }
 
-  carregarUsuarios(): void {
+  private carregarUsuarios(): void {
     this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
       next: (response) => {
         this.usuarios = response.content;
