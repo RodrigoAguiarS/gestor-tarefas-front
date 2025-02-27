@@ -1,79 +1,26 @@
-/* Estilo para o overlay do spinner */
-.spinner-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+.chart-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Estilo para o container do dashboard */
-.dashboard-summary {
-  display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  margin: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Estilo para os cards de resumo */
-.dashboard-summary nz-card {
-  flex: 1 1 30%;
-  margin: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+.chart-section {
+  flex: 1 1 45%;
+  margin: 10px;
+  box-sizing: border-box;
 }
 
-.dashboard-summary nz-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+canvas {
+  width: 90% !important;
+  height: auto !important;
 }
 
-/* Estilo para as estatísticas dentro dos cards */
-.dashboard-summary nz-statistic {
-  text-align: center;
-}
-
-/* Estilo para a seção de usuários com mais tarefas concluídas */
-.usuarios-tarefas-concluidas {
-  margin: 16px;
-}
-
-.usuarios-tarefas-concluidas h2 {
-  margin-bottom: 16px;
-  font-size: 1.5em;
-  text-align: center;
-}
-
-.usuarios-tarefas-concluidas ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.usuarios-tarefas-concluidas li {
-  margin-bottom: 4px;
-  padding: 4px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.usuarios-tarefas-concluidas li:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo para as estatísticas de usuários */
-.usuarios-tarefas-concluidas nz-statistic {
-  text-align: center;
-}
-
-/* Estilo responsivo para telas menores */
 @media (max-width: 768px) {
-  .dashboard-summary nz-card {
+  .chart-section {
     flex: 1 1 100%;
   }
 }

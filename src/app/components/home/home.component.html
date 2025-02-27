@@ -15,47 +15,34 @@
   Voltar ao Usuário
 </button>
 
-<div *ngIf="!carregando">
-  <section class="dashboard-summary">
-    <nz-card style="margin-bottom: 16px">
-      <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.EM_ANDAMENTO"
-        nzPrefix="🔄"
-        style="margin-top: 16px"
-      ></nz-statistic>
-    </nz-card>
-    <nz-card style="margin-bottom: 16px">
-      <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.PENDENTE"
-        nzPrefix="⏳"
-        style="margin-top: 16px"
-      ></nz-statistic>
-    </nz-card>
-    <nz-card style="margin-bottom: 16px">
-      <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.CONCLUIDA"
-        nzPrefix="✅"
-        style="margin-top: 16px"
-      ></nz-statistic>
-    </nz-card>
-  </section>
-</div>
-<div>
-  <section class="usuarios-tarefas-concluidas">
-    <h2>Usuários com Mais Tarefas Concluídas</h2>
-    <ul>
-      <li
-        *ngFor="let usuario of usuarioComMaisTarefasConcluidas; let i = index"
+<div [hidden]="carregando">
+  <section class="chart-section">
+    <h2>Distribuição de Tarefas por Status</h2>
+    <div>
+      <canvas
+        id="pieChart"
+        baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        chartType="pie"
       >
-        <nz-statistic
-          [nzValue]="usuario.quantidadeTarefasConcluidas"
-          [nzTitle]="usuario.usuario.pessoa.nome"
-          nzSuffix="tarefas concluídas"
-        ></nz-statistic>
-      </li>
-    </ul>
+      </canvas>
+    </div>
+  </section>
+
+  <section class="chart-section">
+    <h2>Gráfico de Tarefas Concluídas</h2>
+    <div>
+      <canvas
+        baseChart
+        id="barChart"
+        [data]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="'bar'"
+      >
+      </canvas>
+    </div>
   </section>
 </div>
