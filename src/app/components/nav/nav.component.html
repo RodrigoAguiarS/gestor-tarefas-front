@@ -23,25 +23,6 @@
           <span>Home</span>
         </li>
 
-        <!-- Submenu Usuário -->
-        <li
-          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-          nz-submenu
-          nzTitle="Usuário"
-          nzIcon="team"
-        >
-          <ul>
-            <li nz-menu-item routerLink="/usuarios/create">
-              <i nz-icon nzType="user-add"></i>
-              <span>Cadastrar</span>
-            </li>
-            <li nz-menu-item routerLink="/usuarios/list">
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar</span>
-            </li>
-          </ul>
-        </li>
-
         <!-- Submenu Tarefas -->
         <li
           *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
@@ -109,6 +90,14 @@
             <li nz-menu-item routerLink="/administrativo">
               <i nz-icon nzType="user-switch"></i>
               <span>Logar como</span>
+            </li>
+            <li nz-menu-item routerLink="/usuarios/create">
+              <i nz-icon nzType="user-add"></i>
+              <span>Cadastrar Usuário</span>
+            </li>
+            <li nz-menu-item routerLink="/usuarios/list">
+              <i nz-icon nzType="unordered-list"></i>
+              <span>Listar Usuários</span>
             </li>
           </ul>
         </li>
