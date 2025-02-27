@@ -64,7 +64,7 @@ export class PerfilCreateComponent {
     });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.perfilForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: ['', Validators.required],

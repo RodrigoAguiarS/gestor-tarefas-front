@@ -1,0 +1,53 @@
+<div class="container-wrapper">
+  <div class="container">
+    <nz-card [nzBordered]="false" class="form-container">
+      <form
+        nz-form
+        nzLayout="vertical"
+        [formGroup]="form"
+        (ngSubmit)="logarComoUsuario()"
+        class="login-form"
+      >
+        <!-- Cabeçalho -->
+        <h2 class="form-title">Logar como Usuário</h2>
+
+        <!-- Informações de Login -->
+        <h3 class="form-section-title">Informações de Login</h3>
+        <div nz-row [nzGutter]="16">
+          <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true" nzFor="email"
+                >Login</nz-form-label
+              >
+              <nz-form-control>
+                <input
+                  id="email"
+                  nz-input
+                  formControlName="email"
+                  placeholder="Login do Usuário"
+                  required
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <!-- Ações -->
+        <div class="form-actions">
+          <button type="button" nz-button nzType="default" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [nzLoading]="carregando"
+            nz-button
+            nzType="primary"
+            [disabled]="!form.valid"
+          >
+            Logar como Usuário
+          </button>
+        </div>
+      </form>
+    </nz-card>
+  </div>
+</div>

@@ -60,7 +60,6 @@ export class LoginComponent {
         next: (resposta) => {
           const token = resposta.headers.get('Authorization')?.substring(7) ?? '';
           this.authservice.successfulLogin(token);
-
         },
         error: (error) => {
           this.carregando = false;

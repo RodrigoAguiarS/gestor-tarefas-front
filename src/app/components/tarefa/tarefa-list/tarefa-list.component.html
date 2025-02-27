@@ -29,7 +29,7 @@
           [nzLabel]="situacao"
         ></nz-option>
       </nz-select>
-      <button nz-button nzType="primary" type="submit">
+      <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
         <i nz-icon nzType="search"></i> Buscar
       </button>
     </form>
@@ -43,7 +43,6 @@
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
     [nzBordered]="true"
-    [nzNoResult]="carregando ? '' : 'Nenhuma tarefa encontrado.'"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"
   >
@@ -60,16 +59,15 @@
     <tbody>
       <tr *ngFor="let tarefa of tarefas" (click)="abrirModalTarefa(tarefa)">
         <td>{{ tarefa.id }}</td>
-        <td>
-          {{ tarefa.titulo | slice:0:30 }}...
-        </td>
-        <td>
-          {{ tarefa.descricao | slice:0:15 }}...
-        </td>
+        <td>{{ tarefa.titulo | slice : 0 : 30 }}...</td>
+        <td>{{ tarefa.descricao | slice : 0 : 15 }}...</td>
         <td>{{ tarefa.responsavel.pessoa.nome }}</td>
         <td>{{ tarefa.situacao }}</td>
         <td>
-          <a [routerLink]="['/tarefas/update', tarefa.id]" (click)="$event.stopPropagation()">
+          <a
+            [routerLink]="['/tarefas/update', tarefa.id]"
+            (click)="$event.stopPropagation()"
+          >
             <i
               nz-icon
               nzType="edit"
@@ -77,7 +75,10 @@
               title="Atualizar tarefa"
             ></i>
           </a>
-          <a [routerLink]="['/tarefas/delete', tarefa.id]" (click)="$event.stopPropagation()">
+          <a
+            [routerLink]="['/tarefas/delete', tarefa.id]"
+            (click)="$event.stopPropagation()"
+          >
             <i
               nz-icon
               nzType="delete"
@@ -129,7 +130,10 @@
       <div class="modal-content">
         <p><strong>Título:</strong> {{ tarefaSelecionada?.titulo }}</p>
         <p><strong>Descrição:</strong> {{ tarefaSelecionada?.descricao }}</p>
-        <p><strong>Responsável:</strong> {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}</p>
+        <p>
+          <strong>Responsável:</strong>
+          {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
+        </p>
         <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
       </div>
     </ng-container>

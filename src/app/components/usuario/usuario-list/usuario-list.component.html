@@ -9,7 +9,7 @@
         <nz-option *ngFor="let perfil of perfis" [nzValue]="perfil.id" [nzLabel]="perfil.nome"></nz-option>
       </nz-select>
       <div class="form-actions">
-        <button nz-button nzType="primary" type="submit">
+        <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
           <i nz-icon nzType="search"></i> Buscar
         </button>
       </div>
@@ -23,7 +23,6 @@
     [nzFrontPagination]="false"
     [nzPageIndex]="paginaAtual"
     [nzLoading]="carregando"
-    [nzNoResult]="carregando ? '' : 'Nenhum usuário encontrado.'"
     [nzBordered]="true"
     [nzTotal]="totalElementos"
     (nzPageIndexChange)="aoMudarPagina($event)"

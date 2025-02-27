@@ -90,7 +90,7 @@ export class TarefaDeleteComponent {
     });
   }
 
-  carregarTarafa(): void {
+  private carregarTarafa(): void {
     this.carregando = true;
     this.tarefaservice.findById(this.id).subscribe({
       next: (tarefa) => {
@@ -108,7 +108,7 @@ export class TarefaDeleteComponent {
     });
   }
 
-  carregarUsuarios(): void {
+  private carregarUsuarios(): void {
     this.carregando = true;
     this.usuarioService.findAll(0, 100, 'pessoa.nome').subscribe({
       next: (response) => {
@@ -124,7 +124,7 @@ export class TarefaDeleteComponent {
     });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.tarefaForm = this.formBuilder.group({
       titulo: ['', Validators.required],
       descricao: ['', Validators.required],

@@ -43,7 +43,7 @@ export class PerfilListComponent {
     this.findAllPerfis();
   }
 
-  findAllPerfis() {
+  private findAllPerfis() {
     this.loading = true;
     this.perfilService.findAllPaginada(this.paginaAtual - 1, this.itensPorPagina).subscribe({
       next: (response) => {

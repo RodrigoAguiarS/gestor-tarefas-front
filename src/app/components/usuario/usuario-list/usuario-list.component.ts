@@ -68,7 +68,7 @@ export class UsuarioListComponent implements OnInit {
     this.findAllUsuarios();
   }
 
-  findAllUsuarios() {
+  private findAllUsuarios() {
     this.carregando = true;
 
     const params = {
@@ -94,7 +94,7 @@ export class UsuarioListComponent implements OnInit {
     });
   }
 
-  carregarPerfis(): void {
+  private carregarPerfis(): void {
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
         this.perfis = perfis;

@@ -93,7 +93,7 @@ export class UsuarioCreateComponent implements OnInit {
     });
   }
 
-  carregarPerfis(): void {
+  private carregarPerfis(): void {
     this.carregando = true;
     this.perfilService.findAll().subscribe({
       next: (perfis) => {
@@ -108,7 +108,7 @@ export class UsuarioCreateComponent implements OnInit {
     });
   }
 
-  iniciarForm(): void {
+  private iniciarForm(): void {
     this.usuarioForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(3)]],
