@@ -52,6 +52,25 @@
           </nz-form-control>
         </nz-form-item>
 
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24">Anexar Arquivos</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-upload
+              [nzAction]="uploadUrl"
+              [nzName]="'file'"
+              [nzAccept]="'image/*'"
+              [nzShowUploadList]="true"
+              [(nzFileList)]="fileList"
+              (nzChange)="aoMudarUpload($event)"
+              nzListType="picture"
+            >
+              <button type="button" nz-button>
+                <i nz-icon nzType="upload"></i> Clique para fazer upload
+              </button>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+
         <!-- Responsável e Prioridade na mesma linha -->
         <div class="row">
           <nz-form-item class="col">

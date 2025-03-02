@@ -19,6 +19,9 @@ import { TarefaService } from '../../../services/tarefa.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
+import { API_CONFIG } from '../../../config/api.config';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 @Component({
   selector: 'app-tarefa-update',
@@ -31,6 +34,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzSelectModule,
     NzSpinModule,
     NzCardModule,
+    NzCarouselModule,
+    NzUploadModule,
     NzDatePickerModule,
   ],
   templateUrl: './tarefa-update.component.html',
@@ -42,6 +47,8 @@ export class TarefaUpdateComponent {
   prioridades = Object.values(Prioridade);
   id!: number;
   carregando = false;
+  fileList: NzUploadFile[] = [];
+  uploadUrl = API_CONFIG.baseUrl + '/s3/upload';
 
   constructor(
     private readonly message: NzMessageService,
@@ -97,6 +104,12 @@ export class TarefaUpdateComponent {
       next: (tarefa) => {
         this.tarefaForm.patchValue(tarefa);
         this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
+        this.fileList = tarefa.arquivosUrl.map((url, index) => ({
+          uid: `${index}`,
+          name: `Arquivo ${index + 1}`,
+          status: 'done',
+          url: url
+        }));
       },
       error: (ex) => {
         this.message.error(ex.error.message);
@@ -130,8 +143,28 @@ export class TarefaUpdateComponent {
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
       deadline: ['', Validators.required],
+      imagensUrl: [[]],
     });
   }
+
+  aoMudarUpload(event: NzUploadChangeParam): void {
+      if (event.file.status === 'done') {
+        let response = event.file.response;
+        if (typeof response === 'object' && response.url) {
+          response = response.url;
+        }
+        const imageUrl = typeof response === 'string' ? response.trim() : '';
+
+        if (imageUrl) {
+          const imagensAtuais = this.tarefaForm.get('imagensUrl')?.value || [];
+          this.tarefaForm.patchValue({
+            imagensUrl: [...imagensAtuais, imageUrl],
+          });
+        }
+      } else if (event.file.status === 'error') {
+        this.message.error('Erro ao fazer upload do arquivo');
+      }
+    }
 
   cancelar(): void {
     this.router.navigate(['/home']);

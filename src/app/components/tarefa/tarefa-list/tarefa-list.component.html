@@ -125,6 +125,7 @@
     nzTitle="Detalhes da Tarefa"
     [nzFooter]="modalFooter"
     (nzOnOk)="fecharModal()"
+    (nzOnCancel)="fecharModal()"
   >
     <ng-container *nzModalContent>
       <div class="modal-content">
@@ -135,6 +136,24 @@
           {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
         </p>
         <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
+        <p><strong>Arquivos:</strong></p>
+        <ul class="image-list">
+          <li
+            *ngFor="let fileUrl of tarefaSelecionada?.arquivosUrl"
+            class="image-item"
+          >
+            <ng-container *ngIf="fileUrl.endsWith('.pdf'); else imageTemplate">
+              <a [href]="fileUrl" target="_blank">
+                <i nz-icon nzType="file-pdf" nzTheme="outline"></i> Abrir PDF
+              </a>
+            </ng-container>
+            <ng-template #imageTemplate>
+              <a [href]="fileUrl" target="_blank">
+                <i nz-icon nzType="file-image" nzTheme="outline"></i> Abrir Imagem
+              </a>
+            </ng-template>
+          </li>
+        </ul>
       </div>
     </ng-container>
   </nz-modal>
