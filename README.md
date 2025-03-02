@@ -17,6 +17,10 @@ Este é o projeto frontend para o sistema de gestão de tarefas. O projeto foi d
 - RxJS
 - ngx-mask
 - Auth0 Angular JWT
+- Chart.js
+- jsPDF
+- jsPDF-AutoTable
+- ng2-charts
 
 ## Pré-requisitos
 
@@ -43,4 +47,4 @@ Este é o projeto frontend para o sistema de gestão de tarefas. O projeto foi d
 Para executar o projeto em modo de desenvolvimento, utilize o comando:
 
    ```bash
-   npm start   
+   npm start

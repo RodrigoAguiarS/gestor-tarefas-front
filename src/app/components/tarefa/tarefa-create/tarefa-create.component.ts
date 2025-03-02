@@ -19,6 +19,8 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { CommonModule } from '@angular/common';
 import { Prioridade } from '../../../model/Prioridade';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzUploadChangeParam, NzUploadModule } from 'ng-zorro-antd/upload';
+import { API_CONFIG } from '../../../config/api.config';
 
 @Component({
   selector: 'app-tarefa-create',
@@ -31,6 +33,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzSelectModule,
     NzCardModule,
     NzSpinModule,
+    NzUploadModule,
     NzDatePickerModule,
   ],
   templateUrl: './tarefa-create.component.html',
@@ -40,7 +43,9 @@ export class TarefaCreateComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
+  arquivo: File[] = [];
   carregando = false;
+  uploadUrl = API_CONFIG.baseUrl + '/s3/upload';
 
   constructor(
     private readonly message: NzMessageService,
@@ -112,7 +117,27 @@ export class TarefaCreateComponent {
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
       deadline: ['', Validators.required],
+      arquivosUrl: [[]],
     });
+  }
+
+  aoMudarUpload(event: NzUploadChangeParam): void {
+    if (event.file.status === 'done') {
+      let response = event.file.response;
+      if (typeof response === 'object' && response.url) {
+        response = response.url;
+      }
+      const arquivoUrl = typeof response === 'string' ? response.trim() : '';
+
+      if (arquivoUrl) {
+        const arquivosAtuais = this.tarefaForm.get('arquivosUrl')?.value || [];
+        this.tarefaForm.patchValue({
+          arquivosUrl: [...arquivosAtuais, arquivoUrl],
+        });
+      }
+    } else if (event.file.status === 'error') {
+      this.message.error('Erro ao fazer upload do arquivo');
+    }
   }
 
   cancelar(): void {

@@ -9,6 +9,7 @@ export class Tarefa {
   responsavel: Usuario;
   prioridade: Prioridade;
   deadline: Date;
+  arquivosUrl: string[];
   situacao: Situacao;
 
   constructor(
@@ -17,6 +18,7 @@ export class Tarefa {
     descricao: string,
     responsavel: Usuario,
     prioridade: Prioridade,
+    arquivosUrl: string[],
     deadline: Date,
     situacao: Situacao
   ) {
@@ -25,6 +27,7 @@ export class Tarefa {
     this.descricao = descricao;
     this.responsavel = responsavel;
     this.prioridade = prioridade;
+    this.arquivosUrl = arquivosUrl;
     this.deadline = deadline;
     this.situacao = situacao;
   }

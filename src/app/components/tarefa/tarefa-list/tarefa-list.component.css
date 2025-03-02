@@ -7,6 +7,31 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.modal-content {
+  padding: 20px;
+}
+
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.image-item {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.image {
+  max-width: 100px; /* Aumente este valor para aumentar o tamanho da imagem */
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
 .search-container {
   margin-bottom: 20px;
   padding: 15px;
