@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,6 +22,7 @@ import { PdfService } from '../../../services/pdf.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '../../../model/Usuario';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -34,6 +35,7 @@ import { Usuario } from '../../../model/Usuario';
     NzSelectModule,
     NzPaginationModule,
     RouterModule,
+    NzAlertModule,
     NzPopconfirmModule,
     NzModalModule,
   ],
@@ -42,7 +44,6 @@ import { Usuario } from '../../../model/Usuario';
 })
 export class UsuarioTarefasComponent implements OnInit {
   tarefas: Tarefa[] = [];
-  @Input() usuario!: Usuario;
   filtroForm!: FormGroup;
   situacoes = Object.values(Situacao).filter(
     (situacao) => situacao !== Situacao.CONCLUIDA
@@ -56,6 +57,7 @@ export class UsuarioTarefasComponent implements OnInit {
   modalVisible = false;
   descricaoCompleta = '';
   tarefaSelecionada: Tarefa | null = null;
+  nenhumResultadoEncontrado = false;
 
   constructor(
     private readonly tarefaService: TarefaService,
@@ -102,6 +104,7 @@ export class UsuarioTarefasComponent implements OnInit {
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {
         this.tarefas = response.content;
+        this.nenhumResultadoEncontrado = this.tarefas.length === 0;
         this.totalElementos = response.totalElements;
         this.carregando = false;
       },

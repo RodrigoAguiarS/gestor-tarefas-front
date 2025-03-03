@@ -9,7 +9,7 @@
         class="tarefa-form"
       >
         <!-- Cabeçalho -->
-        <h2 class="form-title">Cadastrar Tarefa</h2>
+        <h2 class="form-title">Atualizar Tarefa</h2>
 
         <!-- Título -->
         <nz-form-item>
@@ -58,11 +58,11 @@
             <nz-upload
               [nzAction]="uploadUrl"
               [nzName]="'file'"
-              [nzAccept]="'image/*'"
               [nzShowUploadList]="true"
               [(nzFileList)]="fileList"
               (nzChange)="aoMudarUpload($event)"
-              nzListType="picture"
+              [nzRemove]="removerArquivo.bind(this)"
+              nzListType="text"
             >
               <button type="button" nz-button>
                 <i nz-icon nzType="upload"></i> Clique para fazer upload

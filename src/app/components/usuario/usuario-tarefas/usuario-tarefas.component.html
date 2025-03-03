@@ -1,5 +1,10 @@
 <div class="container">
   <h1>Minhas Tarefas</h1>
+
+  <div *ngIf="nenhumResultadoEncontrado">
+    <nz-alert nzType="info" nzMessage="Nenhum resultado encontrado" nzShowIcon></nz-alert>
+  </div>
+
   <div class="search-container">
     <h2>Buscar Tarefas</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefas()">

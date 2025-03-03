@@ -43,7 +43,6 @@ export class TarefaCreateComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
   prioridades = Object.values(Prioridade);
-  arquivo: File[] = [];
   carregando = false;
   uploadUrl = API_CONFIG.baseUrl + '/s3/upload';
 

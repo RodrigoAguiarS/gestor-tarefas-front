@@ -85,4 +85,8 @@ export class TarefaService {
   getUsuarioComMaisTarefasConcluidas(): Observable<UsuarioComTarefasConcluidas[]> {
     return this.http.get<UsuarioComTarefasConcluidas[]>(`${API_CONFIG.baseUrl}/tarefas/responsavel/tarefas-concluidas`);
   }
+
+  removerArquivo(arquivoUrl: string): Observable<void> {
+    return this.http.delete<void>(`${API_CONFIG.baseUrl}/s3/apagar/${arquivoUrl}`);
+  }
 }
