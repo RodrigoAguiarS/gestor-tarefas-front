@@ -19,6 +19,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-tarefa-delete',
@@ -30,6 +31,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzButtonModule,
     NzSelectModule,
     NzCardModule,
+    NzUploadModule,
     NzSpinModule,
     NzDatePickerModule,
   ],
@@ -39,6 +41,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 export class TarefaDeleteComponent {
   tarefaForm!: FormGroup;
   usuarios: Usuario[] = [];
+  fileList: NzUploadFile[] = [];
   prioridades = Object.values(Prioridade);
   id!: number;
   carregando = false;
@@ -97,7 +100,14 @@ export class TarefaDeleteComponent {
         this.tarefaForm.patchValue(tarefa);
         this.tarefaForm.get('responsavel')?.setValue(tarefa.responsavel.id);
         this.tarefaForm.disable();
+        this.fileList = tarefa.arquivosUrl.map((url, index) => ({
+          uid: `${index}`,
+          name: `${url.substring(url.lastIndexOf('/')) + 1}`,
+          status: 'done',
+          url: url,
+        }));
       },
+
       error: (ex) => {
         this.message.error(ex.error.message);
         this.carregando = false;
@@ -131,6 +141,7 @@ export class TarefaDeleteComponent {
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
       deadline: ['', Validators.required],
+      arquivosUrl: [[]],
     });
   }
 

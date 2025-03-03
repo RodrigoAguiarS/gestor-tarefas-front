@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TarefaService } from '../../services/tarefa.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,13 @@ import { Router } from '@angular/router';
 import { UsuarioChangeService } from '../../services/usuario-change.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
-import { ChartData, ChartType } from 'chart.js';
+import { ChartType } from 'chart.js';
+
+enum Situacao {
+  EM_ANDAMENTO = 'EM_ANDAMENTO',
+  PENDENTE = 'PENDENTE',
+  CONCLUIDA = 'CONCLUIDA',
+}
 
 @Component({
   selector: 'app-home',
@@ -29,8 +35,11 @@ import { ChartData, ChartType } from 'chart.js';
 })
 export class HomeComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-  tarefasCount: { EM_ANDAMENTO: number; PENDENTE: number; CONCLUIDA: number } =
-    { EM_ANDAMENTO: 0, PENDENTE: 0, CONCLUIDA: 0 };
+  tarefasCount: Record<Situacao, number> = {
+    [Situacao.EM_ANDAMENTO]: 0,
+    [Situacao.PENDENTE]: 0,
+    [Situacao.CONCLUIDA]: 0,
+  };
   usuarioComMaisTarefasConcluidas: UsuarioComTarefasConcluidas[] = [];
   carregando = false;
   impersonateAtivo: boolean = false;
@@ -77,6 +86,7 @@ export class HomeComponent implements OnInit {
   }
 
   private carregarGrafico(): void {
+    this.carregando = true;
     this.tarefaService.getUsuarioComMaisTarefasConcluidas().subscribe({
       next: (data: UsuarioComTarefasConcluidas[]) => {
         this.barChartData.labels = data.map((item) => item.usuario.pessoa.nome);
@@ -87,24 +97,29 @@ export class HomeComponent implements OnInit {
         if (this.chart) {
           this.chart.update();
         }
+        this.carregando = false;
       },
       error: (error) => {
         this.message.error(error.error.message);
+        this.carregando = false;
       }
     });
   }
 
   private carregarTarefasCount(): void {
+    this.carregando = true;
     this.tarefaService.getTarefasCountBySituacao().subscribe({
       next: (count) => {
         this.tarefasCount = {
-          EM_ANDAMENTO: count.EM_ANDAMENTO || 0,
-          PENDENTE: count.PENDENTE || 0,
-          CONCLUIDA: count.CONCLUIDA || 0
+          [Situacao.EM_ANDAMENTO]: count.EM_ANDAMENTO || 0,
+          [Situacao.PENDENTE]: count.PENDENTE || 0,
+          [Situacao.CONCLUIDA]: count.CONCLUIDA || 0,
         };
+        this.carregando = false;
       },
       error: (error) => {
         this.message.error(error.error.message);
+        this.carregando = false;
       }
     });
   }

@@ -55,10 +55,9 @@
             <nz-upload
               [nzAction]="uploadUrl"
               [nzName]="'file'"
-              [nzAccept]="'image/*'"
               [nzShowUploadList]="true"
               (nzChange)="aoMudarUpload($event)"
-              nzListType="picture"
+              nzListType="text"
             >
               <button type="button" nz-button>
                 <i nz-icon nzType="upload"></i> Clique para fazer upload

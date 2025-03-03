@@ -137,20 +137,62 @@
         </p>
         <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
         <p><strong>Arquivos:</strong></p>
-        <ul class="image-list">
+        <p><strong>Arquivos:</strong></p>
+        <ul class="file-list">
           <li
             *ngFor="let fileUrl of tarefaSelecionada?.arquivosUrl"
-            class="image-item"
+            class="file-item"
           >
-            <ng-container *ngIf="fileUrl.endsWith('.pdf'); else imageTemplate">
+            <ng-container
+              *ngIf="fileUrl.endsWith('.pdf'); else otherFileTemplate"
+            >
               <a [href]="fileUrl" target="_blank">
                 <i nz-icon nzType="file-pdf" nzTheme="outline"></i> Abrir PDF
               </a>
             </ng-container>
-            <ng-template #imageTemplate>
-              <a [href]="fileUrl" target="_blank">
-                <i nz-icon nzType="file-image" nzTheme="outline"></i> Abrir Imagem
-              </a>
+            <ng-template #otherFileTemplate>
+              <ng-container
+                *ngIf="
+                  fileUrl.endsWith('.jpg') ||
+                    fileUrl.endsWith('.jpeg') ||
+                    fileUrl.endsWith('.png');
+                  else otherFileTypes
+                "
+              >
+                <a [href]="fileUrl" target="_blank">
+                  <i nz-icon nzType="file-image" nzTheme="outline"></i> Abrir
+                  Imagem
+                </a>
+              </ng-container>
+              <ng-template #otherFileTypes>
+                <ng-container
+                  *ngIf="
+                    fileUrl.endsWith('.doc') || fileUrl.endsWith('.docx');
+                    else textFileTemplate
+                  "
+                >
+                  <a [href]="fileUrl" target="_blank">
+                    <i nz-icon nzType="file-word" nzTheme="outline"></i> Abrir
+                    Documento Word
+                  </a>
+                </ng-container>
+                <ng-template #textFileTemplate>
+                  <ng-container
+                    *ngIf="fileUrl.endsWith('.txt'); else defaultFileTemplate"
+                  >
+                    <a [href]="fileUrl" target="_blank">
+                      <i nz-icon nzType="file-text" nzTheme="outline"></i> Abrir
+                      Arquivo de Texto
+                    </a>
+                  </ng-container>
+                  <ng-template #defaultFileTemplate>
+                    <a [href]="fileUrl" target="_blank">
+                      <i nz-icon nzType="file" nzTheme="outline"></i> Abrir
+                      Arquivo
+                    </a>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
             </ng-template>
           </li>
         </ul>
