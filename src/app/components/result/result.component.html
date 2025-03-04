@@ -1,8 +1,9 @@
 <div class="result-container">
   <nz-result [nzStatus]="tipoResultado" [nzTitle]="tituloResultado" [nzSubTitle]="mensagemResultado">
     <div nz-result-extra>
-      <button nz-button nzType="primary" (click)="navegarParaCriar()">Criar Novo</button>
-      <button nz-button (click)="navegarParaHome()">Voltar</button>
+      <button nz-button nzType="primary" (click)="navegarParaCriar()">Novo</button>
+      <button nz-button nzType="default" (click)="navegarParaListagem()">Listar</button>
+      <button nz-button (click)="navegarParaHome()">Home</button>
     </div>
   </nz-result>
 </div>

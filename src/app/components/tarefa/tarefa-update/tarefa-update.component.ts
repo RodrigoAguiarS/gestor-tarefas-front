@@ -80,12 +80,11 @@ export class TarefaUpdateComponent {
           queryParams: {
             type: 'success',
             title:
-              'Tarefa de titulo ' +
-              resposta.titulo +
-              ' atualizada com sucesso!',
+              'Tarefa de Título - ' +
+              resposta.titulo,
             message: 'A Tarefa foi atualizada com sucesso!',
             createRoute: '/tarefas/create',
-            listRoute: '/tarefas/usuario/list',
+            listRoute: '/tarefas/list',
           },
         });
       },

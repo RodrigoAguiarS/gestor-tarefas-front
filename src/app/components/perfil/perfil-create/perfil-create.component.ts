@@ -45,7 +45,7 @@ export class PerfilCreateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Perfil ' + resposta.nome + ' criado com sucesso!',
+            title: 'Perfil - ' + resposta.nome,
             message: 'O perfil foi criado com sucesso!',
             createRoute: '/perfis/create',
             listRoute: '/perfis/list'

@@ -64,7 +64,7 @@ export class PerfilUpdateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Perfil ' + resposta.nome + ' atualizado com sucesso!',
+            title: 'Perfil - ' + resposta.nome,
             message: 'O perfil foi atualizado com sucesso!',
             createRoute: '/perfis/create',
             listRoute: '/perfis/list'

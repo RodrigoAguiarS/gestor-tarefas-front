@@ -69,7 +69,7 @@ export class UsuarioUpdateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Usuário ' + resposta.pessoa.nome + ' atualizado com sucesso!',
+            title: 'Usuário de nome - ' + resposta.pessoa.nome,
             message: 'O usuário foi atualizado com sucesso!',
             createRoute: '/usuarios/create',
             listRoute: '/usuarios/list',

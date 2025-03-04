@@ -68,10 +68,10 @@ export class TarefaCreateComponent {
             queryParams: {
               type: 'success',
               title:
-                'Tarefa de titulo ' + resposta.titulo + ' criado com sucesso!',
+                'Tarefa de Título - ' + resposta.titulo,
               message: 'A Tarefa foi criado com sucesso!',
               createRoute: '/tarefas/create',
-              listRoute: '/tarefas/usuario/list',
+              listRoute: '/tarefas/list',
             },
           });
         },

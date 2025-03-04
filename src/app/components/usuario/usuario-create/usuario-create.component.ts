@@ -68,7 +68,7 @@ export class UsuarioCreateComponent implements OnInit {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Usuário ' + resposta.pessoa.nome + ' criado com sucesso!',
+            title: 'Usuário de nome - ' + resposta.pessoa.nome,
             message: 'O usuário foi criado com sucesso!',
             createRoute: '/usuarios/create',
             listRoute: '/usuarios/list',

@@ -72,7 +72,7 @@ export class TarefaDeleteComponent {
             title: 'Tarefa deletada com sucesso!',
             message: 'A Tarefa foi deletada com sucesso!',
             createRoute: '/tarefas/create',
-            listRoute: '/tarefas/usuario/list',
+            listRoute: '/tarefas/list',
           },
         });
       },

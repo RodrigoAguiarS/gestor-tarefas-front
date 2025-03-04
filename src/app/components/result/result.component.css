@@ -3,15 +3,24 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: #f0f2f5;
 }
 
-nz-result {
+.nz-result {
   max-width: 600px;
   width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 }
 
-nz-result-extra {
+.button-group {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.button-group button {
+  flex: 1;
 }
