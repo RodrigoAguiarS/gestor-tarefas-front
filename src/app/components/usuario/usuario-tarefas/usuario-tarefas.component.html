@@ -1,14 +1,22 @@
 <div class="container">
   <h1>Minhas Tarefas</h1>
 
-  <div *ngIf="nenhumResultadoEncontrado">
-    <nz-alert nzType="info" nzMessage="Nenhum resultado encontrado" nzShowIcon></nz-alert>
-  </div>
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
 
   <div class="search-container">
     <h2>Buscar Tarefas</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefas()">
-      <input nz-input placeholder="Número" formControlName="id" />
+      <input nz-input type="number" placeholder="Número" formControlName="id" />
       <input nz-input placeholder="Título" formControlName="titulo" />
       <input nz-input placeholder="Descrição" formControlName="descricao" />
       <nz-select
@@ -117,90 +125,90 @@
     </tbody>
   </nz-table>
 
-   <!-- Modal para exibir os detalhes da tarefa -->
-   <nz-modal
-   [(nzVisible)]="modalVisible"
-   nzTitle="Detalhes da Tarefa"
-   [nzFooter]="modalFooter"
-   (nzOnOk)="fecharModal()"
-   (nzOnCancel)="fecharModal()"
- >
-   <ng-container *nzModalContent>
-     <div class="modal-content">
-       <p><strong>Título:</strong> {{ tarefaSelecionada?.titulo }}</p>
-       <p><strong>Descrição:</strong> {{ tarefaSelecionada?.descricao }}</p>
-       <p>
-         <strong>Responsável:</strong>
-         {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
-       </p>
-       <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
-       <p><strong>Arquivos:</strong></p>
-       <ul class="file-list">
-         <li
-           *ngFor="let fileUrl of tarefaSelecionada?.arquivosUrl"
-           class="file-item"
-         >
-           <ng-container
-             *ngIf="fileUrl.endsWith('.pdf'); else otherFileTemplate"
-           >
-             <a [href]="fileUrl" target="_blank">
-               <i nz-icon nzType="file-pdf" nzTheme="outline"></i> Abrir PDF
-             </a>
-           </ng-container>
-           <ng-template #otherFileTemplate>
-             <ng-container
-               *ngIf="
-                 fileUrl.endsWith('.jpg') ||
-                   fileUrl.endsWith('.jpeg') ||
-                   fileUrl.endsWith('.png');
-                 else otherFileTypes
-               "
-             >
-               <a [href]="fileUrl" target="_blank">
-                 <i nz-icon nzType="file-image" nzTheme="outline"></i> Abrir
-                 Imagem
-               </a>
-             </ng-container>
-             <ng-template #otherFileTypes>
-               <ng-container
-                 *ngIf="
-                   fileUrl.endsWith('.doc') || fileUrl.endsWith('.docx');
-                   else textFileTemplate
-                 "
-               >
-                 <a [href]="fileUrl" target="_blank">
-                   <i nz-icon nzType="file-word" nzTheme="outline"></i> Abrir
-                   Documento Word
-                 </a>
-               </ng-container>
-               <ng-template #textFileTemplate>
-                 <ng-container
-                   *ngIf="fileUrl.endsWith('.txt'); else defaultFileTemplate"
-                 >
-                   <a [href]="fileUrl" target="_blank">
-                     <i nz-icon nzType="file-text" nzTheme="outline"></i> Abrir
-                     Arquivo de Texto
-                   </a>
-                 </ng-container>
-                 <ng-template #defaultFileTemplate>
-                   <a [href]="fileUrl" target="_blank">
-                     <i nz-icon nzType="file" nzTheme="outline"></i> Abrir
-                     Arquivo
-                   </a>
-                 </ng-template>
-               </ng-template>
-             </ng-template>
-           </ng-template>
-         </li>
-       </ul>
-     </div>
-   </ng-container>
- </nz-modal>
+  <!-- Modal para exibir os detalhes da tarefa -->
+  <nz-modal
+    [(nzVisible)]="modalVisible"
+    nzTitle="Detalhes da Tarefa"
+    [nzFooter]="modalFooter"
+    (nzOnOk)="fecharModal()"
+    (nzOnCancel)="fecharModal()"
+  >
+    <ng-container *nzModalContent>
+      <div class="modal-content">
+        <p><strong>Título:</strong> {{ tarefaSelecionada?.titulo }}</p>
+        <p><strong>Descrição:</strong> {{ tarefaSelecionada?.descricao }}</p>
+        <p>
+          <strong>Responsável:</strong>
+          {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
+        </p>
+        <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
+        <p><strong>Arquivos:</strong></p>
+        <ul class="file-list">
+          <li
+            *ngFor="let fileUrl of tarefaSelecionada?.arquivosUrl"
+            class="file-item"
+          >
+            <ng-container
+              *ngIf="fileUrl.endsWith('.pdf'); else otherFileTemplate"
+            >
+              <a [href]="fileUrl" target="_blank">
+                <i nz-icon nzType="file-pdf" nzTheme="outline"></i> Abrir PDF
+              </a>
+            </ng-container>
+            <ng-template #otherFileTemplate>
+              <ng-container
+                *ngIf="
+                  fileUrl.endsWith('.jpg') ||
+                    fileUrl.endsWith('.jpeg') ||
+                    fileUrl.endsWith('.png');
+                  else otherFileTypes
+                "
+              >
+                <a [href]="fileUrl" target="_blank">
+                  <i nz-icon nzType="file-image" nzTheme="outline"></i> Abrir
+                  Imagem
+                </a>
+              </ng-container>
+              <ng-template #otherFileTypes>
+                <ng-container
+                  *ngIf="
+                    fileUrl.endsWith('.doc') || fileUrl.endsWith('.docx');
+                    else textFileTemplate
+                  "
+                >
+                  <a [href]="fileUrl" target="_blank">
+                    <i nz-icon nzType="file-word" nzTheme="outline"></i> Abrir
+                    Documento Word
+                  </a>
+                </ng-container>
+                <ng-template #textFileTemplate>
+                  <ng-container
+                    *ngIf="fileUrl.endsWith('.txt'); else defaultFileTemplate"
+                  >
+                    <a [href]="fileUrl" target="_blank">
+                      <i nz-icon nzType="file-text" nzTheme="outline"></i> Abrir
+                      Arquivo de Texto
+                    </a>
+                  </ng-container>
+                  <ng-template #defaultFileTemplate>
+                    <a [href]="fileUrl" target="_blank">
+                      <i nz-icon nzType="file" nzTheme="outline"></i> Abrir
+                      Arquivo
+                    </a>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </nz-modal>
 
- <!-- Template do rodapé do modal -->
- <ng-template #modalFooter>
-   <div class="modal-footer">
-     <button nz-button nzType="primary" (click)="fecharModal()">OK</button>
-   </div>
- </ng-template>
+  <!-- Template do rodapé do modal -->
+  <ng-template #modalFooter>
+    <div class="modal-footer">
+      <button nz-button nzType="primary" (click)="fecharModal()">OK</button>
+    </div>
+  </ng-template>
 </div>

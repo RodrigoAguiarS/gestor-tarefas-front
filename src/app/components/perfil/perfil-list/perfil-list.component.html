@@ -1,5 +1,13 @@
 <div class="container">
   <h1>Perfil do Sistema</h1>
+  <nz-alert
+  *ngIf="(alertaService.tipoAlerta$ | async) && (alertaService.mensagemAlerta$ | async)"
+  [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+  [nzMessage]="alertaService.mensagemAlerta$ | async"
+  nzShowIcon
+  nzCloseable
+  (nzOnClose)="alertaService.limparAlerta()"
+></nz-alert>
   <nz-table
     #basicTable
     [nzData]="perfis"

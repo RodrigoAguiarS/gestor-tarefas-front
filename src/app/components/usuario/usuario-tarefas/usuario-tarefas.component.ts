@@ -23,6 +23,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '../../../model/Usuario';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { AlertaService } from '../../../services/alerta.service';
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -64,7 +65,8 @@ export class UsuarioTarefasComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly usuarioService: UsuarioService,
     private readonly message: NzMessageService,
-    private readonly pdfService: PdfService
+    private readonly pdfService: PdfService,
+    public readonly alertaService: AlertaService
   ) {}
 
   ngOnInit(): void {
@@ -107,6 +109,11 @@ export class UsuarioTarefasComponent implements OnInit {
         this.nenhumResultadoEncontrado = this.tarefas.length === 0;
         this.totalElementos = response.totalElements;
         this.carregando = false;
+        if (this.nenhumResultadoEncontrado) {
+          this.alertaService.mostrarAlerta('info', 'Nenhum resultado encontrado.');
+        } else {
+          this.alertaService.mostrarAlerta('success', 'Tarefa carregados com sucesso.');
+        }
       },
       error: (ex) => {
         this.message.error(ex.error.message);

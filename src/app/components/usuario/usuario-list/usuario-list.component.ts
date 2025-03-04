@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angul
 import { UsuarioService } from '../../../services/usuario.service';
 import { PerfilService } from '../../../services/perfil.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Usuario } from '../../../model/Usuario';
 import { Perfil } from '../../../model/Perfil';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -15,6 +15,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { AlertaService } from '../../../services/alerta.service';
 @Component({
   selector: 'app-usuario-list',
   standalone: true,
@@ -31,7 +33,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     RouterModule,
     NzFormModule,
     NzInputModule,
-
+    NzAlertModule,
   ],
   templateUrl: './usuario-list.component.html',
   styleUrls: ['./usuario-list.component.css']
@@ -44,12 +46,14 @@ export class UsuarioListComponent implements OnInit {
   itensPorPagina = 10;
   paginaAtual = 1;
   filtroForm: FormGroup;
+  nenhumResultadoEncontrado = false;
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly usuarioService: UsuarioService,
     private readonly perfilService: PerfilService,
     private readonly message: NzMessageService,
+    public readonly alertaService: AlertaService
   ) {
     this.filtroForm = this.fb.group({
       nome: [''],
@@ -61,6 +65,7 @@ export class UsuarioListComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarPerfis();
+    this.alertaService.limparAlerta();
   }
 
   buscarUsuario(): void {
@@ -85,10 +90,17 @@ export class UsuarioListComponent implements OnInit {
       next: (data) => {
         this.usuarios = data.content;
         this.totalElementos = data.totalElements;
+        this.nenhumResultadoEncontrado = data.totalElements === 0;
         this.carregando = false;
+        if (this.nenhumResultadoEncontrado) {
+          this.alertaService.mostrarAlerta('info', 'Nenhum resultado encontrado.');
+        } else {
+          this.alertaService.mostrarAlerta('success', 'Usuários carregados com sucesso.');
+        }
       },
       error: (e) => {
         this.message.error('Erro ao buscar usuários');
+        this.alertaService.mostrarAlerta('error', 'Erro ao buscar usuários.');
         this.carregando = false;
       },
     });

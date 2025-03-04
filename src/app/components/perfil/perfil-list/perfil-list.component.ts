@@ -9,6 +9,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { AlertaService } from '../../../services/alerta.service';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-perfil-list',
@@ -19,6 +21,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
       NzTableModule,
       NzButtonModule,
       NzIconModule,
+      NzAlertModule,
       NzPaginationModule,
       RouterModule
     ],
@@ -32,15 +35,18 @@ export class PerfilListComponent {
   totalElementos = 0;
   itensPorPagina = 10;
   paginaAtual = 1;
+  nenhumResultadoEncontrado = false;
 
   constructor(
     private readonly perfilService: PerfilService,
     private readonly message: NzMessageService,
+    public readonly alertaService: AlertaService,
     private readonly router: Router
   ) {}
 
   ngOnInit(): void {
     this.findAllPerfis();
+    this.alertaService.limparAlerta();
   }
 
   private findAllPerfis() {
@@ -49,7 +55,13 @@ export class PerfilListComponent {
       next: (response) => {
         this.perfis = response.content;
         this.totalElementos = response.totalElements;
+        this.nenhumResultadoEncontrado = this.perfis.length === 0;
         this.loading = false;
+        if (this.nenhumResultadoEncontrado) {
+          this.alertaService.mostrarAlerta('info', 'Nenhum resultado encontrado.');
+        } else {
+          this.alertaService.mostrarAlerta('success', 'Perfis carregados com sucesso.');
+        }
       },
       error: (e) => {
         this.message.error(e);

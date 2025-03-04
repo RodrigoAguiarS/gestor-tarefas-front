@@ -1,9 +1,22 @@
 <div class="container">
   <h1>Lista de Tarefas</h1>
+
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
   <div class="search-container">
     <h2>Buscar Tarefas</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarTarefa()">
-      <input nz-input placeholder="Número" formControlName="id" />
+      <input nz-input type="number" placeholder="Número" formControlName="id" />
       <input nz-input placeholder="Título" formControlName="titulo" />
       <input nz-input placeholder="Descrição" formControlName="descricao" />
       <nz-select

@@ -1,5 +1,15 @@
 <div class="container">
   <h1>Lista de Usuários</h1>
+
+  <nz-alert
+    *ngIf="(alertaService.tipoAlerta$ | async) && (alertaService.mensagemAlerta$ | async)"
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
   <div class="search-container">
     <h2>Buscar Usuários</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarUsuario()">

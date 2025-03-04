@@ -22,6 +22,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { PdfService } from '../../../services/pdf.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { AlertaService } from '../../../services/alerta.service';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -38,6 +40,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzPopconfirmModule,
     NzSkeletonModule,
     NzModalModule,
+    NzAlertModule,
   ],
   templateUrl: './tarefa-list.component.html',
   styleUrl: './tarefa-list.component.css',
@@ -56,18 +59,21 @@ export class TarefaListComponent {
   modalVisible = false;
   descricaoCompleta = '';
   tarefaSelecionada: Tarefa | null = null;
+  nenhumResultadoEncontrado = false;
 
   constructor(
     private readonly message: NzMessageService,
     private readonly tarefaService: TarefaService,
     private readonly usuarioService: UsuarioService,
     private readonly formBuilder: FormBuilder,
-    private readonly pdfService: PdfService
+    private readonly pdfService: PdfService,
+    public readonly alertaService: AlertaService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.carregarUsuarios();
+    this.alertaService.limparAlerta();
   }
 
   private initForm(): void {
@@ -105,7 +111,13 @@ export class TarefaListComponent {
       next: (response) => {
         this.tarefas = response.content;
         this.totalElementos = response.totalElements;
+        this.nenhumResultadoEncontrado = this.tarefas.length === 0;
         this.carregando = false;
+        if (this.nenhumResultadoEncontrado) {
+          this.alertaService.mostrarAlerta('info', 'Nenhum resultado encontrado.');
+        } else {
+          this.alertaService.mostrarAlerta('success', 'Tarefas carregados com sucesso.');
+        }
       },
       error: (ex) => {
         this.message.error(ex.error.message);
