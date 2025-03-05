@@ -1,37 +1,76 @@
 <div class="container-wrapper">
-  <div class="container">
-    <nz-card [nzBordered]="false" class="form-container">
-      <form nz-form nzLayout="vertical" [formGroup]="perfilForm" (ngSubmit)="update()" class="perfil-form">
-        <!-- Cabeçalho -->
-        <h2 class="form-title">Atualizar Perfil</h2>
+  <nz-spin [nzSpinning]="carregando">
+    <div class="container">
+      <nz-card [nzBordered]="false" class="form-container">
+        <form
+          nz-form
+          nzLayout="vertical"
+          [formGroup]="perfilForm"
+          (ngSubmit)="update()"
+          class="perfil-form"
+        >
+          <!-- Cabeçalho -->
+          <h2 class="form-title">Atualizar Perfil</h2>
 
-        <!-- Informações do Perfil -->
-        <h3 class="form-section-title">Informações do Perfil</h3>
-        <div nz-row [nzGutter]="16">
-          <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
-            <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="nome">Nome</nz-form-label>
-              <nz-form-control>
-                <input id="nome" nz-input formControlName="nome" placeholder="Ex. Administrador" required />
-              </nz-form-control>
-            </nz-form-item>
+          <!-- Informações do Perfil -->
+          <h3 class="form-section-title">Informações do Perfil</h3>
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
+              <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="nome"
+                  >Nome</nz-form-label
+                >
+                <nz-form-control>
+                  <input
+                    id="nome"
+                    nz-input
+                    formControlName="nome"
+                    placeholder="Ex. Administrador"
+                    required
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
+              <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="descricao"
+                  >Descrição</nz-form-label
+                >
+                <nz-form-control>
+                  <textarea
+                    id="descricao"
+                    nz-input
+                    formControlName="descricao"
+                    placeholder="Descrição do perfil"
+                    required
+                  ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
           </div>
-          <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
-            <nz-form-item>
-              <nz-form-label [nzRequired]="true" nzFor="descricao">Descrição</nz-form-label>
-              <nz-form-control>
-                <textarea id="descricao" nz-input formControlName="descricao" placeholder="Descrição do perfil" required></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
 
-        <!-- Ações -->
-        <div class="form-actions">
-          <button type="button" nz-button nzType="default" (click)="cancelar()">Cancelar</button>
-          <button type="submit" nz-button nzType="primary" [disabled]="!perfilForm.valid">Atualizar</button>
-        </div>
-      </form>
-    </nz-card>
-  </div>
+          <!-- Ações -->
+          <div class="form-actions">
+            <button
+              type="button"
+              nz-button
+              nzType="default"
+              (click)="cancelar()"
+            >
+              Cancelar
+            </button>
+            <button
+              [nzLoading]="carregando"
+              type="submit"
+              nz-button
+              nzType="primary"
+              [disabled]="!perfilForm.valid"
+            >
+              Atualizar
+            </button>
+          </div>
+        </form>
+      </nz-card>
+    </div>
+  </nz-spin>
 </div>

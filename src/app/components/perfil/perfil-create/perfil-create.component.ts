@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { PerfilService } from '../../../services/perfil.service';
 import { Router } from '@angular/router';
@@ -9,6 +14,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { CommonModule } from '@angular/common';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-perfil-create',
   imports: [
@@ -18,15 +24,16 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     NzFormModule,
     NzInputModule,
     NzButtonModule,
+    NzSpinModule,
     NzCheckboxModule,
     NzCardModule,
   ],
   templateUrl: './perfil-create.component.html',
-  styleUrl: './perfil-create.component.css'
+  styleUrl: './perfil-create.component.css',
 })
 export class PerfilCreateComponent {
-
   perfilForm!: FormGroup;
+  carregando = false;
 
   constructor(
     private readonly message: NzMessageService,
@@ -40,6 +47,7 @@ export class PerfilCreateComponent {
   }
 
   criar(): void {
+    this.carregando = true;
     this.perfilService.create(this.perfilForm.value).subscribe({
       next: (resposta) => {
         this.router.navigate(['/result'], {
@@ -48,18 +56,22 @@ export class PerfilCreateComponent {
             title: 'Perfil - ' + resposta.nome,
             message: 'O perfil foi criado com sucesso!',
             createRoute: '/perfis/create',
-            listRoute: '/perfis/list'
-          }
+            listRoute: '/perfis/list',
+          },
         });
       },
       error: (ex) => {
         if (ex.error.errors) {
           ex.error.errors.forEach((element: ErrorEvent) => {
             this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
           this.message.error(ex.error.message);
         }
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
   }

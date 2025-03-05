@@ -24,7 +24,6 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '../../../model/Usuario';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { AlertaService } from '../../../services/alerta.service';
-import { LocalDateTimePipe, DateTimeFormatPipe } from "../../../../pipe";
 @Component({
   selector: 'app-usuario-tarefas',
   imports: [
@@ -40,8 +39,6 @@ import { LocalDateTimePipe, DateTimeFormatPipe } from "../../../../pipe";
     NzAlertModule,
     NzPopconfirmModule,
     NzModalModule,
-    LocalDateTimePipe,
-    DateTimeFormatPipe
 ],
   templateUrl: './usuario-tarefas.component.html',
   styleUrl: './usuario-tarefas.component.css',

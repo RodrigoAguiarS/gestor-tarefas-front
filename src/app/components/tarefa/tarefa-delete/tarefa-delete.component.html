@@ -1,134 +1,141 @@
 <div class="container-wrapper">
-  <div class="container">
-    <nz-card [nzBordered]="false" class="form-container">
-      <form
-        nz-form
-        nzLayout="vertical"
-        [formGroup]="tarefaForm"
-        (ngSubmit)="delete()"
-        class="tarefa-form"
-      >
-        <!-- Cabeçalho -->
-        <h2 class="form-title">Apagar Tarefa</h2>
+  <nz-spin [nzSpinning]="carregando">
+    <div class="container">
+      <nz-card [nzBordered]="false" class="form-container">
+        <form
+          nz-form
+          nzLayout="vertical"
+          [formGroup]="tarefaForm"
+          (ngSubmit)="delete()"
+          class="tarefa-form"
+        >
+          <!-- Cabeçalho -->
+          <h2 class="form-title">Apagar Tarefa</h2>
 
-        <!-- Título -->
-        <nz-form-item>
-          <nz-form-label [nzRequired]="true" nzFor="titulo"
-            >Título</nz-form-label
-          >
-          <nz-form-control>
-            <input
-              id="titulo"
-              nz-input
-              maxlength="100"
-              formControlName="titulo"
-              placeholder="Digite o título da tarefa"
-              required
-            />
-            <div class="char-counter">
-              {{ tarefaForm.get("titulo")?.value.length || 0 }}/100 caracteres
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-
-        <!-- Descrição -->
-        <nz-form-item>
-          <nz-form-label [nzRequired]="true" nzFor="descricao"
-            >Descrição</nz-form-label
-          >
-          <nz-form-control>
-            <textarea
-              id="descricao"
-              nz-input
-              maxlength="500"
-              formControlName="descricao"
-              placeholder="Digite a descrição da tarefa"
-              required
-            ></textarea>
-            <div class="char-counter">
-              {{ tarefaForm.get("descricao")?.value.length || 0 }}/500
-              caracteres
-            </div>
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-          <nz-form-label [nzSpan]="24">Anexar Arquivos</nz-form-label>
-          <nz-form-control [nzSpan]="24">
-            <nz-upload
-              [nzName]="'file'"
-              [nzShowUploadList]="true"
-              [(nzFileList)]="fileList"
-              nzListType="text"
-              [nzDisabled]="true"
-            >
-              <button type="button" nz-button disabled>
-                <i nz-icon nzType="upload"></i> Clique para fazer upload
-              </button>
-            </nz-upload>
-          </nz-form-control>
-        </nz-form-item>
-
-        <!-- Responsável e Prioridade na mesma linha -->
-        <div class="row">
-          <nz-form-item class="col">
-            <nz-form-label [nzRequired]="true" nzFor="responsavel"
-              >Responsável</nz-form-label
+          <!-- Título -->
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true" nzFor="titulo"
+              >Título</nz-form-label
             >
             <nz-form-control>
-              <nz-select
-                id="responsavel"
-                formControlName="responsavel"
-                nzPlaceHolder="Selecione o responsável"
+              <input
+                id="titulo"
+                nz-input
+                maxlength="100"
+                formControlName="titulo"
+                placeholder="Digite o título da tarefa"
                 required
-                nzLoading="carregando"
-              >
-                <nz-option
-                  *ngFor="let usuario of usuarios"
-                  [nzValue]="usuario.id"
-                  [nzLabel]="usuario.pessoa.nome"
-                ></nz-option>
-              </nz-select>
+              />
+              <div class="char-counter">
+                {{ tarefaForm.get("titulo")?.value.length || 0 }}/100 caracteres
+              </div>
             </nz-form-control>
           </nz-form-item>
 
-          <nz-form-item class="col">
-            <nz-form-label [nzRequired]="true" nzFor="prioridade"
-              >Prioridade</nz-form-label
+          <!-- Descrição -->
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true" nzFor="descricao"
+              >Descrição</nz-form-label
             >
             <nz-form-control>
-              <nz-select
-                id="prioridade"
-                formControlName="prioridade"
-                nzPlaceHolder="Selecione a prioridade"
+              <textarea
+                id="descricao"
+                nz-input
+                maxlength="500"
+                formControlName="descricao"
+                placeholder="Digite a descrição da tarefa"
                 required
-              >
-                <nz-option
-                  *ngFor="let prioridade of prioridades"
-                  [nzValue]="prioridade"
-                  [nzLabel]="prioridade"
-                ></nz-option>
-              </nz-select>
+              ></textarea>
+              <div class="char-counter">
+                {{ tarefaForm.get("descricao")?.value.length || 0 }}/500
+                caracteres
+              </div>
             </nz-form-control>
           </nz-form-item>
-        </div>
 
-        <!-- Ações -->
-        <div class="form-actions">
-          <button type="button" nz-button nzType="default" (click)="cancelar()">
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            nz-button
-            nzType="primary"
-            [disabled]="carregando"
-            [nzLoading]="carregando"
-          >
-            Apagar
-          </button>
-        </div>
-      </form>
-    </nz-card>
-  </div>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">Anexar Arquivos</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <nz-upload
+                [nzName]="'file'"
+                [nzShowUploadList]="true"
+                [(nzFileList)]="fileList"
+                nzListType="text"
+                [nzDisabled]="true"
+              >
+                <button type="button" nz-button disabled>
+                  <i nz-icon nzType="upload"></i> Clique para fazer upload
+                </button>
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Responsável e Prioridade na mesma linha -->
+          <div class="row">
+            <nz-form-item class="col">
+              <nz-form-label [nzRequired]="true" nzFor="responsavel"
+                >Responsável</nz-form-label
+              >
+              <nz-form-control>
+                <nz-select
+                  id="responsavel"
+                  formControlName="responsavel"
+                  nzPlaceHolder="Selecione o responsável"
+                  required
+                  nzLoading="carregando"
+                >
+                  <nz-option
+                    *ngFor="let usuario of usuarios"
+                    [nzValue]="usuario.id"
+                    [nzLabel]="usuario.pessoa.nome"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="col">
+              <nz-form-label [nzRequired]="true" nzFor="prioridade"
+                >Prioridade</nz-form-label
+              >
+              <nz-form-control>
+                <nz-select
+                  id="prioridade"
+                  formControlName="prioridade"
+                  nzPlaceHolder="Selecione a prioridade"
+                  required
+                >
+                  <nz-option
+                    *ngFor="let prioridade of prioridades"
+                    [nzValue]="prioridade"
+                    [nzLabel]="prioridade"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <!-- Ações -->
+          <div class="form-actions">
+            <button
+              type="button"
+              nz-button
+              nzType="default"
+              (click)="cancelar()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              nz-button
+              nzType="primary"
+              [disabled]="carregando"
+              [nzLoading]="carregando"
+            >
+              Apagar
+            </button>
+          </div>
+        </form>
+      </nz-card>
+    </div>
+  </nz-spin>
 </div>

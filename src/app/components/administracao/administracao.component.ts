@@ -16,6 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-administracao',
@@ -24,6 +25,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     CommonModule,
     ReactiveFormsModule,
     NzFormModule,
+    NzSpinModule,
     NzInputModule,
     NzButtonModule,
     NzCardModule,
@@ -52,12 +54,17 @@ export class AdministracaoComponent {
   }
 
   ngOnInit(): void {
+    this.carregando = true;
     this.authService.getUserRoles().subscribe({
       next: (roles: string[]) => {
         this.roles = roles;
       },
       error: (error) => {
         this.message.error(error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        this.carregando = false;
       },
     });
 
