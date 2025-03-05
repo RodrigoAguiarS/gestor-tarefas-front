@@ -9,6 +9,7 @@ export class Tarefa {
   responsavel: Usuario;
   prioridade: Prioridade;
   deadline: Date;
+  criadoEm: Date;
   arquivosUrl: string[];
   situacao: Situacao;
 
@@ -20,6 +21,7 @@ export class Tarefa {
     prioridade: Prioridade,
     arquivosUrl: string[],
     deadline: Date,
+    criadoEm: Date,
     situacao: Situacao
   ) {
     this.id = id;
@@ -28,6 +30,7 @@ export class Tarefa {
     this.responsavel = responsavel;
     this.prioridade = prioridade;
     this.arquivosUrl = arquivosUrl;
+    this.criadoEm = criadoEm;
     this.deadline = deadline;
     this.situacao = situacao;
   }

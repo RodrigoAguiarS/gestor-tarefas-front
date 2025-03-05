@@ -144,7 +144,6 @@ export class TarefaUpdateComponent {
       descricao: ['', Validators.required],
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
-      deadline: ['', Validators.required],
       arquivosUrl: [[]],
     });
   }

@@ -66,6 +66,8 @@
         <th scope="col">Título</th>
         <th scope="col">Descrição</th>
         <th scope="col">Responsável</th>
+        <th scope="col">Data Cadastro</th>
+        <th scope="col">DeadLine</th>
         <th scope="col">Situação</th>
         <th scope="col">Ações</th>
       </tr>
@@ -76,6 +78,8 @@
         <td>{{ tarefa.titulo | slice : 0 : 30 }}...</td>
         <td>{{ tarefa.descricao | slice : 0 : 15 }}...</td>
         <td>{{ tarefa.responsavel.pessoa.nome }}</td>
+        <td>{{ tarefa.criadoEm | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ tarefa.deadline | date: 'dd/MM/yyyy' }}</td>
         <td>{{ tarefa.situacao }}</td>
         <td>
           <a
@@ -149,7 +153,16 @@
           <strong>Responsável:</strong>
           {{ tarefaSelecionada?.responsavel?.pessoa?.nome }}
         </p>
+        <p>
+          <strong>Data Cadastro:</strong>
+          {{ tarefaSelecionada?.criadoEm | date : "dd-MM-yyyy" }}
+        </p>
+        <p>
+          <strong>DeadLine:</strong>
+          {{ tarefaSelecionada?.deadline | date : "dd-MM-yyyy" }}
+        </p>
         <p><strong>Situação:</strong> {{ tarefaSelecionada?.situacao }}</p>
+        <p><strong>Situação:</strong> {{ tarefaSelecionada?.prioridade }}</p>
         <p><strong>Arquivos:</strong></p>
         <ul class="file-list">
           <li

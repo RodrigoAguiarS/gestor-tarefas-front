@@ -140,7 +140,6 @@ export class TarefaDeleteComponent {
       descricao: ['', Validators.required],
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
-      deadline: ['', Validators.required],
       arquivosUrl: [[]],
     });
   }

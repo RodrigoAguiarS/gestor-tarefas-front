@@ -115,7 +115,6 @@ export class TarefaCreateComponent {
       descricao: ['', Validators.required],
       responsavel: ['', Validators.required],
       prioridade: ['', Validators.required],
-      deadline: ['', Validators.required],
       arquivosUrl: [[]],
     });
   }
