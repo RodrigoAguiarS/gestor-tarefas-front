@@ -1,7 +1,3 @@
-<div *ngIf="carregando" class="spinner-overlay">
-  <nz-spin nzSize="large" nzSimple></nz-spin>
-</div>
-
 <button
   *ngIf="impersonateAtivo"
   nzType="primary"
@@ -11,41 +7,42 @@
   nzShape="round"
   nzIcon="rollback"
   (click)="pararImpersonate()"
+  class="impersonate-button"
 >
   Voltar ao Usuário
 </button>
 
-<div [hidden]="carregando">
+<nz-spin [nzSpinning]="carregando">
   <section class="dashboard-summary">
-    <nz-card style="margin-bottom: 16px">
+    <nz-card class="dashboard-card">
       <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.EM_ANDAMENTO"
         nzPrefix="🔄"
-        style="margin-top: 16px"
+        class="dashboard-statistic"
       ></nz-statistic>
     </nz-card>
-    <nz-card style="margin-bottom: 16px">
+    <nz-card class="dashboard-card">
       <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.PENDENTE"
         nzPrefix="⏳"
-        style="margin-top: 16px"
+        class="dashboard-statistic"
       ></nz-statistic>
     </nz-card>
-    <nz-card style="margin-bottom: 16px">
+    <nz-card class="dashboard-card">
       <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
       <nz-statistic
         [nzValue]="tarefasCount.CONCLUIDA"
         nzPrefix="✅"
-        style="margin-top: 16px"
+        class="dashboard-statistic"
       ></nz-statistic>
     </nz-card>
   </section>
 
   <section class="chart-section">
     <h2>Gráfico de Tarefas Concluídas</h2>
-    <div>
+    <div class="chart-container">
       <canvas
         baseChart
         [data]="barChartData"
@@ -57,4 +54,11 @@
       </canvas>
     </div>
   </section>
-</div>
+
+  <!-- Estado vazio -->
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <nz-empty></nz-empty>
+    </div>
+  </ng-template>
+</nz-spin>

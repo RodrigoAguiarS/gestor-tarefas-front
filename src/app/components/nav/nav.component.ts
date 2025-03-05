@@ -11,7 +11,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ACESSO } from '../../model/Acesso';
 import { UsuarioService } from '../../services/usuario.service';
 import { UsuarioChangeService } from '../../services/usuario-change.service';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NotificacaoService } from '../../services/notificacao.service';
 @Component({
   selector: 'app-nav',
   imports: [
@@ -21,6 +22,7 @@ import { UsuarioChangeService } from '../../services/usuario-change.service';
     NzIconModule,
     NzMenuModule,
     HeaderComponent,
+    NzBadgeModule,
   ],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
@@ -30,19 +32,23 @@ export class NavComponent implements OnInit {
   isCollapsed = false;
   roles: string[] = [];
   usuario: Usuario = new Usuario();
+  quantidadeNotificacoes = 0;
 
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly usuarioService: UsuarioService,
     private readonly message: NzMessageService,
-    private readonly usuarioChange: UsuarioChangeService
+    private readonly usuarioChange: UsuarioChangeService,
+    private readonly notificationService: NotificacaoService
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuario();
+    this.buscarNotificacoes();
     this.usuarioChange.userChanged$.subscribe(() => {
       this.carregarUsuario();
+      this.buscarNotificacoes();
     });
   }
 
@@ -69,6 +75,19 @@ export class NavComponent implements OnInit {
   onCollapse(collapsed: boolean): void {
     requestAnimationFrame(() => {
       this.isCollapsed = collapsed;
+    });
+  }
+
+  buscarNotificacoes(): void {
+    const page = 0;
+    const size = 10;
+    this.notificationService.getNotificacoesNaoLidas(page, size).subscribe({
+      next: (response) => {
+        this.quantidadeNotificacoes = response.totalElements;
+      },
+      error: (err) => {
+        this.message.error(err.error.message);
+      }
     });
   }
 }

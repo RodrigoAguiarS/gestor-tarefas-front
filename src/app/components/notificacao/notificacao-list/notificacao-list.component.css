@@ -1,0 +1,38 @@
+.notificacao-list-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.notificacao-header {
+  text-align: center;
+}
+
+.notificacao-card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.nz-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px; /* Altura mínima para todos os cartões */
+}
+
+.notificacao-mensagem {
+  flex-grow: 1;
+  overflow: hidden; /* Esconde o excesso de texto */
+}
+
+.notificacao-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+pre {
+  white-space: pre-wrap; /* Garante que as quebras de linha sejam preservadas */
+  margin: 0;
+}

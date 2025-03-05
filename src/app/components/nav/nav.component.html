@@ -60,6 +60,26 @@
           </ul>
         </li>
 
+        <!-- Minhas Tarefas -->
+        <li
+          *ngIf="
+            roles.includes(ACESSO.ADMINISTRADOR) ||
+            roles.includes(ACESSO.OPERADOR)
+          "
+          nz-submenu
+          nzTitle="Notificações"
+          nzIcon="bell"
+        >
+          <ul>
+            <nz-badge [nzCount]="quantidadeNotificacoes">
+              <li nz-menu-item routerLink="/notificacao">
+                <i nz-icon nzType="bell"></i>
+                <span>Listar</span>
+              </li>
+            </nz-badge>
+          </ul>
+        </li>
+
         <!-- Submenu Perfil -->
         <li
           *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"

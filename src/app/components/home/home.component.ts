@@ -12,6 +12,7 @@ import { UsuarioChangeService } from '../../services/usuario-change.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { ChartType } from 'chart.js';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 enum Situacao {
   EM_ANDAMENTO = 'EM_ANDAMENTO',
@@ -28,6 +29,7 @@ enum Situacao {
     NzStatisticModule,
     NzButtonModule,
     NzCardModule,
+    NzEmptyModule,
     NgChartsModule,
   ],
   templateUrl: './home.component.html',
@@ -93,15 +95,16 @@ export class HomeComponent implements OnInit {
         this.barChartData.datasets[0].data = data.map((item) => item.quantidadeTarefasEmAndamento);
         this.barChartData.datasets[1].data = data.map((item) => item.quantidadeTarefasPendentes);
         this.barChartData.datasets[2].data = data.map((item) => item.quantidadeTarefasConcluidas);
-
-        if (this.chart) {
-          this.chart.update();
-        }
-        this.carregando = false;
       },
       error: (error) => {
         this.message.error(error.error.message);
         this.carregando = false;
+      },
+      complete: () => {
+        this.carregando = false;
+        if (this.chart) {
+          this.chart.update();
+        }
       }
     });
   }
@@ -115,10 +118,12 @@ export class HomeComponent implements OnInit {
           [Situacao.PENDENTE]: count.PENDENTE || 0,
           [Situacao.CONCLUIDA]: count.CONCLUIDA || 0,
         };
-        this.carregando = false;
       },
       error: (error) => {
         this.message.error(error.error.message);
+        this.carregando = false;
+      },
+      complete: () => {
         this.carregando = false;
       }
     });

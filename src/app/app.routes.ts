@@ -9,6 +9,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { NavComponent } from './components/nav/nav.component';
 import { ResultComponent } from './components/result/result.component';
 import { AcessoNegadoComponent } from './components/acesso-negado/acesso-negado.component';
+import { NotificacaoListComponent } from './components/notificacao/notificacao-list/notificacao-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -52,6 +53,12 @@ export const routes: Routes = [
         component: AdministracaoComponent,
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
+      },
+      {
+        path: 'notificacao',
+        component: NotificacaoListComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] },
       },
       {
         path: 'acesso-negado',

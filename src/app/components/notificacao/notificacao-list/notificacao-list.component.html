@@ -1,0 +1,53 @@
+<div class="notificacao-list-container">
+  <h1 class="notificacao-header">📩 Minhas Notificações</h1>
+
+  <nz-spin [nzSpinning]="carregando">
+    <nz-list *ngIf="notificacoes.length; else emptyState">
+      <nz-list-item
+        *ngFor="let notificacao of notificacoes"
+        class="notificacao-card"
+      >
+        <nz-card>
+          <nz-card-meta
+            [nzTitle]="notificacao.titulo"
+            [nzDescription]="null"
+          ></nz-card-meta>
+
+          <div class="notificacao-mensagem">
+            <pre>{{ notificacao.mensagem }}</pre>
+          </div>
+
+          <div class="notificacao-actions">
+            <span class="notificacao-data">
+              📅 {{ notificacao.criadoEm | localDateTimeFormat }}
+            </span>
+            <button
+              nz-button
+              nzType="primary"
+              [nzLoading]="carregando"
+              nzSize="small"
+              nzShape="round"
+              (click)="marcarComoLida(notificacao.id)"
+            >
+              ✔ Marcar como lida
+            </button>
+          </div>
+        </nz-card>
+      </nz-list-item>
+    </nz-list>
+
+    <!-- Estado vazio -->
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <nz-empty></nz-empty>
+      </div>
+    </ng-template>
+  </nz-spin>
+
+  <nz-pagination
+    [nzPageIndex]="paginaAtual"
+    [nzTotal]="totalElementos"
+    [nzPageSize]="itensPorPagina"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  ></nz-pagination>
+</div>
