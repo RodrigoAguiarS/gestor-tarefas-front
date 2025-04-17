@@ -1,0 +1,74 @@
+<div class="container">
+  <h1>Categorias</h1>
+
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
+  <div class="search-container">
+    <h2>Buscar Categoria</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarCategorias()">
+      <input nz-input type="number" placeholder="Número" formControlName="id" />
+      <input nz-input placeholder="Nome" formControlName="nome" />
+      <input nz-input placeholder="Descrição" formControlName="descricao" />
+      <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+  <h2>Lista de Categorias</h2>
+  <nz-table
+    #basicTable
+    [nzData]="categorias"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias">
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nome | slice : 0 : 30 }}...</td>
+        <td>{{ categoria.descricao | slice : 0 : 15 }}...</td>
+        <td>
+          <a [routerLink]="['/categorias/update', categoria.id]">
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar Categoria"
+            ></i>
+          </a>
+          <a [routerLink]="['/categorias/delete', categoria.id]">
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar perfil"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+

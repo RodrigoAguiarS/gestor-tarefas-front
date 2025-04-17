@@ -60,4 +60,28 @@ export class CategoriaService {
   delete(id: any): Observable<Categoria> {
     return this.http.delete<Categoria>(`${API_CONFIG.baseUrl}/categorias/${id}`);
   }
+
+  buscarPaginado(params: {
+      page: number;
+      size: number;
+      id?: string;
+      nome?: string;
+      descricao?: string;
+    }): Observable<{ content: Categoria[], totalElements: number }> {
+      let url = `${API_CONFIG.baseUrl}/categorias?page=${params.page}&size=${params.size}`;
+
+      if (params.id) {
+        url += `&id=${params.id}`;
+      }
+
+      if (params.nome) {
+        url += `&nome=${encodeURIComponent(params.nome)}`;
+      }
+
+      if (params.descricao) {
+        url += `&descricao=${encodeURIComponent(params.descricao)}`;
+      }
+
+      return this.http.get<{ content: Categoria[], totalElements: number }>(url);
+    }
 }
