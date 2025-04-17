@@ -38,6 +38,12 @@ export const routes: Routes = [
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
+        path: 'categorias',
+        loadChildren: () => import('./components/categoria/categoria.routes').then(m => m.categoriaRoutes),
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR] },
+      },
+      {
         path: 'tarefas',
         loadChildren: () => import('./components/tarefa/tarefa.routes').then(m => m.tarefaRoutes),
         canActivate: [RoleGuard],
