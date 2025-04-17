@@ -58,6 +58,7 @@ export class CategoriaListComponent {
       nome: [''],
       descricao: [''],
     });
+    this.alertaService.limparAlerta();
   }
 
   buscarCategorias(): void {

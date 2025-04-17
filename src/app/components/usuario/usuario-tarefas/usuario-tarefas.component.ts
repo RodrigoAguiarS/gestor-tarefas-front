@@ -78,6 +78,7 @@ export class UsuarioTarefasComponent implements OnInit {
       prioridade: [''],
     });
     this.carregarUsuario();
+    this.alertaService.limparAlerta();
   }
 
   private carregarUsuario(): void {
