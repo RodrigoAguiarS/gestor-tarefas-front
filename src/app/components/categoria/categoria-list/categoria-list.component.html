@@ -47,8 +47,8 @@
     <tbody>
       <tr *ngFor="let categoria of categorias">
         <td>{{ categoria.id }}</td>
-        <td>{{ categoria.nome | slice : 0 : 30 }}...</td>
-        <td>{{ categoria.descricao | slice : 0 : 15 }}...</td>
+        <td>{{ categoria.nome }}</td>
+        <td>{{ categoria.descricao }}</td>
         <td>
           <a [routerLink]="['/categorias/update', categoria.id]">
             <i
