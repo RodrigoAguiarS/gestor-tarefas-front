@@ -8,8 +8,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { UsuarioChangeService } from '../../services/usuario-change.service';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -32,8 +30,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private readonly message: NzMessageService,
-    private readonly authService: AuthService,
-    private readonly router: Router,
     private readonly usuarioService: UsuarioService,
     private readonly userChangeService: UsuarioChangeService
   ) { }
@@ -54,6 +50,8 @@ export class HeaderComponent implements OnInit {
       error: (error) => {
         this.message.error(error.error.message);
       },
+      complete: () => {
+      }
     });
   }
 }

@@ -25,37 +25,41 @@
 
         <!-- Submenu Tarefas -->
         <li
-          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-          nz-submenu
-          nzTitle="Tarefas"
-          nzIcon="schedule"
-        >
-          <ul>
-            <li nz-menu-item routerLink="/tarefas/create">
-              <i nz-icon nzType="file-add"></i>
-              <span>Cadastrar Tarefa</span>
-            </li>
-            <li nz-menu-item routerLink="/tarefas/list">
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar Tarefas</span>
-            </li>
-          </ul>
-        </li>
-
-        <!-- Minhas Tarefas -->
-        <li
           *ngIf="
             roles.includes(ACESSO.ADMINISTRADOR) ||
             roles.includes(ACESSO.OPERADOR)
           "
           nz-submenu
-          nzTitle="Minhas Tarefas"
-          nzIcon="profile"
+          nzTitle="Tarefas"
+          nzIcon="schedule"
         >
           <ul>
-            <li nz-menu-item routerLink="/tarefas/usuario/list">
+            <li
+              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+              nz-menu-item
+              routerLink="/tarefas/create"
+            >
+              <i nz-icon nzType="file-add"></i>
+              <span>Cadastrar Tarefa</span>
+            </li>
+            <li
+              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+              nz-menu-item
+              routerLink="/tarefas/list"
+            >
               <i nz-icon nzType="unordered-list"></i>
-              <span>Listar</span>
+              <span>Listar Tarefas</span>
+            </li>
+            <li
+              *ngIf="
+                roles.includes(ACESSO.ADMINISTRADOR) ||
+                roles.includes(ACESSO.OPERADOR)
+              "
+              nz-menu-item
+              routerLink="/tarefas/usuario/list"
+            >
+              <i nz-icon nzType="unordered-list"></i>
+              <span>Minhas Tarefas</span>
             </li>
           </ul>
         </li>
@@ -93,6 +97,25 @@
               <span>Cadastrar</span>
             </li>
             <li nz-menu-item routerLink="/perfis/list">
+              <i nz-icon nzType="unordered-list"></i>
+              <span>Listar</span>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Submenu Categoria -->
+        <li
+          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+          nz-submenu
+          nzTitle="Categoria"
+          nzIcon="solution"
+        >
+          <ul>
+            <li nz-menu-item routerLink="/categorias/create">
+              <i nz-icon nzType="idcard"></i>
+              <span>Cadastrar</span>
+            </li>
+            <li nz-menu-item routerLink="/categorias/list">
               <i nz-icon nzType="unordered-list"></i>
               <span>Listar</span>
             </li>

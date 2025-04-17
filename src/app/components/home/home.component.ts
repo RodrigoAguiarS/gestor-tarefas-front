@@ -36,7 +36,7 @@ enum Situacao {
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
   tarefasCount: Record<Situacao, number> = {
     [Situacao.EM_ANDAMENTO]: 0,
     [Situacao.PENDENTE]: 0,

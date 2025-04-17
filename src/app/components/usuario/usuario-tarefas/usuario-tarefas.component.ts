@@ -84,7 +84,6 @@ export class UsuarioTarefasComponent implements OnInit {
     this.usuarioService.usuarioLogado().subscribe({
       next: (usuario: Usuario) => {
         this.usuarioId = usuario.id;
-        this.buscarTarefas();
       },
       error: (ex) => {
         this.message.error(ex.error.message);
