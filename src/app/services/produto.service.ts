@@ -72,4 +72,8 @@ export class ProdutoService {
 
     return this.http.get<{ content: Produto[]; totalElements: number }>(url);
   }
+
+  removerArquivo(arquivoUrl: string): Observable<void> {
+    return this.http.delete<void>(`${API_CONFIG.baseUrl}/s3/apagar/${arquivoUrl}`);
+  }
 }
