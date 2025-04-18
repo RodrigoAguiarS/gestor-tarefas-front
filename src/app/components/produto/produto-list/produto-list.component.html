@@ -1,0 +1,170 @@
+<div class="container">
+  <h1>Lista de Produtos</h1>
+
+  <!-- Alerta -->
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
+  <!-- Filtro de Busca -->
+  <div class="search-container">
+    <h2>Buscar Produtos</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarProduto()">
+      <input nz-input type="text" placeholder="Nome" formControlName="nome" />
+      <input
+        nz-input
+        type="text"
+        placeholder="Descrição"
+        formControlName="descricao"
+      />
+      <input
+        nz-input
+        type="number"
+        placeholder="Quantidade"
+        formControlName="quantidade"
+      />
+      <input
+        nz-input
+        type="text"
+        [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+        type="text"
+        placeholder="Preço"
+        formControlName="preco"
+      />
+      <input
+        nz-input
+        type="text"
+        maxlength="13"
+        placeholder="Código de Barras"
+        formControlName="codigoBarras"
+      />
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Categoria"
+        formControlName="categoriaId"
+      >
+        <nz-option
+          *ngFor="let categoria of categorias"
+          [nzValue]="categoria.id"
+          [nzLabel]="categoria.nome"
+        ></nz-option>
+      </nz-select>
+      <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabela de Produtos -->
+  <h2>Lista de Produtos</h2>
+  <nz-table
+    #basicTable
+    [nzData]="produtos"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Código de Barras</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos" (click)="abrirModalProduto(produto)">
+        <td>{{ produto.nome }}</td>
+        <td>{{ produto.codigoBarras }}</td>
+        <td>{{ produto.preco | currency : "BRL" }}</td>
+        <td>{{ produto.quantidade }}</td>
+        <td>{{ produto.categoria.nome }}</td>
+        <td>
+          <a
+            [routerLink]="['/produtos/update', produto.id]"
+            (click)="$event.stopPropagation()"
+          >
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar Produto"
+            ></i>
+          </a>
+          <a
+            [routerLink]="['/produtos/delete', produto.id]"
+            (click)="$event.stopPropagation()"
+          >
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar Produto"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <!-- Modal para exibir os detalhes do produto -->
+  <nz-modal
+    [(nzVisible)]="modalVisible"
+    nzTitle="Detalhes do Produto"
+    [nzFooter]="modalFooter"
+    (nzOnOk)="fecharModal()"
+    (nzOnCancel)="fecharModal()"
+  >
+    <ng-container *nzModalContent>
+      <div class="modal-content">
+        <p><strong>Nome:</strong> {{ produtoSelecionado.nome }}</p>
+        <p>
+          <strong>Código de Barras:</strong>
+          {{ produtoSelecionado.codigoBarras }}
+        </p>
+        <p><strong>Descrição:</strong> {{ produtoSelecionado.descricao }}</p>
+        <p>
+          <strong>Preço:</strong>
+          {{ produtoSelecionado.preco | currency : "BRL" }}
+        </p>
+        <p>
+          <strong>Categoria:</strong> {{ produtoSelecionado.categoria.nome }}
+        </p>
+        <p><strong>Quantidade:</strong> {{ produtoSelecionado.quantidade }}</p>
+
+        <!-- Exibição das Imagens -->
+        <p><strong>Imagens:</strong></p>
+        <div class="image-gallery">
+          <img
+            *ngFor="let url of produtoSelecionado.arquivosUrl"
+            [src]="url"
+            alt="Produto"
+            class="product-image"
+          />
+        </div>
+      </div>
+    </ng-container>
+  </nz-modal>
+
+  <!-- Template do rodapé do modal -->
+  <ng-template #modalFooter>
+    <div class="modal-footer">
+      <button nz-button nzType="primary" (click)="fecharModal()">OK</button>
+    </div>
+  </ng-template>
+</div>

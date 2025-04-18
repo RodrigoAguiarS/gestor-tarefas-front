@@ -84,6 +84,25 @@
           </ul>
         </li>
 
+        <!-- Submenu Produto -->
+        <li
+          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+          nz-submenu
+          nzTitle="Produto"
+          nzIcon="shopping-cart"
+        >
+          <ul>
+            <li nz-menu-item routerLink="/produtos/create">
+              <i nz-icon nzType="idcard"></i>
+              <span>Cadastrar</span>
+            </li>
+            <li nz-menu-item routerLink="/produtos/list">
+              <i nz-icon nzType="unordered-list"></i>
+              <span>Listar</span>
+            </li>
+          </ul>
+        </li>
+
         <!-- Submenu Perfil -->
         <li
           *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"

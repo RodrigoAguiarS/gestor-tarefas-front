@@ -12,12 +12,12 @@ export class CategoriaService {
   constructor(private readonly http: HttpClient) { }
 
   carregaPaginado(page: number, size: number): Observable<Categoria[]> {
-    return this.http.get<{ content: Categoria[] }>(`${API_CONFIG.baseUrl}/categorias?page=${page}&size=${size}&sort=nome,asc`)
+    return this.http.get<{ content: Categoria[] }>(`${API_CONFIG.baseUrl}/categorias?page=${page}&size=${size}&sort=nome`)
       .pipe(map(response => response.content));
   }
 
   findAllPaginada(page: number, size: number): Observable<{ content: Categoria[], totalElements: number }> {
-    return this.http.get<{ content: Categoria[], totalElements: number }>(`${API_CONFIG.baseUrl}/categorias?page=${page}&size=${size}&sort=nome,asc`);
+    return this.http.get<{ content: Categoria[], totalElements: number }>(`${API_CONFIG.baseUrl}/categorias?page=${page}&size=${size}&sort=nome`);
   }
 
   findAll(): Observable<Categoria[]> {
