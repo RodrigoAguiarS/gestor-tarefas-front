@@ -3,4 +3,10 @@ export class Categoria {
   nome!: string;
   descricao!: string ;
   ativo!: boolean;
+
+  constructor(partial?: Partial<Categoria>) {
+    Object.assign(this, partial);
+  }
 }
+
+
