@@ -125,7 +125,7 @@ export class ProdutoCreateComponent {
       const arquivoUrl = typeof response === 'string' ? response.trim() : '';
 
       if (arquivoUrl) {
-        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value || [];
+        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value ?? [];
         this.produtoForm.patchValue({
           arquivosUrl: [...arquivosAtuais, arquivoUrl],
         });

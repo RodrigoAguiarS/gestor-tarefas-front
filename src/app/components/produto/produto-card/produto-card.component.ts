@@ -1,4 +1,4 @@
-import { Component, Pipe } from '@angular/core';
+import { Component } from '@angular/core';
 import { Produto } from '../../../model/Produto';
 import { Categoria } from '../../../model/Categoria';
 import { ProdutoService } from '../../../services/produto.service';

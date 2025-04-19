@@ -184,7 +184,7 @@
         </li>
 
         <!-- Logout -->
-        <li nz-menu-item (click)="deslogar()">
+        <li nz-menu-item (click)="deslogar()" (keydown)="onKeyDown($event)">
           <i nz-icon nzType="logout"></i>
           <span>Sair</span>
         </li>

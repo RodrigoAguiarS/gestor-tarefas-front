@@ -88,7 +88,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let produto of produtos" (click)="abrirModalProduto(produto)">
+      <tr *ngFor="let produto of produtos" (click)="abrirModalProduto(produto)" (keydown)="onKeyDown($event)">
         <td>{{ produto.nome }}</td>
         <td>{{ produto.codigoBarras }}</td>
         <td>{{ produto.preco | currency : "BRL" }}</td>

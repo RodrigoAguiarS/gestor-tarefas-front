@@ -90,4 +90,8 @@ export class NavComponent implements OnInit {
       }
     });
   }
+
+  onKeyDown(event: KeyboardEvent): void {
+    console.log('Tecla pressionada:', event.key);
+  }
 }

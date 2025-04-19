@@ -71,4 +71,8 @@ export class ProdutoModalComponent {
       this.itemVenda.produto.arquivosUrl.unshift(imagem);
     }
   }
+
+  onKeyDown(event: KeyboardEvent): void {
+    console.log('Tecla pressionada:', event.key);
+  }
 }

@@ -7,6 +7,7 @@
       <img *ngFor="let imagem of itemVenda.produto.arquivosUrl"
            [src]="imagem"
            [alt]="itemVenda.produto.nome"
+           (keydown)="onKeyDown($event)"
            (click)="trocarImagemPrincipal(imagem)">
     </div>
   </div>

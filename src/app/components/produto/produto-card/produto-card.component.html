@@ -18,6 +18,7 @@
       class="category-select"
       [(ngModel)]="categoriaSelecionada"
       (ngModelChange)="aoBuscar()"
+      (keydown)="onKeyDown($event)"
       nzPlaceHolder="Categorias"
     >
       <nz-option nzValue="" nzLabel="Todas as Categorias"></nz-option>
@@ -46,9 +47,16 @@
               [nzSm]="12"
               [nzMd]="8"
               [nzLg]="6"
-              *ngFor="let produto of produtosFiltrados | categoriaFilter: categoria.id"
+              *ngFor="
+                let produto of produtosFiltrados
+                  | categoriaFilter : categoria.id
+              "
             >
-              <div class="produto-card" (click)="abrirModalProduto(produto)">
+              <div
+                class="produto-card"
+                (click)="abrirModalProduto(produto)"
+                (keydown)="onKeyDown($event)"
+              >
                 <div class="produto-imagem-wrapper">
                   <img [src]="produto.arquivosUrl[0]" [alt]="produto.nome" />
                   <div class="produto-overlay">
@@ -59,13 +67,17 @@
                 </div>
                 <div class="produto-info">
                   <h3 class="produto-nome">{{ produto.nome }}</h3>
-                  <p class="produto-preco">{{ produto.preco | currency:'BRL' }}</p>
+                  <p class="produto-preco">
+                    {{ produto.preco | currency : "BRL" }}
+                  </p>
                   <div class="produto-actions">
                     <button
                       nz-button
                       nzType="primary"
                       nzShape="circle"
-                      (click)="$event.stopPropagation(); abrirModalProduto(produto)"
+                      (click)="
+                        $event.stopPropagation(); abrirModalProduto(produto)
+                      "
                     >
                       <i nz-icon nzType="shopping-cart"></i>
                     </button>

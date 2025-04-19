@@ -155,7 +155,7 @@ export class ProdutoUpdateComponent {
       const arquivoUrl = typeof response === 'string' ? response.trim() : '';
 
       if (arquivoUrl) {
-        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value || [];
+        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value ?? [];
         this.produtoForm.patchValue({
           arquivosUrl: [...arquivosAtuais, arquivoUrl],
         });
@@ -177,7 +177,7 @@ export class ProdutoUpdateComponent {
       map(() => {
         this.message.success('Arquivo removido com sucesso');
         this.fileList = this.fileList.filter((item) => item.uid !== file.uid);
-        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value || [];
+        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value ?? [];
         this.produtoForm.patchValue({
           arquivosUrl: arquivosAtuais.filter((url: string) => url !== file.url),
         });
