@@ -1,0 +1,60 @@
+<div class="modal-content">
+  <div class="produto-imagem">
+    <div class="imagem-principal">
+      <img [src]="itemVenda.produto.arquivosUrl[0]" [alt]="itemVenda.produto.nome">
+    </div>
+    <div class="miniaturas" *ngIf="itemVenda.produto.arquivosUrl.length > 1">
+      <img *ngFor="let imagem of itemVenda.produto.arquivosUrl"
+           [src]="imagem"
+           [alt]="itemVenda.produto.nome"
+           (keydown)="onKeyDown($event)"
+           (click)="trocarImagemPrincipal(imagem)">
+    </div>
+  </div>
+
+  <div class="produto-info">
+    <h2 class="produto-titulo">{{ itemVenda.produto.nome }}</h2>
+    <div class="produto-preco">
+      <span class="preco-atual">
+        {{ itemVenda.precoUnitario | currency:'BRL' }}
+      </span>
+    </div>
+
+    <div class="produto-descricao">
+      <h3>Descrição</h3>
+      <p>{{ itemVenda.produto.descricao }}</p>
+    </div>
+
+    <div class="controle-quantidade">
+      <span>Quantidade:</span>
+      <div class="quantidade-wrapper">
+        <button
+          class="btn-quantidade"
+          (click)="diminuirQuantidade()"
+          [disabled]="itemVenda.quantidade <= 1">
+          <i nz-icon nzType="minus"></i>
+        </button>
+        <span class="quantidade">{{ itemVenda.quantidade }}</span>
+        <button
+          class="btn-quantidade"
+          (click)="aumentarQuantidade()">
+          <i nz-icon nzType="plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="total">
+      <span>Total:</span>
+      <span class="valor-total">
+        {{ itemVenda.precoUnitario * itemVenda.quantidade | currency:'BRL' }}
+      </span>
+    </div>
+
+    <button
+      class="adicionar-carrinho"
+      (click)="adicionarAoCarrinho(itemVenda.produto, itemVenda.quantidade)">
+      <i nz-icon nzType="shopping-cart"></i>
+      Adicionar ao Carrinho
+    </button>
+  </div>
+</div>

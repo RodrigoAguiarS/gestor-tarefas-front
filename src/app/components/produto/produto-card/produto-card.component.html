@@ -1,0 +1,99 @@
+<div class="store-container">
+  <!-- Cabeçalho de busca -->
+  <div class="search-header">
+    <nz-input-group [nzPrefix]="prefixTemplate" class="search-input">
+      <input
+        type="text"
+        nz-input
+        placeholder="O que você está procurando?"
+        [(ngModel)]="termoDeBusca"
+        (ngModelChange)="aoBuscar()"
+      />
+    </nz-input-group>
+    <ng-template #prefixTemplate>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+
+    <nz-select
+      class="category-select"
+      [(ngModel)]="categoriaSelecionada"
+      (ngModelChange)="aoBuscar()"
+      (keydown)="onKeyDown($event)"
+      nzPlaceHolder="Categorias"
+    >
+      <nz-option nzValue="" nzLabel="Todas as Categorias"></nz-option>
+      <nz-option
+        *ngFor="let categoria of categorias"
+        [nzValue]="categoria.id"
+        [nzLabel]="categoria.nome"
+      ></nz-option>
+    </nz-select>
+
+    <div class="cart-widget">
+      <app-carrinho></app-carrinho>
+    </div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <nz-spin [nzSpinning]="loading">
+      <div *ngIf="produtosFiltrados.length > 0; else nenhumProdutoEncontrado">
+        <div *ngFor="let categoria of categorias" class="categoria-section">
+          <h2 class="categoria-titulo">{{ categoria.nome }}</h2>
+          <div nz-row [nzGutter]="[16, 16]">
+            <div
+              nz-col
+              [nzXs]="24"
+              [nzSm]="12"
+              [nzMd]="8"
+              [nzLg]="6"
+              *ngFor="
+                let produto of produtosFiltrados
+                  | categoriaFilter : categoria.id
+              "
+            >
+              <div
+                class="produto-card"
+                (click)="abrirModalProduto(produto)"
+                (keydown)="onKeyDown($event)"
+              >
+                <div class="produto-imagem-wrapper">
+                  <img [src]="produto.arquivosUrl[0]" [alt]="produto.nome" />
+                  <div class="produto-overlay">
+                    <button nz-button nzType="primary" class="ver-detalhes-btn">
+                      Ver detalhes
+                    </button>
+                  </div>
+                </div>
+                <div class="produto-info">
+                  <h3 class="produto-nome">{{ produto.nome }}</h3>
+                  <p class="produto-preco">
+                    {{ produto.preco | currency : "BRL" }}
+                  </p>
+                  <div class="produto-actions">
+                    <button
+                      nz-button
+                      nzType="primary"
+                      nzShape="circle"
+                      (click)="
+                        $event.stopPropagation(); abrirModalProduto(produto)
+                      "
+                    >
+                      <i nz-icon nzType="shopping-cart"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #nenhumProdutoEncontrado>
+        <div class="empty-state">
+          <i nz-icon nzType="inbox" nzTheme="outline"></i>
+          <p>Nenhum produto encontrado</p>
+        </div>
+      </ng-template>
+    </nz-spin>
+  </div>
+</div>

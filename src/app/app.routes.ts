@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: NavComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'produtos/card', pathMatch: 'full' },
       {
         path: 'home',
         component: HomeComponent,
@@ -47,7 +47,7 @@ export const routes: Routes = [
         path: 'produtos',
         loadChildren: () => import('./components/produto/produto.routes').then(m => m.produtoRoutes),
         canActivate: [RoleGuard],
-        data: { roles: [ACESSO.ADMINISTRADOR] },
+        data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.CLIENTE] },
       },
       {
         path: 'tarefas',

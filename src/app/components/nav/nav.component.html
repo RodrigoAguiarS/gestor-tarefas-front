@@ -86,17 +86,36 @@
 
         <!-- Submenu Produto -->
         <li
-          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+          *ngIf="
+            roles.includes(ACESSO.ADMINISTRADOR) ||
+            roles.includes(ACESSO.CLIENTE)
+          "
           nz-submenu
           nzTitle="Produto"
           nzIcon="shopping-cart"
         >
           <ul>
-            <li nz-menu-item routerLink="/produtos/create">
+            <li
+              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+              nz-menu-item
+              routerLink="/produtos/create"
+            >
               <i nz-icon nzType="idcard"></i>
               <span>Cadastrar</span>
             </li>
-            <li nz-menu-item routerLink="/produtos/list">
+            <li
+              *ngIf="roles.includes(ACESSO.CLIENTE)"
+              nz-menu-item
+              routerLink="/produtos/card"
+            >
+              <i nz-icon nzType="idcard"></i>
+              <span>Loja</span>
+            </li>
+            <li
+              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+              nz-menu-item
+              routerLink="/produtos/list"
+            >
               <i nz-icon nzType="unordered-list"></i>
               <span>Listar</span>
             </li>
@@ -165,7 +184,7 @@
         </li>
 
         <!-- Logout -->
-        <li nz-menu-item (click)="deslogar()">
+        <li nz-menu-item (click)="deslogar()" (keydown)="onKeyDown($event)">
           <i nz-icon nzType="logout"></i>
           <span>Sair</span>
         </li>

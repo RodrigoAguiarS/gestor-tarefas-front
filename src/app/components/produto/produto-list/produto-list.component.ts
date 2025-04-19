@@ -112,9 +112,9 @@ export class ProdutoListComponent {
       ...this.filtroForm.value,
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
-      nome: this.filtroForm.get('nome')?.value.trim().toLowerCase() || '',
+      nome: this.filtroForm.get('nome')?.value.trim().toLowerCase() ?? '',
       descricao:
-        this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
+        this.filtroForm.get('descricao')?.value.trim().toLowerCase() ?? '',
     };
     this.produtoervice.buscarPaginado(params).subscribe({
       next: (response) => {
@@ -157,5 +157,9 @@ export class ProdutoListComponent {
   aoMudarPagina(pageIndex: number): void {
     this.paginaAtual = pageIndex;
     this.buscarProduto();
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    console.log('Tecla pressionada:', event.key);
   }
 }
