@@ -1,0 +1,167 @@
+.modal-content {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+}
+
+.modald {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+  }
+}
+
+.produto-imagem {
+  flex: 1;
+  max-width: 400px;
+}
+
+.imagem-principal img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.miniaturas {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.miniaturas img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.miniaturas img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.produto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.produto-titulo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.produto-preco .preco-atual {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.produto-descricao h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.produto-descricao p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.controle-quantidade {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.quantidade-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.btn-quantidade {
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1890ff;
+  transition: all 0.3s ease;
+}
+
+.btn-quantidade:hover {
+  background-color: rgba(24, 144, 255, 0.1);
+}
+
+.btn-quantidade:disabled {
+  color: #d9d9d9;
+  cursor: not-allowed;
+}
+
+.quantidade {
+  min-width: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.valor-total {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.adicionar-carrinho {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.adicionar-carrinho:hover {
+  background-color: #1769aa;
+}
+
+.adicionar-carrinho i {
+  font-size: 20px;
+}
