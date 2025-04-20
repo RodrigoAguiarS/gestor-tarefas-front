@@ -16,7 +16,7 @@ export class WebsocketService {
 
   private conectar(): void {
     this.rxStomp.configure({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: 'wss://gestor-tarefas-2njt.onrender.com/ws',
       connectHeaders: {},
       heartbeatIncoming: 0,
       heartbeatOutgoing: 20000,
