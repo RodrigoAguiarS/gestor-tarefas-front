@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../model/Usuario';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -13,17 +13,20 @@ import { UsuarioService } from '../../services/usuario.service';
 import { UsuarioChangeService } from '../../services/usuario-change.service';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NotificacaoService } from '../../services/notificacao.service';
+import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notificacao-view.component";
 @Component({
   selector: 'app-nav',
   imports: [
     NzLayoutModule,
     CommonModule,
+    NzMenuModule,
     RouterModule,
     NzIconModule,
     NzMenuModule,
     HeaderComponent,
     NzBadgeModule,
-  ],
+    NotificacaoViewComponent
+],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
@@ -33,6 +36,7 @@ export class NavComponent implements OnInit {
   roles: string[] = [];
   usuario: Usuario = new Usuario();
   quantidadeNotificacoes = 0;
+  selectedRoute: string = '';
 
   constructor(
     private readonly router: Router,
@@ -46,6 +50,11 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuario();
     this.buscarNotificacoes();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.selectedRoute = event.urlAfterRedirects;
+      }
+    });
     this.usuarioChange.userChanged$.subscribe(() => {
       this.carregarUsuario();
       this.buscarNotificacoes();
@@ -87,7 +96,7 @@ export class NavComponent implements OnInit {
       },
       error: (err) => {
         this.message.error(err.error.message);
-      }
+      },
     });
   }
 

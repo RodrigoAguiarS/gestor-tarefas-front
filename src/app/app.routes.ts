@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: NavComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'produtos/card', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'home',
         component: HomeComponent,
@@ -28,6 +28,12 @@ export const routes: Routes = [
       {
         path: 'usuarios',
         loadChildren: () => import('./components/usuario/usuario.routes').then(m => m.usuarioRoutes),
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR] },
+      },
+      {
+        path: 'pagamentos',
+        loadChildren: () => import('./components/pagamento/pagamento.routes').then(m => m.pagamentoRoutes),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
@@ -74,6 +80,10 @@ export const routes: Routes = [
       },
       {
         path: 'acesso-negado',
+        component: AcessoNegadoComponent,
+      },
+      {
+        path: 'produtos/card',
         component: AcessoNegadoComponent,
       },
     ],

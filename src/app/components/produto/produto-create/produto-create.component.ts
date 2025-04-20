@@ -1,12 +1,21 @@
 import { CategoriaService } from './../../../services/categoria.service';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Categoria } from '../../../model/Categoria';
 import { API_CONFIG } from '../../../config/api.config';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { ProdutoService } from '../../../services/produto.service';
-import { NzUploadChangeParam, NzUploadModule } from 'ng-zorro-antd/upload';
+import {
+  NzUploadChangeParam,
+  NzUploadFile,
+  NzUploadModule,
+} from 'ng-zorro-antd/upload';
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -14,24 +23,25 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NgxCurrencyDirective } from "ngx-currency";
+import { NgxCurrencyDirective } from 'ngx-currency';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-produto-create',
-    imports: [
-      ReactiveFormsModule,
-      CommonModule,
-      NzFormModule,
-      NzInputModule,
-      NzButtonModule,
-      NzSelectModule,
-      NzCardModule,
-      NzSpinModule,
-      NzUploadModule,
-      NgxCurrencyDirective,
-      NzDatePickerModule,
-    ],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    NzSelectModule,
+    NzCardModule,
+    NzSpinModule,
+    NzUploadModule,
+    NgxCurrencyDirective,
+    NzDatePickerModule,
+  ],
   templateUrl: './produto-create.component.html',
   styleUrl: './produto-create.component.css',
 })
@@ -41,6 +51,7 @@ export class ProdutoCreateComponent {
   carregando = false;
   uploadUrl = API_CONFIG.baseUrl + '/s3/upload';
   uploadUrlStorage = API_CONFIG.baseUrl + '/storage/produto/';
+  fileList: NzUploadFile[] = [];
 
   constructor(
     private readonly message: NzMessageService,
@@ -57,6 +68,10 @@ export class ProdutoCreateComponent {
 
   criar(): void {
     if (this.produtoForm.valid) {
+      const arquivosUrl = this.fileList
+        .map((file) => file.url)
+        .filter((url) => !!url);
+      this.produtoForm.patchValue({ arquivosUrl });
       this.carregando = true;
       this.produtoService.create(this.produtoForm.value).subscribe({
         next: (resposta) => {
@@ -125,14 +140,36 @@ export class ProdutoCreateComponent {
       const arquivoUrl = typeof response === 'string' ? response.trim() : '';
 
       if (arquivoUrl) {
-        const arquivosAtuais = this.produtoForm.get('arquivosUrl')?.value ?? [];
-        this.produtoForm.patchValue({
-          arquivosUrl: [...arquivosAtuais, arquivoUrl],
+        this.fileList = this.fileList.map((file) => {
+          if (file.uid === event.file.uid) {
+            return { ...file, url: arquivoUrl };
+          }
+          return file;
         });
       }
     } else if (event.file.status === 'error') {
       this.message.error('Erro ao fazer upload do arquivo');
     }
+  }
+
+  removerArquivo(file: NzUploadFile): Observable<boolean> {
+    if (!file.url) {
+      return of(false);
+    }
+
+    const fileName = file.url.substring(file.url.lastIndexOf('/') + 1);
+
+    return this.produtoService.removerArquivo(fileName).pipe(
+      map(() => {
+        this.message.success('Arquivo removido com sucesso');
+        this.fileList = this.fileList.filter((item) => item.uid !== file.uid);
+        return true;
+      }),
+      catchError((err) => {
+        this.message.error('Erro ao remover o arquivo');
+        return of(false);
+      })
+    );
   }
 
   cancelar(): void {

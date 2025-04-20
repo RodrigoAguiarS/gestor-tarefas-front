@@ -1,8 +1,12 @@
 <nz-layout class="fixed-layout">
+  <!-- HEADER -->
   <nz-header class="header">
     <app-header></app-header>
   </nz-header>
+
+  <!-- MAIN LAYOUT -->
   <nz-layout>
+    <!-- SIDEBAR -->
     <nz-sider
       nzWidth="250px"
       [nzCollapsedWidth]="80"
@@ -11,19 +15,21 @@
       (nzCollapsedChange)="onCollapse($event)"
     >
       <ul nz-menu nzTheme="dark" nzMode="inline">
+        <!-- HOME -->
         <li
           *ngIf="
             roles.includes(ACESSO.ADMINISTRADOR) ||
             roles.includes(ACESSO.OPERADOR)
           "
           nz-menu-item
+          [nzMatchRouter]="true"
           routerLink="/home"
         >
           <i nz-icon nzType="dashboard"></i>
           <span>Home</span>
         </li>
 
-        <!-- Submenu Tarefas -->
+        <!-- TAREFAS -->
         <li
           *ngIf="
             roles.includes(ACESSO.ADMINISTRADOR) ||
@@ -37,6 +43,7 @@
             <li
               *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/tarefas/create"
             >
               <i nz-icon nzType="file-add"></i>
@@ -45,6 +52,7 @@
             <li
               *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/tarefas/list"
             >
               <i nz-icon nzType="unordered-list"></i>
@@ -56,6 +64,7 @@
                 roles.includes(ACESSO.OPERADOR)
               "
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/tarefas/usuario/list"
             >
               <i nz-icon nzType="unordered-list"></i>
@@ -64,7 +73,7 @@
           </ul>
         </li>
 
-        <!-- Minhas Tarefas -->
+        <!-- NOTIFICAÇÕES -->
         <li
           *ngIf="
             roles.includes(ACESSO.ADMINISTRADOR) ||
@@ -76,7 +85,7 @@
         >
           <ul>
             <nz-badge [nzCount]="quantidadeNotificacoes">
-              <li nz-menu-item routerLink="/notificacao">
+              <li nz-menu-item [nzMatchRouter]="true" routerLink="/notificacao">
                 <i nz-icon nzType="bell"></i>
                 <span>Listar</span>
               </li>
@@ -84,7 +93,7 @@
           </ul>
         </li>
 
-        <!-- Submenu Produto -->
+        <!-- PRODUTOS -->
         <li
           *ngIf="
             roles.includes(ACESSO.ADMINISTRADOR) ||
@@ -98,6 +107,7 @@
             <li
               *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/produtos/create"
             >
               <i nz-icon nzType="idcard"></i>
@@ -106,6 +116,7 @@
             <li
               *ngIf="roles.includes(ACESSO.CLIENTE)"
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/produtos/card"
             >
               <i nz-icon nzType="idcard"></i>
@@ -114,6 +125,7 @@
             <li
               *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
               nz-menu-item
+              [nzMatchRouter]="true"
               routerLink="/produtos/list"
             >
               <i nz-icon nzType="unordered-list"></i>
@@ -122,45 +134,7 @@
           </ul>
         </li>
 
-        <!-- Submenu Perfil -->
-        <li
-          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-          nz-submenu
-          nzTitle="Perfil"
-          nzIcon="solution"
-        >
-          <ul>
-            <li nz-menu-item routerLink="/perfis/create">
-              <i nz-icon nzType="idcard"></i>
-              <span>Cadastrar</span>
-            </li>
-            <li nz-menu-item routerLink="/perfis/list">
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar</span>
-            </li>
-          </ul>
-        </li>
-
-        <!-- Submenu Categoria -->
-        <li
-          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-          nz-submenu
-          nzTitle="Categoria"
-          nzIcon="tags"
-        >
-          <ul>
-            <li nz-menu-item routerLink="/categorias/create">
-              <i nz-icon nzType="idcard"></i>
-              <span>Cadastrar</span>
-            </li>
-            <li nz-menu-item routerLink="/categorias/list">
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar</span>
-            </li>
-          </ul>
-        </li>
-
-        <!-- Submenu Administrativo -->
+        <!-- ADMINISTRATIVO -->
         <li
           *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
           nz-submenu
@@ -168,22 +142,104 @@
           nzIcon="setting"
         >
           <ul>
-            <li nz-menu-item routerLink="/administrativo">
-              <i nz-icon nzType="user-switch"></i>
-              <span>Logar como</span>
+            <!-- Categoria -->
+            <li nz-submenu nzTitle="Categoria" nzIcon="tags">
+              <ul>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/categorias/create"
+                >
+                  <i nz-icon nzType="idcard"></i>
+                  <span>Cadastrar</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/categorias/list"
+                >
+                  <i nz-icon nzType="unordered-list"></i>
+                  <span>Listar</span>
+                </li>
+              </ul>
             </li>
-            <li nz-menu-item routerLink="/usuarios/create">
-              <i nz-icon nzType="user-add"></i>
-              <span>Cadastrar Usuário</span>
+
+            <!-- Pagamentos -->
+            <li nz-submenu nzTitle="Pagamento" nzIcon="credit-card">
+              <ul>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/pagamentos/create"
+                >
+                  <i nz-icon nzType="idcard"></i>
+                  <span>Cadastrar</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/pagamentos/list"
+                >
+                  <i nz-icon nzType="unordered-list"></i>
+                  <span>Listar</span>
+                </li>
+              </ul>
             </li>
-            <li nz-menu-item routerLink="/usuarios/list">
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar Usuários</span>
+
+            <li nz-submenu nzTitle="Perfil" nzIcon="solution">
+              <ul>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/perfis/create"
+                >
+                  <i nz-icon nzType="idcard"></i>
+                  <span>Cadastrar</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/perfis/list"
+                >
+                  <i nz-icon nzType="unordered-list"></i>
+                  <span>Listar</span>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Usuário -->
+            <li nz-submenu nzTitle="Usuário" nzIcon="user">
+              <ul>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/administrativo"
+                >
+                  <i nz-icon nzType="user-switch"></i>
+                  <span>Logar como</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/usuarios/create"
+                >
+                  <i nz-icon nzType="user-add"></i>
+                  <span>Cadastrar Usuário</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/usuarios/list"
+                >
+                  <i nz-icon nzType="unordered-list"></i>
+                  <span>Listar Usuários</span>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
 
-        <!-- Logout -->
+        <!-- LOGOUT -->
         <li nz-menu-item (click)="deslogar()" (keydown)="onKeyDown($event)">
           <i nz-icon nzType="logout"></i>
           <span>Sair</span>
@@ -191,8 +247,10 @@
       </ul>
     </nz-sider>
 
+    <!-- CONTENT -->
     <nz-content>
       <div class="content">
+        <app-notificacao-view></app-notificacao-view>
         <router-outlet></router-outlet>
       </div>
     </nz-content>

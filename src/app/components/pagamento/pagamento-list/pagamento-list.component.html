@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>Categorias</h1>
+
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
+  <div class="search-container">
+    <h2>Buscar Categoria</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarCategorias()">
+      <input nz-input type="number" placeholder="Código" formControlName="id" />
+      <input nz-input placeholder="Nome" formControlName="nome" />
+      <input nz-input placeholder="Descrição" formControlName="descricao" />
+      <input nz-input type="number" placeholder="Porcentagem" formControlName="porcentagemAcrescimo" />
+      <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="search"></i> Buscar
+      </button>
+    </form>
+  </div>
+  <h2>Lista de Categorias</h2>
+  <nz-table
+    #basicTable
+    [nzData]="pagamentos"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Porcentagem</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of pagamentos">
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nome }}</td>
+        <td>{{ categoria.descricao }}</td>
+        <td>{{ categoria.porcentagemAcrescimo }}</td>
+        <td>
+          <a [routerLink]="['/pagamentos/update', categoria.id]">
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar Pagamento"
+            ></i>
+          </a>
+          <a [routerLink]="['/pagamentos/delete', categoria.id]">
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar perfil"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
