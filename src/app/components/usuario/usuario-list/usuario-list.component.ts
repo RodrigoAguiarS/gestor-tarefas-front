@@ -17,7 +17,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { AlertaService } from '../../../services/alerta.service';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-usuario-list',
   standalone: true,

@@ -128,7 +128,7 @@ export class TarefaCreateComponent {
       const arquivoUrl = typeof response === 'string' ? response.trim() : '';
 
       if (arquivoUrl) {
-        const arquivosAtuais = this.tarefaForm.get('arquivosUrl')?.value || [];
+        const arquivosAtuais = this.tarefaForm.get('arquivosUrl')?.value ?? [];
         this.tarefaForm.patchValue({
           arquivosUrl: [...arquivosAtuais, arquivoUrl],
         });

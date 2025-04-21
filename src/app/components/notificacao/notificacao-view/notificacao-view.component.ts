@@ -1,44 +1,63 @@
-import { Component } from '@angular/core';
-import { WebsocketService } from '../../../services/websocket.service';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SseService } from '../../../services/sse.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Subscription } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { UsuarioService } from '../../../services/usuario.service';
+import { Usuario } from '../../../model/Usuario';
+import { UsuarioChangeService } from '../../../services/usuario-change.service';
 
 @Component({
   selector: 'app-notificacao-view',
-  imports: [],
   templateUrl: './notificacao-view.component.html',
-  styleUrl: './notificacao-view.component.css'
+  styleUrls: ['./notificacao-view.component.css']
 })
-export class NotificacaoViewComponent {
-
-  private subscription!: Subscription;
+export class NotificacaoViewComponent implements OnInit, OnDestroy {
+  private sseSubscription!: Subscription;
+  usuario!: Usuario;
 
   constructor(
-    private readonly websocketService: WebsocketService,
+    private readonly sseService: SseService,
+    private readonly usuarioService: UsuarioService,
+    private readonly message: NzMessageService,
+    private readonly usuarioChangeService: UsuarioChangeService,
     private readonly notification: NzNotificationService
   ) {}
 
-  ngOnInit() {
-    this.subscription = this.websocketService
-      .receberNotificacaoVendas()
-      .subscribe(message => {
-        const venda = JSON.parse(message.body);
-        this.mostrarNotificacao(venda);
-      });
+  ngOnInit(): void {
+    this.usuarioService.usuarioLogado().subscribe({
+      next: (usuario: Usuario) => {
+        this.usuario = usuario;
+
+        if (!usuario.id) {
+          this.message.error('ID do usuário não encontrado.');
+        }
+
+        this.sseSubscription = this.sseService.conectar(usuario.id).subscribe({
+          next: (mensagem) => {
+            this.notification.success('Nova Tarefa', mensagem);
+            this.usuarioChangeService.notifyUserChanged();
+          },
+          error: (err) => {
+            this.notification.error(
+              'Erro de Notificação',
+              'Não foi possível receber notificações.'
+            );
+          }
+        });
+      },
+      error: (err) => {
+        this.notification.error(
+          'Erro ao Carregar Usuário',
+          'Não foi possível carregar os dados do usuário.'
+        );
+      }
+    });
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  ngOnDestroy(): void {
+    if (this.sseSubscription) {
+      this.sseSubscription.unsubscribe();
     }
-    this.websocketService.desconectar();
-  }
-
-  private mostrarNotificacao(venda: any) {
-    this.notification.success(
-      'Nova Venda Realizada',
-      `Venda #${venda.id} - Valor: R$ ${venda.valorTotal}`,
-      { nzDuration: 5000 }
-    );
   }
 }

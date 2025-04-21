@@ -255,4 +255,30 @@
       </div>
     </nz-content>
   </nz-layout>
+  <div class="mobile-nav">
+    <ul>
+      <li routerLink="/home">
+        <i nz-icon nzType="home"></i>
+        <span>Home</span>
+      </li>
+      <li routerLink="/tarefas/usuario/list">
+        <i nz-icon nzType="schedule"></i>
+        <span>Tarefas</span>
+      </li>
+      <li routerLink="/notificacao">
+        <nz-badge [nzCount]="quantidadeNotificacoes">
+          <i nz-icon nzType="bell"></i>
+        </nz-badge>
+        <span>Notificações</span>
+      </li>
+      <li routerLink="/produtos/card">
+        <i nz-icon nzType="shopping-cart"></i>
+        <span>Loja</span>
+      </li>
+      <li (click)="deslogar()">
+        <i nz-icon nzType="logout"></i>
+        <span>Sair</span>
+      </li>
+    </ul>
+  </div>
 </nz-layout>

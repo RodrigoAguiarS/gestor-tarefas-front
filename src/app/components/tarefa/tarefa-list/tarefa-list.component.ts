@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -46,6 +46,7 @@ import { AlertaService } from '../../../services/alerta.service';
   styleUrl: './tarefa-list.component.css',
 })
 export class TarefaListComponent {
+  isMobile = false;
   filtroForm!: FormGroup;
   tarefas: Tarefa[] = [];
   usuarios: Usuario[] = [];
@@ -72,8 +73,14 @@ export class TarefaListComponent {
 
   ngOnInit(): void {
     this.initForm();
+    this.isMobile = window.innerWidth <= 768;
     this.carregarUsuarios();
     this.alertaService.limparAlerta();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth <= 768;
   }
 
   private initForm(): void {

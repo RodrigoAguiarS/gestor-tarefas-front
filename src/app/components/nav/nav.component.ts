@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../model/Usuario';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -36,7 +36,6 @@ export class NavComponent implements OnInit {
   roles: string[] = [];
   usuario: Usuario = new Usuario();
   quantidadeNotificacoes = 0;
-  selectedRoute: string = '';
 
   constructor(
     private readonly router: Router,
@@ -50,11 +49,6 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuario();
     this.buscarNotificacoes();
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.selectedRoute = event.urlAfterRedirects;
-      }
-    });
     this.usuarioChange.userChanged$.subscribe(() => {
       this.carregarUsuario();
       this.buscarNotificacoes();

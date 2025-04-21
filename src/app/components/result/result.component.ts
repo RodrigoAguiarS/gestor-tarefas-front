@@ -18,11 +18,11 @@ export class ResultComponent {
 
   constructor(private readonly rota: ActivatedRoute, private readonly roteador: Router) {
     this.rota.queryParams.subscribe(params => {
-      this.tipoResultado = params['type'] || 'success';
-      this.tituloResultado = params['title'] || '';
-      this.mensagemResultado = params['message'] || '';
-      this.rotaCriacao = params['createRoute'] || '';
-      this.rotaListagem = params['listRoute'] || '';
+      this.tipoResultado = params['type'] ?? 'success';
+      this.tituloResultado = params['title'] ?? '';
+      this.mensagemResultado = params['message'] ?? '';
+      this.rotaCriacao = params['createRoute'] ?? '';
+      this.rotaListagem = params['listRoute'] ?? '';
     });
   }
 
