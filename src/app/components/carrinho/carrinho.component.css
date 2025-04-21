@@ -1,4 +1,4 @@
-/* Botão do carrinho (mantido original) */
+/* Botão do carrinho */
 .botao-carrinho {
   background: inherit;
   color: white;
@@ -22,7 +22,7 @@
   font-size: 12px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 720px) and (max-height: 1600px) {
   .botao-carrinho .texto-carrinho {
     display: none;
   }
@@ -34,6 +34,7 @@
   flex-direction: column;
   height: 100%;
   padding: 16px;
+  overflow-y: auto; /* Permite rolagem vertical */
 }
 
 /* Lista de itens */
@@ -49,7 +50,7 @@
 .carrinho-lista li {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center; /* Centraliza verticalmente os itens */
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #f0f0f0;
@@ -93,35 +94,47 @@
 
 /* Ações do item */
 .carrinho-item-acoes {
+  display: flex; /* Botões lado a lado */
   align-items: center;
-  gap: 8px;
+  justify-content: center; /* Alinha à direita */
+  gap: 4px; /* Espaçamento reduzido */
 }
 
 .carrinho-item-acoes button {
-  padding: 4px;
+  padding: 4px 6px; /* Botões menores */
+  font-size: 12px; /* Ajuste do tamanho da fonte */
   height: auto;
+  border-radius: 4px; /* Bordas arredondadas */
+  background-color: #f5f5f5; /* Fundo cinza claro */
+  border: 1px solid #d9d9d9; /* Borda para destaque */
+  cursor: pointer;
+}
+
+.carrinho-item-acoes button:hover {
+  background-color: #e6f7ff; /* Fundo azul claro ao passar o mouse */
+  border-color: #1890ff; /* Borda azul ao passar o mouse */
 }
 
 .carrinho-item-acoes i {
-  font-size: 18px;
+  font-size: 16px; /* Ícones menores */
   transition: color 0.3s;
 }
 
 .carrinho-item-acoes button:hover i {
-  color: #1890ff;
+  color: #1890ff; /* Ícone azul ao passar o mouse */
 }
 
 /* Rodapé do carrinho */
 .carrinho-rodape {
   margin-top: auto;
-  padding: 24px 0;
+  padding: 16px 0; /* Ajustado para telas menores */
   border-top: 1px solid #f0f0f0;
 }
 
 .carrinho-subtotal {
-  font-size: 18px;
+  font-size: 16px; /* Ajustado para melhor legibilidade */
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 12px; /* Reduzido para economizar espaço */
   text-align: right;
 }
 
@@ -135,42 +148,62 @@
 .carrinho-vazio {
   text-align: center;
   color: #999;
-  padding: 24px;
-  font-size: 16px;
+  padding: 16px; /* Ajustado para telas menores */
+  font-size: 14px; /* Ajustado para melhor legibilidade */
 }
 
-/* Ajustes de responsividade */
-@media (max-width: 576px) {
-  .carrinho-container {
-    padding: 8px;
+@media (max-width: 720px) and (max-height: 1600px) {
+  .botao-carrinho .texto-carrinho {
+    display: block; /* Garante que o texto continue visível */
+    font-size: 12px; /* Opcional: ajuste do tamanho da fonte para telas menores */
   }
 
   .carrinho-lista li {
-    flex-direction: column;
-    gap: 12px;
-    padding: 12px 0;
+    flex-direction: row; /* Mantém os itens lado a lado */
+    align-items: center; /* Centraliza verticalmente os itens */
+    gap: 16px;
+    padding: 12px 0; /* Reduzido para caber melhor */
   }
 
   /* Imagem do produto */
   .carrinho-item-imagem {
-    width: 80px;
-    height: 80px;
+    width: 60px; /* Reduzido para caber melhor */
+    height: 60px;
     border-radius: 8px;
     overflow: hidden;
+  }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  .carrinho-item-info {
+    flex: 1;
+    display: grid;
+    gap: 8px;
+  }
+
+  .carrinho-item-info div {
+    font-size: 12px; /* Reduzido para telas menores */
+  }
+
+  .carrinho-item-info strong {
+    font-size: 14px; /* Ajustado para melhor legibilidade */
   }
 
   .carrinho-item-acoes {
-    width: 100%;
-    justify-content: flex-end;
+    display: flex; /* Garante que os botões fiquem lado a lado */
+    align-items: center;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 4px; /* Espaçamento reduzido */
+    width: auto; /* Remove o comportamento de largura total */
   }
 
   .carrinho-subtotal {
-    font-size: 16px;
+    font-size: 14px; /* Ajustado para telas menores */
+  }
+
+  .carrinho-checkout {
+    font-size: 14px; /* Ajustado para telas menores */
+  }
+
+  .carrinho-vazio {
+    font-size: 14px; /* Ajustado para telas menores */
   }
 }

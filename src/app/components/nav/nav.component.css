@@ -50,7 +50,7 @@ nz-content {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) and (max-height: 1600px) {
   nz-sider {
     display: none;
   }
