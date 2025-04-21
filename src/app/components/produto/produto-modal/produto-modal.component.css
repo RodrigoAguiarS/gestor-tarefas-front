@@ -1,57 +1,48 @@
 .modal-content {
   display: flex;
   gap: 24px;
-  padding: 24px;
-}
-
-.modald {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    flex-direction: column;
-  }
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
 .produto-imagem {
   flex: 1;
-  max-width: 400px;
-}
+  max-width: 500px;
 
-.imagem-principal img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
+  .imagem-principal {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-.miniaturas {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-}
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+  }
 
-.miniaturas img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
+  .miniaturas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
 
-.miniaturas img:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
 }
 
 .produto-info {
@@ -59,109 +50,191 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  .produto-titulo {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .produto-preco {
+    .preco-atual {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1890ff;
+    }
+  }
+
+  .produto-descricao {
+    h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+    }
+  }
+
+  .controle-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .quantidade-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-quantidade {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #d9d9d9;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        border-color: #1890ff;
+        color: #1890ff;
+      }
+    }
+
+    .quantidade {
+      min-width: 40px;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+
+  .total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 16px 0;
+    border-top: 1px solid #f0f0f0;
+
+    .valor-total {
+      font-weight: bold;
+      color: #1890ff;
+    }
+  }
+
+  .adicionar-carrinho {
+    width: 100%;
+    height: 48px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #096dd9;
+    }
+
+    i {
+      font-size: 20px;
+    }
+  }
 }
 
-.produto-titulo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .produto-imagem {
+    max-width: 100%;
+
+    .miniaturas {
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    }
+  }
+
+  .produto-info {
+    .produto-titulo {
+      font-size: 20px;
+    }
+
+    .produto-preco {
+      .preco-atual {
+        font-size: 24px;
+      }
+    }
+  }
 }
 
-.produto-preco .preco-atual {
-  font-size: 28px;
-  font-weight: bold;
-  color: #1890ff;
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 8px;
+    gap: 16px;
+  }
+
+  .produto-info {
+    gap: 12px;
+
+    .produto-titulo {
+      font-size: 18px;
+    }
+
+    .produto-preco {
+      .preco-atual {
+        font-size: 22px;
+      }
+    }
+
+    .controle-quantidade {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .quantidade-wrapper {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .btn-quantidade {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .adicionar-carrinho {
+      height: 44px;
+      font-size: 15px;
+    }
+  }
 }
 
-.produto-descricao h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #333;
-}
+@media (hover: none) {
+  .btn-quantidade,
+  .adicionar-carrinho {
+    &:active {
+      transform: scale(0.98);
+    }
+  }
 
-.produto-descricao p {
-  color: #666;
-  line-height: 1.6;
-}
-
-.controle-quantidade {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.quantidade-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  padding: 4px 8px;
-}
-
-.btn-quantidade {
-  background: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #1890ff;
-  transition: all 0.3s ease;
-}
-
-.btn-quantidade:hover {
-  background-color: rgba(24, 144, 255, 0.1);
-}
-
-.btn-quantidade:disabled {
-  color: #d9d9d9;
-  cursor: not-allowed;
-}
-
-.quantidade {
-  min-width: 40px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.total {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-top: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.valor-total {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1890ff;
-}
-
-.adicionar-carrinho {
-  background-color: #1890ff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.adicionar-carrinho:hover {
-  background-color: #1769aa;
-}
-
-.adicionar-carrinho i {
-  font-size: 20px;
+  .produto-imagem .miniaturas img {
+    &:active {
+      transform: scale(0.98);
+    }
+  }
 }

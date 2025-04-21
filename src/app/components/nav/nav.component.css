@@ -18,6 +18,10 @@
   z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
 }
 
+.icon-bell {
+  color: white; /* Define a cor branca para o ícone */
+}
+
 nz-layout {
   flex: 1;
   display: flex;

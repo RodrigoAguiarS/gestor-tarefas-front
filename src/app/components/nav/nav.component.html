@@ -261,13 +261,12 @@
         <i nz-icon nzType="home"></i>
         <span>Home</span>
       </li>
-      <li routerLink="/tarefas/usuario/list">
-        <i nz-icon nzType="schedule"></i>
-        <span>Tarefas</span>
+      <li *ngIf="roles.includes(ACESSO.CLIENTE)">
+          <app-carrinho></app-carrinho>
       </li>
       <li routerLink="/notificacao">
-        <nz-badge [nzCount]="quantidadeNotificacoes">
-          <i nz-icon nzType="bell"></i>
+        <nz-badge [nzCount]="quantidadeNotificacoes" [nzShowZero]="false">
+          <i nz-icon nzType="bell" class="icon-bell"></i>
         </nz-badge>
         <span>Notificações</span>
       </li>
@@ -275,7 +274,7 @@
         <i nz-icon nzType="shopping-cart"></i>
         <span>Loja</span>
       </li>
-      <li (click)="deslogar()">
+      <li (click)="deslogar()" onkeydown="onKeyDown($event)">
         <i nz-icon nzType="logout"></i>
         <span>Sair</span>
       </li>

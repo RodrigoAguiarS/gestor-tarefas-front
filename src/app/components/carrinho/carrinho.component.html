@@ -1,6 +1,7 @@
 <nz-badge [nzCount]="itensCarrinho.length">
-  <button nz-button nzType="primary" (click)="open()">
+  <button nz-button class="botao-carrinho" (click)="open()">
     <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+    <span class="texto-carrinho">Carrinho</span>
   </button>
 </nz-badge>
 <nz-drawer
@@ -18,6 +19,9 @@
         *ngIf="itensCarrinho.length > 0; else carrinhoVazio"
       >
         <li *ngFor="let item of itensCarrinho">
+          <div class="carrinho-item-imagem">
+            <img [src]="item.produto.arquivosUrl[0]" alt="{{ item.produto.nome }}" />
+          </div>
           <div class="carrinho-item-info">
             <div><strong>Produto:</strong> {{ item.produto.nome }}</div>
             <div><strong>Quantidade:</strong> {{ item.quantidade }}</div>

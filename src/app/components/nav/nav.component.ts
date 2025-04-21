@@ -1,3 +1,4 @@
+import { CarrinhoComponent } from './../carrinho/carrinho.component';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../model/Usuario';
 import { Router, RouterModule } from '@angular/router';
@@ -25,6 +26,7 @@ import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notifi
     NzMenuModule,
     HeaderComponent,
     NzBadgeModule,
+    CarrinhoComponent,
     NotificacaoViewComponent
 ],
   templateUrl: './nav.component.html',
