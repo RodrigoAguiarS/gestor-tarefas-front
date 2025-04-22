@@ -1,0 +1,45 @@
+.mobile-nav {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #001529;
+  z-index: 1000;
+}
+
+.icon-bell {
+  color: white;
+}
+
+.mobile-nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.mobile-nav ul li {
+  color: white;
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.mobile-nav ul li.active {
+  background-color: #004080;
+  border-radius: 4px;
+}
+
+.mobile-nav ul li i {
+  font-size: 20px;
+}
+
+.mobile-nav ul li span {
+  display: block;
+  font-size: 12px;
+}

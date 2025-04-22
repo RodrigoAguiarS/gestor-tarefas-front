@@ -110,9 +110,9 @@ export class TarefaListComponent {
       ...this.filtroForm.value,
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
-      titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() || '',
+      titulo: this.filtroForm.get('titulo')?.value.trim().toLowerCase() ?? '',
       descricao:
-        this.filtroForm.get('descricao')?.value.trim().toLowerCase() || '',
+        this.filtroForm.get('descricao')?.value.trim().toLowerCase() ?? '',
     };
     this.tarefaService.buscarPaginado(params).subscribe({
       next: (response) => {

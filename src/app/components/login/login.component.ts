@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { ACESSO } from '../../model/Acesso';
 
 @Component({
   selector: 'app-login',
@@ -58,19 +59,42 @@ export class LoginComponent {
       this.credenciais = this.form.value;
       this.authservice.authenticate(this.credenciais).subscribe({
         next: (resposta) => {
-          const token = resposta.headers.get('Authorization')?.substring(7) ?? '';
+          const token =
+            resposta.headers.get('Authorization')?.substring(7) ?? '';
           this.authservice.successfulLogin(token);
+
+          this.authservice.getUserRoles().subscribe({
+            next: (roles) => {
+              if (
+                roles.includes(ACESSO.ADMINISTRADOR) ||
+                roles.includes(ACESSO.OPERADOR)
+              ) {
+                this.router.navigate(['home']);
+              } else if (roles.includes(ACESSO.CLIENTE)) {
+                this.router.navigate(['produtos/card']);
+              } else {
+                this.message.error(
+                  'Usuário sem permissão para acessar o sistema.'
+                );
+              }
+            },
+            error: (erro) => {
+              this.message.error('Erro ao obter os papéis do usuário.');
+            },
+            complete: () => {
+              this.carregando = false;
+            },
+          });
         },
         error: (error) => {
+          console.error('Erro no login:', error);
           this.carregando = false;
           const errorMessage = JSON.parse(error.error).message;
           this.message.error(errorMessage);
         },
         complete: () => {
-          this.carregando = false;
           this.message.success('Login efetuado com sucesso!');
-          this.router.navigate(['home']);
-        }
+        },
       });
     }
   }
@@ -79,4 +103,3 @@ export class LoginComponent {
     return this.form.valid;
   }
 }
-

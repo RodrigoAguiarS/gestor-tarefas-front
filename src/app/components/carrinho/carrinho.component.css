@@ -14,6 +14,15 @@
   text-align: center;
 }
 
+.custom-drawer .ant-drawer-content-wrapper {
+  height: 720px !important;
+  max-height: 720px;
+}
+
+.custom-drawer .ant-drawer-body {
+  overflow-y: auto;
+}
+
 .botao-carrinho i[nz-icon] {
   font-size: 24px;
 }
@@ -28,16 +37,14 @@
   }
 }
 
-/* Container principal do carrinho */
 .carrinho-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 16px;
-  overflow-y: auto; /* Permite rolagem vertical */
+  overflow-y: auto;
 }
 
-/* Lista de itens */
 .carrinho-lista {
   flex: 1;
   list-style: none;
@@ -46,11 +53,10 @@
   overflow-y: auto;
 }
 
-/* Item individual */
 .carrinho-lista li {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Centraliza verticalmente os itens */
+  align-items: center;
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #f0f0f0;
@@ -60,7 +66,6 @@
   border-bottom: none;
 }
 
-/* Informações do item */
 .carrinho-item-info {
   flex: 1;
   display: grid;
@@ -77,7 +82,6 @@
   font-weight: 500;
 }
 
-/* Imagem do produto */
 .carrinho-item-imagem {
   width: 80px;
   height: 80px;
@@ -92,82 +96,76 @@
   object-fit: cover;
 }
 
-/* Ações do item */
 .carrinho-item-acoes {
-  display: flex; /* Botões lado a lado */
+  display: flex;
   align-items: center;
-  justify-content: center; /* Alinha à direita */
-  gap: 4px; /* Espaçamento reduzido */
+  justify-content: center;
+  gap: 4px;
 }
 
 .carrinho-item-acoes button {
-  padding: 4px 6px; /* Botões menores */
-  font-size: 12px; /* Ajuste do tamanho da fonte */
+  padding: 4px 6px;
+  font-size: 12px;
   height: auto;
-  border-radius: 4px; /* Bordas arredondadas */
-  background-color: #f5f5f5; /* Fundo cinza claro */
-  border: 1px solid #d9d9d9; /* Borda para destaque */
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  border: 1px solid #d9d9d9;
   cursor: pointer;
 }
 
 .carrinho-item-acoes button:hover {
-  background-color: #e6f7ff; /* Fundo azul claro ao passar o mouse */
-  border-color: #1890ff; /* Borda azul ao passar o mouse */
+  background-color: #e6f7ff;
+  border-color: #1890ff;
 }
 
 .carrinho-item-acoes i {
-  font-size: 16px; /* Ícones menores */
+  font-size: 16px;
   transition: color 0.3s;
 }
 
 .carrinho-item-acoes button:hover i {
-  color: #1890ff; /* Ícone azul ao passar o mouse */
+  color: #1890ff;
 }
 
-/* Rodapé do carrinho */
 .carrinho-rodape {
   margin-top: auto;
-  padding: 16px 0; /* Ajustado para telas menores */
+  padding: 16px 0;
   border-top: 1px solid #f0f0f0;
 }
 
 .carrinho-subtotal {
-  font-size: 16px; /* Ajustado para melhor legibilidade */
-  font-weight: 500;
-  margin-bottom: 12px; /* Reduzido para economizar espaço */
+  font-size: 16px;
+  margin-bottom: 12px;
   text-align: right;
 }
 
-/* Botões de ação */
 .carrinho-checkout {
   width: 100%;
   margin-bottom: 8px;
 }
 
-/* Carrinho vazio */
 .carrinho-vazio {
   text-align: center;
   color: #999;
-  padding: 16px; /* Ajustado para telas menores */
-  font-size: 14px; /* Ajustado para melhor legibilidade */
+  padding: 16px;
+  font-size: 14px;
 }
 
 @media (max-width: 720px) and (max-height: 1600px) {
   .botao-carrinho .texto-carrinho {
-    display: block; /* Garante que o texto continue visível */
-    font-size: 12px; /* Opcional: ajuste do tamanho da fonte para telas menores */
+    display: block;
+    font-size: 12px;
   }
 
   .carrinho-lista li {
-    flex-direction: row; /* Mantém os itens lado a lado */
-    align-items: center; /* Centraliza verticalmente os itens */
+    flex-direction: row;
+    align-items: center;
     gap: 16px;
-    padding: 12px 0; /* Reduzido para caber melhor */
+    padding: 12px 0;
   }
 
-  /* Imagem do produto */
   .carrinho-item-imagem {
-    width: 60px; /* Reduzido para caber melhor */
+    width: 60px;
     height: 60px;
     border-radius: 8px;
     overflow: hidden;
@@ -180,30 +178,30 @@
   }
 
   .carrinho-item-info div {
-    font-size: 12px; /* Reduzido para telas menores */
+    font-size: 12px;
   }
 
   .carrinho-item-info strong {
-    font-size: 14px; /* Ajustado para melhor legibilidade */
+    font-size: 14px;
   }
 
   .carrinho-item-acoes {
-    display: flex; /* Garante que os botões fiquem lado a lado */
+    display: flex;
     align-items: center;
-    justify-content: flex-end; /* Alinha os botões à direita */
-    gap: 4px; /* Espaçamento reduzido */
-    width: auto; /* Remove o comportamento de largura total */
+    justify-content: flex-end;
+    gap: 4px;
+    width: auto;
   }
 
   .carrinho-subtotal {
-    font-size: 14px; /* Ajustado para telas menores */
+    font-size: 14px;
   }
 
   .carrinho-checkout {
-    font-size: 14px; /* Ajustado para telas menores */
+    font-size: 14px;
   }
 
   .carrinho-vazio {
-    font-size: 14px; /* Ajustado para telas menores */
+    font-size: 14px;
   }
 }

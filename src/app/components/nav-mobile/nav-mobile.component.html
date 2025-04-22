@@ -1,0 +1,61 @@
+<div class="mobile-nav">
+  <ul>
+    <!-- Home -->
+    <li
+      *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+      routerLink="/home"
+      routerLinkActive="active"
+    >
+      <i nz-icon nzType="home"></i>
+      <span>Home</span>
+    </li>
+
+    <!-- Notificações -->
+    <li
+      *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+      routerLink="/notificacao"
+      routerLinkActive="active"
+    >
+      <nz-badge [nzCount]="quantidadeNotificacoes" [nzShowZero]="false">
+        <i nz-icon nzType="bell" class="icon-bell"></i>
+      </nz-badge>
+      <span>Notificações</span>
+    </li>
+
+    <!-- Loja -->
+    <li
+      *ngIf="roles.includes(ACESSO.CLIENTE)"
+      routerLink="/produtos/card"
+      routerLinkActive="active"
+    >
+      <i nz-icon nzType="shopping-cart"></i>
+      <span>Loja</span>
+    </li>
+
+    <!-- Meus Pedidos -->
+    <li
+      *ngIf="roles.includes(ACESSO.CLIENTE)"
+      routerLink="/vendas/cliente"
+      routerLinkActive="active"
+    >
+      <i nz-icon nzType="profile"></i>
+      <span>Meus Pedidos</span>
+    </li>
+
+    <!-- Perfil -->
+    <li
+      *ngIf="roles.includes(ACESSO.CLIENTE)"
+      routerLink="/usuario/info"
+      routerLinkActive="active"
+    >
+      <i nz-icon nzType="user"></i>
+      <span>Perfil</span>
+    </li>
+
+    <!-- Logout -->
+    <li (click)="deslogar()" (keydown)="onKeyDown($event)">
+      <i nz-icon nzType="logout"></i>
+      <span>Sair</span>
+    </li>
+  </ul>
+</div>
