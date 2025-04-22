@@ -17,24 +17,30 @@ import { CategoriaFilterPipe } from '../../../../pipe';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { BuscaBarComponent } from '../../busca-bar/busca-bar.component';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 @Component({
   selector: 'app-produto-card',
   imports: [
     NzModalModule,
     FormsModule,
     NzInputModule,
+    NzBreadCrumbModule,
     NzSelectModule,
+    BuscaBarComponent,
     CategoriaFilterPipe,
     ReactiveFormsModule,
     CommonModule,
+    NzPageHeaderModule,
     NzButtonModule,
     NzFormModule,
     NzIconModule,
     NzSpinModule,
     NzCardModule,
     CurrencyPipe,
-  ],
+    BuscaBarComponent
+],
   templateUrl: './produto-card.component.html',
   styleUrl: './produto-card.component.css',
 })

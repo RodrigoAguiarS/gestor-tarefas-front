@@ -17,7 +17,6 @@ import { BuscaService } from '../../services/busca.service';
     CommonModule,
     ReactiveFormsModule,
     NzFormModule,
-    BuscaBarComponent,
     NzInputModule,
   ],
   templateUrl: './header.component.html',
@@ -27,28 +26,17 @@ export class HeaderComponent implements OnInit {
   usuario: Usuario = new Usuario();
   papel: string[] = [];
   impersonateAtivo: boolean = true;
-  categorias: Categoria[] = [];
 
   constructor(
     private readonly message: NzMessageService,
     private readonly usuarioService: UsuarioService,
-    private readonly buscaService: BuscaService,
-    private readonly categoriaService: CategoriaService,
     private readonly userChangeService: UsuarioChangeService
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuario();
-    this.carregarCategorias();
     this.userChangeService.userChanged$.subscribe(() => {
       this.carregarUsuario();
-      this.carregarCategorias();
-    });
-  }
-
-  private carregarCategorias(): void {
-    this.categoriaService.findAll().subscribe((categorias) => {
-      this.categorias = categorias;
     });
   }
 
@@ -63,13 +51,5 @@ export class HeaderComponent implements OnInit {
       },
       complete: () => {},
     });
-  }
-
-  atualizarBusca(termo: string): void {
-    this.buscaService.atualizarTermoDeBusca(termo);
-  }
-
-  atualizarCategoria(categoria: string): void {
-    this.buscaService.atualizarCategoriaSelecionada(categoria);
   }
 }
