@@ -1,79 +1,67 @@
+<!-- carrinho.component.html -->
 <nz-badge [nzCount]="itensCarrinho.length">
   <button nz-button class="botao-carrinho" (click)="open()">
     <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
     <span class="texto-carrinho">Carrinho</span>
   </button>
 </nz-badge>
-<nz-drawer
-  [nzClosable]="true"
-  nzSize="default"
-  [nzVisible]="carrinhoVisivel"
-  nzPlacement="right"
-  nzTitle="Carrinho de Compras"
-  [nzWidth]="500"
-  (nzOnClose)="close()"
+
+<nz-modal
+  [(nzVisible)]="modalVisivel"
+  [nzTitle]="'Carrinho de Compras'"
+  [nzWidth]="800"
+  [nzFooter]="null"
+  (nzOnCancel)="close()"
 >
-  <ng-container *nzDrawerContent>
-    <div class="carrinho-container">
-      <ul
-        class="carrinho-lista"
-        *ngIf="itensCarrinho.length > 0; else carrinhoVazio"
-      >
-        <li *ngFor="let item of itensCarrinho">
-          <div class="carrinho-item-imagem">
-            <img [src]="item.produto.arquivosUrl[0]" alt="{{ item.produto.nome }}" />
-          </div>
-          <div class="carrinho-item-info">
-            <div><strong>Produto:</strong> {{ item.produto.nome }}</div>
-            <div><strong>Quantidade:</strong> {{ item.quantidade }}</div>
-            <div><strong>Preço Unitário:</strong> {{ item.precoUnitario | currency : "BRL" }}</div>
-            <div>
-              <strong>Valor Total: </strong
-              >{{ item.produto.preco * item.quantidade | currency : "BRL" }}
-            </div>
-          </div>
-          <button
-            nz-button
-            nzType="default"
-            (click)="diminuirQuantidade(item.produto)"
-            class="carrinho-item-acoes"
-          >
-            <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
-          </button>
-          <button
-            nz-button
-            nzType="default"
-            (click)="aumentarQuantidade(item.produto)"
-            class="carrinho-item-acoes"
-          >
-            <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
-          </button>
-        </li>
-      </ul>
-      <ng-template #carrinhoVazio>
-        <div>Seu carrinho está vazio.</div>
-      </ng-template>
-      <div *ngIf="itensCarrinho.length > 0" class="carrinho-rodape">
-        <div class="carrinho-subtotal">
-          Subtotal: {{ subTotal | currency : "BRL" }}
+  <div *nzModalContent class="carrinho-container">
+    <ul class="carrinho-lista" *ngIf="itensCarrinho.length > 0; else carrinhoVazio">
+      <li *ngFor="let item of itensCarrinho" class="carrinho-item">
+        <div class="carrinho-item-imagem">
+          <img [src]="item.produto.arquivosUrl[0]" alt="{{ item.produto.nome }}" />
         </div>
-        <button
-          nz-button
-          nzType="primary"
-          (click)="finalizarPedido()"
-          class="carrinho-checkout"
-        >
-          Finalizar Compra
-        </button>
-        <button
-          nz-button
-          (click)="limparCarrinho()"
-          nzType="default"
-          class="carrinho-checkout"
-        >
+        <div class="carrinho-item-info">
+          <h4>{{ item.produto.nome }}</h4>
+          <div class="item-detalhes">
+            <div class="quantidade-controles">
+              <button nz-button nzType="text" (click)="diminuirQuantidade(item.produto)">
+                <i nz-icon nzType="minus"></i>
+              </button>
+              <span>{{ item.quantidade }}</span>
+              <button nz-button nzType="text" (click)="aumentarQuantidade(item.produto)">
+                <i nz-icon nzType="plus"></i>
+              </button>
+            </div>
+            <div class="preco">
+              {{ item.produto.preco * item.quantidade | currency:'BRL' }}
+            </div>
+            <button nz-button nzType="text" nzDanger (click)="removerItem(item.produto.id)">
+              <i nz-icon nzType="delete"></i>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <ng-template #carrinhoVazio>
+      <div class="carrinho-vazio">
+        <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+        <p>Seu carrinho está vazio</p>
+      </div>
+    </ng-template>
+
+    <div *ngIf="itensCarrinho.length > 0" class="carrinho-rodape">
+      <div class="subtotal">
+        <span>Subtotal:</span>
+        <strong>{{ subTotal | currency:'BRL' }}</strong>
+      </div>
+      <div class="acoes">
+        <button nz-button nzType="default" (click)="limparCarrinho()">
           Limpar Carrinho
+        </button>
+        <button nz-button nzType="primary" (click)="finalizarPedido()">
+          Finalizar Compra
         </button>
       </div>
     </div>
-  </ng-container>
-</nz-drawer>
+  </div>
+</nz-modal>

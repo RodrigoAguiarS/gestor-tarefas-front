@@ -32,9 +32,8 @@
       <span>Loja</span>
     </li>
 
-    <li>
+    <li *ngIf="roles.includes(ACESSO.CLIENTE)">
       <app-carrinho></app-carrinho>
-      <span>Carrinho</span>
     </li>
 
     <!-- Meus Pedidos -->
