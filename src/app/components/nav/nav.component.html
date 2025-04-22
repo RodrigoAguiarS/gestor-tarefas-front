@@ -164,6 +164,27 @@
               </ul>
             </li>
 
+            <li nz-submenu nzTitle="Status" nzIcon="sync">
+              <ul>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/status/create"
+                >
+                  <i nz-icon nzType="idcard"></i>
+                  <span>Cadastrar</span>
+                </li>
+                <li
+                  nz-menu-item
+                  [nzMatchRouter]="true"
+                  routerLink="/status/list"
+                >
+                  <i nz-icon nzType="unordered-list"></i>
+                  <span>Listar</span>
+                </li>
+              </ul>
+            </li>
+
             <!-- Pagamentos -->
             <li nz-submenu nzTitle="Pagamento" nzIcon="credit-card">
               <ul>
