@@ -1,51 +1,63 @@
-<!-- Conteúdo principal com rolagem -->
-<div class="conteudo-principal">
-  <nz-spin [nzSpinning]="loading">
-    <div *ngIf="produtosFiltrados.length > 0; else nenhumProdutoEncontrado">
-      <div *ngFor="let categoria of categorias" class="secao-categoria">
-        <h2 class="titulo-categoria">{{ categoria.nome }}</h2>
-        <div nz-row [nzGutter]="[16, 16]">
-          <div
-            nz-col
-            [nzXs]="24"
-            [nzSm]="12"
-            [nzMd]="8"
-            [nzLg]="6"
-            *ngFor="
-              let produto of produtosFiltrados | categoriaFilter : categoria.id
-            "
-          >
-            <div
-              class="cartao-produto"
-              (click)="abrirModalProduto(produto)"
-              (keydown)="onKeyDown($event)"
-            >
-              <div class="container-imagem-produto">
-                <img [src]="produto.arquivosUrl[0]" [alt]="produto.nome" />
-                <div class="sobreposicao-produto">
-                  <button nz-button nzType="primary" class="botao-ver-detalhes">
-                    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-                    Adicionar ao Carrinho
-                  </button>
+<div class="container-resultado">
+  <div class="conteudo">
+    <!-- Componente de Busca -->
+    <app-busca-bar (buscaChange)="filtrarProdutos($event)"></app-busca-bar>
+
+    <!-- Conteúdo principal com rolagem -->
+    <div class="conteudo-principal">
+      <nz-spin [nzSpinning]="loading">
+        <div *ngIf="produtosFiltrados.length > 0; else nenhumProdutoEncontrado">
+          <div *ngFor="let categoria of categorias" class="secao-categoria">
+            <h2 class="titulo-categoria">{{ categoria.nome }}</h2>
+            <div nz-row [nzGutter]="[16, 16]">
+              <div
+                nz-col
+                [nzXs]="24"
+                [nzSm]="12"
+                [nzMd]="8"
+                [nzLg]="6"
+                *ngFor="
+                  let produto of produtosFiltrados
+                    | categoriaFilter : categoria.id
+                "
+              >
+                <div
+                  class="cartao-produto"
+                  (click)="abrirModalProduto(produto)"
+                  (keydown)="onKeyDown($event)"
+                >
+                  <div class="container-imagem-produto">
+                    <img [src]="produto.arquivosUrl[0]" [alt]="produto.nome" />
+                    <div class="sobreposicao-produto">
+                      <button
+                        nz-button
+                        nzType="primary"
+                        class="botao-ver-detalhes"
+                      >
+                        <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                        Adicionar ao Carrinho
+                      </button>
+                    </div>
+                  </div>
+                  <div class="info-produto">
+                    <h3 class="nome-produto">{{ produto.nome }}</h3>
+                    <p class="descricao-produto">{{ produto.descricao }}</p>
+                    <p class="preco-produto">
+                      {{ produto.preco | currency : "BRL" }}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="info-produto">
-                <h3 class="nome-produto">{{ produto.nome }}</h3>
-                <p class="descricao-produto">{{ produto.descricao }}</p>
-                <p class="preco-produto">
-                  {{ produto.preco | currency : "BRL" }}
-                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <ng-template #nenhumProdutoEncontrado>
+          <div class="estado-vazio">
+            <i nz-icon nzType="inbox" nzTheme="outline"></i>
+            <p>Nenhum produto encontrado</p>
+          </div>
+        </ng-template>
+      </nz-spin>
     </div>
-    <ng-template #nenhumProdutoEncontrado>
-      <div class="estado-vazio">
-        <i nz-icon nzType="inbox" nzTheme="outline"></i>
-        <p>Nenhum produto encontrado</p>
-      </div>
-    </ng-template>
-  </nz-spin>
+  </div>
 </div>

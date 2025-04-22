@@ -5,15 +5,15 @@
         <form
           nz-form
           nzLayout="vertical"
-          [formGroup]="pagamentoForm"
-          (ngSubmit)="update()"
-          class="categoria-form"
+          [formGroup]="statusForm"
+          (ngSubmit)="criar()"
+          class="status-form"
         >
           <!-- Cabeçalho -->
-          <h2 class="form-title">Atualizar Tipo de Pagamento</h2>
+          <h2 class="form-title">Cadastrar Status</h2>
 
-          <!-- Informações da Pagamento -->
-          <h3 class="form-section-title">Informações da Tipo de Pagamento</h3>
+          <!-- Informações da Status -->
+          <h3 class="form-section-title">Informações da Status</h3>
           <div nz-row [nzGutter]="16">
             <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
               <nz-form-item>
@@ -26,17 +26,16 @@
                     nz-input
                     maxlength="50"
                     formControlName="nome"
-                    placeholder="Ex. Eletrônicos"
+                    placeholder="Ex. Em andamento"
                     required
                   />
                   <div class="char-counter">
-                    {{ pagamentoForm.get("nome")?.value.length || 0 }}/50
+                    {{ statusForm.get("nome")?.value.length || 0 }}/50
                     caracteres
                   </div>
                 </nz-form-control>
               </nz-form-item>
             </div>
-
             <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
               <nz-form-item>
                 <nz-form-label [nzRequired]="true" nzFor="descricao"
@@ -48,44 +47,13 @@
                     nz-input
                     maxlength="255"
                     formControlName="descricao"
-                    placeholder="Descrição da categoria"
+                    placeholder="Descrição da status"
                     required
                   ></textarea>
                   <div class="char-counter">
-                    {{ pagamentoForm.get("descricao")?.value.length || 0 }}/255
+                    {{ statusForm.get("descricao")?.value.length || 0 }}/255
                     caracteres
                   </div>
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-
-            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24">
-              <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="porcentagemAcrescimo">
-                  Porcentagem de Acréscimo (%)
-                </nz-form-label>
-                <nz-form-control [nzErrorTip]="errorTpl">
-                  <nz-input-number
-                    id="porcentagemAcrescimo"
-                    formControlName="porcentagemAcrescimo"
-                    [nzMin]="0"
-                    [nzMax]="100"
-                    [nzStep]="0.1"
-                    [nzPrecision]="1"
-                    [nzPlaceHolder]="'Ex: 1.5'"
-                    (keydown)="bloquearDigitacao($event)"
-                  ></nz-input-number>
-                  <ng-template #errorTpl let-control>
-                    <ng-container *ngIf="control.hasError('min')">
-                      O valor mínimo é 0%
-                    </ng-container>
-                    <ng-container *ngIf="control.hasError('max')">
-                      O valor máximo é 100%
-                    </ng-container>
-                    <ng-container *ngIf="control.hasError('required')">
-                      Campo obrigatório
-                    </ng-container>
-                  </ng-template>
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -106,9 +74,9 @@
               type="submit"
               nz-button
               nzType="primary"
-              [disabled]="!pagamentoForm.valid"
+              [disabled]="!statusForm.valid"
             >
-              Atualizar
+              Cadastrar
             </button>
           </div>
         </form>

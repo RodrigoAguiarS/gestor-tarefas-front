@@ -6,7 +6,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { CarrinhoComponent } from '../carrinho/carrinho.component';
 import { Categoria } from '../../model/Categoria';
 
 @Component({
@@ -17,7 +16,6 @@ import { Categoria } from '../../model/Categoria';
     NzSelectModule,
     ReactiveFormsModule,
     CommonModule,
-    CarrinhoComponent,
     NzButtonModule,
     NzFormModule,
     NzIconModule,

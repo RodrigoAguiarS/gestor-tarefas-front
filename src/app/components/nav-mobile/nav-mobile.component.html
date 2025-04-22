@@ -28,8 +28,12 @@
       routerLink="/produtos/card"
       routerLinkActive="active"
     >
-      <i nz-icon nzType="shopping-cart"></i>
+      <i nz-icon nzType="shop"></i>
       <span>Loja</span>
+    </li>
+
+    <li *ngIf="roles.includes(ACESSO.CLIENTE)">
+      <app-carrinho></app-carrinho>
     </li>
 
     <!-- Meus Pedidos -->

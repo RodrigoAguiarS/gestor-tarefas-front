@@ -8,12 +8,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AuthService } from '../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CarrinhoComponent } from '../carrinho/carrinho.component';
 
 @Component({
   selector: 'app-nav-mobile',
    imports: [
      NzLayoutModule,
      CommonModule,
+     CarrinhoComponent,
      NzMenuModule,
      RouterModule,
      NzIconModule,

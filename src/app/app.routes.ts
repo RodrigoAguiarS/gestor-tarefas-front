@@ -27,37 +27,64 @@ export const routes: Routes = [
       },
       {
         path: 'usuarios',
-        loadChildren: () => import('./components/usuario/usuario.routes').then(m => m.usuarioRoutes),
+        loadChildren: () =>
+          import('./components/usuario/usuario.routes').then(
+            (m) => m.usuarioRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'pagamentos',
-        loadChildren: () => import('./components/pagamento/pagamento.routes').then(m => m.pagamentoRoutes),
+        loadChildren: () =>
+          import('./components/pagamento/pagamento.routes').then(
+            (m) => m.pagamentoRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'perfis',
-        loadChildren: () => import('./components/perfil/perfil.routes').then(m => m.perfilRoutes),
+        loadChildren: () =>
+          import('./components/perfil/perfil.routes').then(
+            (m) => m.perfilRoutes
+          ),
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.ADMINISTRADOR] },
+      },
+      {
+        path: 'status',
+        loadChildren: () =>
+          import('./components/status/status.routes').then(
+            (m) => m.statusRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'categorias',
-        loadChildren: () => import('./components/categoria/categoria.routes').then(m => m.categoriaRoutes),
+        loadChildren: () =>
+          import('./components/categoria/categoria.routes').then(
+            (m) => m.categoriaRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'produtos',
-        loadChildren: () => import('./components/produto/produto.routes').then(m => m.produtoRoutes),
+        loadChildren: () =>
+          import('./components/produto/produto.routes').then(
+            (m) => m.produtoRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.CLIENTE] },
       },
       {
         path: 'tarefas',
-        loadChildren: () => import('./components/tarefa/tarefa.routes').then(m => m.tarefaRoutes),
+        loadChildren: () =>
+          import('./components/tarefa/tarefa.routes').then(
+            (m) => m.tarefaRoutes
+          ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] },
       },
@@ -80,10 +107,6 @@ export const routes: Routes = [
       },
       {
         path: 'acesso-negado',
-        component: AcessoNegadoComponent,
-      },
-      {
-        path: 'produtos/card',
         component: AcessoNegadoComponent,
       },
     ],
