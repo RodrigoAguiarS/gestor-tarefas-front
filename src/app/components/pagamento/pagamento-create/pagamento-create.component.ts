@@ -34,7 +34,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
   styleUrl: './pagamento-create.component.css',
 })
 export class PagamentoCreateComponent {
-  categoriaForm!: FormGroup;
+  pagamentoForm!: FormGroup;
   carregando = false;
 
   constructor(
@@ -50,7 +50,7 @@ export class PagamentoCreateComponent {
 
   criar(): void {
     this.carregando = true;
-    this.pagamentoService.create(this.categoriaForm.value).subscribe({
+    this.pagamentoService.create(this.pagamentoForm.value).subscribe({
       next: (resposta) => {
         this.router.navigate(['/result'], {
           queryParams: {
@@ -79,7 +79,7 @@ export class PagamentoCreateComponent {
   }
 
   private initForm(): void {
-    this.categoriaForm = this.formBuilder.group({
+    this.pagamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: ['', Validators.required],
       porcentagemAcrescimo: [0, Validators.required],

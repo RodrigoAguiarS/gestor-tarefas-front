@@ -5,7 +5,7 @@
         <form
           nz-form
           nzLayout="vertical"
-          [formGroup]="categoriaForm"
+          [formGroup]="pagamentoForm"
           (ngSubmit)="criar()"
           class="categoria-form"
         >
@@ -30,7 +30,7 @@
                     required
                   />
                   <div class="char-counter">
-                    {{ categoriaForm.get("nome")?.value.length || 0 }}/50
+                    {{ pagamentoForm.get("nome")?.value.length || 0 }}/50
                     caracteres
                   </div>
                 </nz-form-control>
@@ -52,7 +52,7 @@
                     required
                   ></textarea>
                   <div class="char-counter">
-                    {{ categoriaForm.get("descricao")?.value.length || 0 }}/255
+                    {{ pagamentoForm.get("descricao")?.value.length || 0 }}/255
                     caracteres
                   </div>
                 </nz-form-control>
@@ -106,7 +106,7 @@
               type="submit"
               nz-button
               nzType="primary"
-              [disabled]="!categoriaForm.valid"
+              [disabled]="!pagamentoForm.valid"
             >
               Cadastrar
             </button>
