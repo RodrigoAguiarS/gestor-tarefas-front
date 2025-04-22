@@ -1,0 +1,29 @@
+<div class="barra-busca">
+  <app-carrinho class="carrinho-compras"></app-carrinho>
+  <nz-input-group [nzPrefix]="prefixTemplate" class="entrada-busca">
+    <input
+      type="text"
+      nz-input
+      placeholder="O que você está procurando?"
+      [(ngModel)]="termoDeBusca"
+      (ngModelChange)="onBuscaChange()"
+    />
+  </nz-input-group>
+  <ng-template #prefixTemplate>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <nz-select
+    class="seletor-categoria"
+    [(ngModel)]="categoriaSelecionada"
+    (ngModelChange)="onCategoriaChange()"
+    nzPlaceHolder="Categorias"
+  >
+    <nz-option nzValue="" nzLabel="Todas as Categorias"></nz-option>
+    <nz-option
+      *ngFor="let categoria of categorias"
+      [nzValue]="categoria.id"
+      [nzLabel]="categoria.nome"
+    ></nz-option>
+  </nz-select>
+</div>

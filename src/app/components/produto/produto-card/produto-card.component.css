@@ -1,68 +1,68 @@
 /* Cabeçalho de busca fixo */
-.search-header {
-  position: sticky; /* Torna o cabeçalho fixo */
-  top: 0; /* Fixa no topo */
-  z-index: 10; /* Garante que fique acima do conteúdo */
+.cabecalho-busca {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
-  background-color: #e8e8e8; /* Fundo cinza suave */
+  background-color: #e8e8e8;
   padding: 12px;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Input de busca */
-.search-header .search-input {
+.cabecalho-busca .campo-busca {
   flex: 2;
   min-width: 200px;
   border: 1px solid #d0d0d0;
   border-radius: 4px;
-  background-color: #ffffff; /* Fundo branco para contraste */
+  background-color: #ffffff;
 }
 
 /* Select de categorias */
-.search-header .category-select {
+.cabecalho-busca .seletor-categoria {
   flex: 1;
   min-width: 150px;
   border: 1px solid #d0d0d0;
   border-radius: 4px;
-  background-color: #ffffff; /* Fundo branco para contraste */
+  background-color: #ffffff;
 }
 
 /* Carrinho */
-.search-header .cart-widget {
+.cabecalho-busca .widget-carrinho {
   min-width: fit-content;
 }
 
 /* Conteúdo principal com rolagem */
-.main-content {
-  flex: 1; /* Ocupa o restante do espaço */
-  overflow-y: auto; /* Permite rolagem vertical */
+.conteudo-principal {
+  flex: 1;
+  overflow-y: auto;
   margin-top: 16px;
 }
 
-.main-content::-webkit-scrollbar {
-  display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+.conteudo-principal::-webkit-scrollbar {
+  display: none;
 }
 
 /* Seção de categorias */
-.categoria-section {
+.secao-categoria {
   margin-bottom: 32px;
 }
 
-.categoria-section .categoria-titulo {
+.secao-categoria .titulo-categoria {
   font-size: 24px;
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #cccccc; /* Cinza médio */
-  color: #333333; /* Texto escuro */
+  border-bottom: 2px solid #cccccc;
+  color: #333333;
 }
 
 /* Cartão de produto */
-.produto-card {
-  background: #ffffff; /* Fundo branco para contraste */
+.cartao-produto {
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -70,20 +70,20 @@
   overflow: hidden;
 }
 
-.produto-card:hover {
+.cartao-produto:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Imagem do produto */
-.produto-imagem-wrapper {
+.container-imagem-produto {
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  background-color: #f0f0f0; /* Fundo cinza claro */
+  background-color: #f0f0f0;
 }
 
-.produto-imagem-wrapper img {
+.container-imagem-produto img {
   position: absolute;
   top: 0;
   left: 0;
@@ -93,7 +93,7 @@
 }
 
 /* Sobreposição do produto */
-.produto-overlay {
+.sobreposicao-produto {
   position: absolute;
   top: 0;
   left: 0;
@@ -107,32 +107,32 @@
   transition: opacity 0.2s;
 }
 
-.produto-card:hover .produto-overlay {
+.cartao-produto:hover .sobreposicao-produto {
   opacity: 1;
 }
 
-.produto-overlay .ver-detalhes-btn {
+.sobreposicao-produto .botao-ver-detalhes {
   color: white;
   font-weight: bold;
 }
 
 /* Informações do produto */
-.produto-info {
+.info-produto {
   padding: 16px;
-  background-color: #f9f9f9; /* Fundo cinza muito claro */
+  background-color: #f9f9f9;
 }
 
-.produto-info .produto-nome {
+.info-produto .nome-produto {
   font-size: 16px;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #333333; /* Texto escuro */
+  color: #333333;
 }
 
-.produto-info .produto-descricao {
+.info-produto .descricao-produto {
   font-size: 14px;
   font-style: italic;
-  color: #666666; /* Texto cinza */
+  color: #666666;
   margin-bottom: 12px;
   height: 40px;
   overflow: hidden;
@@ -141,105 +141,105 @@
   -webkit-box-orient: vertical;
 }
 
-.produto-info .produto-preco {
+.info-produto .preco-produto {
   font-size: 18px;
   font-weight: bold;
-  color: #1890ff; /* Azul para destaque */
+  color: #1890ff;
   margin-bottom: 12px;
 }
 
 /* Ações do produto */
-.produto-actions {
+.acoes-produto {
   display: flex;
   justify-content: flex-end;
-  background-color: #f5f5f5; /* Fundo cinza claro */
+  background-color: #f5f5f5;
   padding: 8px;
 }
 
 /* Estado vazio */
-.empty-state {
+.estado-vazio {
   text-align: center;
   padding: 48px 0;
-  color: #999999; /* Texto cinza */
+  color: #999999;
 }
 
-.empty-state i {
+.estado-vazio i {
   font-size: 48px;
   margin-bottom: 16px;
 }
 
-.empty-state p {
+.estado-vazio p {
   font-size: 16px;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .store-container {
+  .container-loja {
     padding: 12px;
   }
 
-  .search-header {
+  .cabecalho-busca {
     flex-direction: column;
     gap: 12px;
   }
 
-  .search-header .search-input,
-  .search-header .category-select {
+  .cabecalho-busca .campo-busca,
+  .cabecalho-busca .seletor-categoria {
     width: 100%;
     flex: none;
   }
 
-  .categoria-section .categoria-titulo {
+  .secao-categoria .titulo-categoria {
     font-size: 20px;
   }
 
-  .produto-info {
+  .info-produto {
     padding: 12px;
   }
 
-  .produto-info .produto-nome {
+  .info-produto .nome-produto {
     font-size: 14px;
   }
 
-  .produto-info .produto-preco {
+  .info-produto .preco-produto {
     font-size: 16px;
   }
 }
 
 /* Ajuste específico para resolução 720x1600 */
 @media (max-width: 720px) and (max-height: 1600px) {
-  .search-header {
+  .cabecalho-busca {
     flex-direction: column;
     gap: 8px;
     padding: 8px;
   }
 
-  .search-header .search-input,
-  .search-header .category-select {
+  .cabecalho-busca .campo-busca,
+  .cabecalho-busca .seletor-categoria {
     width: 100%;
   }
 
-  .produto-card {
+  .cartao-produto {
     margin-bottom: 16px;
   }
 
-  .produto-info {
+  .info-produto {
     padding: 8px;
   }
 
-  .cart-widget {
+  .widget-carrinho {
     display: none;
   }
 
-  .produto-info .produto-nome {
+  .info-produto .nome-produto {
     font-size: 14px;
   }
 
-  .produto-info .produto-preco {
+  .info-produto .preco-produto {
     font-size: 14px;
   }
 
-  .categoria-section .categoria-titulo {
+  .secao-categoria .titulo-categoria {
     font-size: 18px;
   }
 }

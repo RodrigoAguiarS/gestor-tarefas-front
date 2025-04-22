@@ -255,29 +255,12 @@
       </div>
     </nz-content>
   </nz-layout>
-  <div class="mobile-nav">
-    <ul>
-      <li routerLink="/home">
-        <i nz-icon nzType="home"></i>
-        <span>Home</span>
-      </li>
-      <li *ngIf="roles.includes(ACESSO.CLIENTE)">
-          <app-carrinho></app-carrinho>
-      </li>
-      <li routerLink="/notificacao">
-        <nz-badge [nzCount]="quantidadeNotificacoes" [nzShowZero]="false">
-          <i nz-icon nzType="bell" class="icon-bell"></i>
-        </nz-badge>
-        <span>Notificações</span>
-      </li>
-      <li routerLink="/produtos/card">
-        <i nz-icon nzType="shopping-cart"></i>
-        <span>Loja</span>
-      </li>
-      <li (click)="deslogar()" onkeydown="onKeyDown($event)">
-        <i nz-icon nzType="logout"></i>
-        <span>Sair</span>
-      </li>
-    </ul>
-  </div>
+
+  <!-- FOOTER -->
+  <app-nav-mobile
+    class="mobile-nav"
+    [quantidadeNotificacoes]="quantidadeNotificacoes"
+    [roles]="roles"
+  >
+  </app-nav-mobile>
 </nz-layout>

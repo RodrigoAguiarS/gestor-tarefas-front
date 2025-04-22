@@ -1,0 +1,19 @@
+.barra-busca {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.entrada-busca {
+  flex: 2;
+  }
+
+.seletor-categoria {
+  flex: 1;
+}
+
+.carrinho-compras {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

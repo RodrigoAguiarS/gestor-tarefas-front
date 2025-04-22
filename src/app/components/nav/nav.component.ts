@@ -1,4 +1,3 @@
-import { CarrinhoComponent } from './../carrinho/carrinho.component';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../model/Usuario';
 import { Router, RouterModule } from '@angular/router';
@@ -15,6 +14,7 @@ import { UsuarioChangeService } from '../../services/usuario-change.service';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NotificacaoService } from '../../services/notificacao.service';
 import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notificacao-view.component";
+import { NavMobileComponent } from '../nav-mobile/nav-mobile.component';
 @Component({
   selector: 'app-nav',
   imports: [
@@ -23,10 +23,9 @@ import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notifi
     NzMenuModule,
     RouterModule,
     NzIconModule,
-    NzMenuModule,
+    NavMobileComponent,
     HeaderComponent,
     NzBadgeModule,
-    CarrinhoComponent,
     NotificacaoViewComponent
 ],
   templateUrl: './nav.component.html',

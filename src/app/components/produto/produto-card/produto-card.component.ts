@@ -1,3 +1,4 @@
+import { BuscaService } from './../../../services/busca.service';
 import { Component } from '@angular/core';
 import { Produto } from '../../../model/Produto';
 import { Categoria } from '../../../model/Categoria';
@@ -12,7 +13,6 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CarrinhoComponent } from '../../carrinho/carrinho.component';
 import { CategoriaFilterPipe } from '../../../../pipe';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -22,7 +22,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
   selector: 'app-produto-card',
   imports: [
     NzModalModule,
-    CarrinhoComponent,
     FormsModule,
     NzInputModule,
     NzSelectModule,
@@ -32,8 +31,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzButtonModule,
     NzFormModule,
     NzIconModule,
-    NzInputModule,
-    NzFormModule,
     NzSpinModule,
     NzCardModule,
     CurrencyPipe,
@@ -54,32 +51,34 @@ export class ProdutoCardComponent {
     private readonly produtoService: ProdutoService,
     private readonly categoriaService: CategoriaService,
     private readonly modalService: NzModalService,
+    private readonly buscaService: BuscaService,
     private readonly carrinhoService: CarrinhoService
   ) {}
 
   ngOnInit(): void {
+    this.inscreverBusca();
     this.carregarProdutos();
     this.carregarCategorias();
   }
 
   carregarProdutos(): void {
-    this.loading = true; // Ativa o indicador de carregamento
+    this.loading = true;
 
     this.produtoService
       .buscarPaginado({
-        page: 0, // Página inicial
-        size: 100, // Quantidade de itens por página
+        page: 0,
+        size: 100
       })
       .subscribe({
         next: (response) => {
-          this.produtos = response.content; // Produtos retornados
-          this.produtosFiltrados = response.content; // Inicializa os produtos filtrados
-          this.totalElementos = response.totalElements; // Total de elementos para paginação
-          this.loading = false; // Desativa o indicador de carregamento
+          this.produtos = response.content;
+          this.produtosFiltrados = response.content;
+          this.totalElementos = response.totalElements;
+          this.loading = false;
         },
         error: (err) => {
           console.error('Erro ao carregar produtos:', err);
-          this.loading = false; // Desativa o indicador de carregamento em caso de erro
+          this.loading = false;
         },
       });
   }
@@ -90,19 +89,32 @@ export class ProdutoCardComponent {
     });
   }
 
-  aoBuscar(): void {
+  inscreverBusca(): void {
+    this.buscaService.termoDeBusca$.subscribe((termo) => {
+      this.filtrarProdutos(termo, '');
+    });
+
+    this.buscaService.categoriaSelecionada$.subscribe((categoria) => {
+      this.filtrarProdutos('', categoria);
+    });
+  }
+
+  filtrarProdutos(termo?: string, categoria?: string): void {
     let produtosFiltradosTemp = this.produtos;
-    if (this.termoDeBusca) {
+
+    if (termo !== null && termo !== undefined) {
       produtosFiltradosTemp = produtosFiltradosTemp.filter((produto) =>
-        produto.nome.toLowerCase().includes(this.termoDeBusca.toLowerCase())
+        produto.nome.toLowerCase().includes(termo.toLowerCase())
       );
     }
-    if (this.categoriaSelecionada) {
-      const categoriaId = Number(this.categoriaSelecionada);
+
+    if (categoria !== null && categoria !== undefined && categoria !== '') {
+      const categoriaId = Number(categoria);
       produtosFiltradosTemp = produtosFiltradosTemp.filter(
         (produto) => produto.categoria?.id === categoriaId
       );
     }
+
     this.produtosFiltrados = produtosFiltradosTemp;
   }
 

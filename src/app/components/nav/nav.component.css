@@ -1,10 +1,12 @@
+/* Layout fixo principal */
 .fixed-layout {
-  overflow: hidden !important;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden; /* Evita rolagem desnecessária */
 }
 
+/* Cabeçalho */
 .header {
   position: fixed;
   top: 0;
@@ -14,85 +16,72 @@
   line-height: 64px;
   padding: 0 20px;
   background: #001529; /* Cor de fundo do cabeçalho */
-  color: white;
+  color: white; /* Cor do texto do cabeçalho */
   z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
 }
 
-.icon-bell {
-  color: white; /* Define a cor branca para o ícone */
-}
 
+/* Layout principal */
 nz-layout {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 64px; /* Espaço reservado para o cabeçalho */
-  min-height: calc(100vh - 64px); /* Altura total menos o cabeçalho */
+  margin-top: 64px; /* Compensa a altura do cabeçalho */
+  min-height: calc(100vh - 64px);
 }
 
+/* Menu lateral (sidebar) */
 nz-sider {
   position: fixed;
   left: 0;
-  top: 64px; /* Começa logo abaixo do cabeçalho */
-  height: calc(100vh - 64px); /* Altura total menos o cabeçalho */
+  top: 64px;
+  height: calc(100vh - 64px); /* Altura ajustada para compensar o cabeçalho */
   background: #001529;
+  overflow-y: auto; /* Adiciona rolagem caso o conteúdo exceda a altura */
+  scrollbar-width: thin; /* Estiliza a barra de rolagem (Firefox) */
 }
 
+nz-sider::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+}
+
+nz-sider::-webkit-scrollbar-thumb {
+  background: #888; /* Cor da barra de rolagem */
+  border-radius: 4px;
+}
+
+nz-sider::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Cor ao passar o mouse */
+}
+
+/* Conteúdo principal */
 nz-content {
   margin-left: 250px; /* Largura do menu lateral */
   padding: 20px;
-  min-height: calc(100vh - 64px); /* Altura total menos o cabeçalho */
-  background: #f0f2f5; /* Cor de fundo do conteúdo */
-  overflow-y: auto; /* Adiciona scroll caso o conteúdo ultrapasse a altura */
+  min-height: calc(100vh - 64px);
+  background: #f0f2f5;
+  overflow-y: auto; /* Adiciona rolagem ao conteúdo principal */
 }
 
+/* Menu móvel */
 .mobile-nav {
   display: none;
 }
 
 @media (max-width: 720px) and (max-height: 1600px) {
+  /* Esconde o menu lateral em telas menores */
   nz-sider {
     display: none;
   }
 
+  /* Ajusta o conteúdo principal */
   nz-content {
     margin-left: 0;
-    margin-bottom: 56px;
+    margin-bottom: 56px; /* Espaço para o menu móvel */
   }
 
+  /* Exibe o menu móvel */
   .mobile-nav {
     display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    background: #001529;
-    z-index: 1000;
-
-    ul {
-      display: flex;
-      width: 100%;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-
-      li {
-        color: white;
-        text-align: center;
-        padding: 8px;
-
-        i {
-          font-size: 20px;
-        }
-
-        span {
-          display: block;
-          font-size: 12px;
-        }
-      }
-    }
   }
 }
