@@ -9,9 +9,9 @@ import { Venda } from '../model/Venda';
   providedIn: 'root',
 })
 export class CarrinhoService {
-
+  private readonly LOCAL_STORAGE_KEY = 'itensCarrinho';
   private readonly itensCarrinhoSubject: BehaviorSubject<ItemVenda[]> =
-    new BehaviorSubject<ItemVenda[]>([]);
+    new BehaviorSubject<ItemVenda[]>(this.carregarItensDoLocalStorage());
 
   public itensCarrinho$: Observable<ItemVenda[]> =
     this.itensCarrinhoSubject.asObservable();
@@ -60,6 +60,7 @@ export class CarrinhoService {
       return;
     }
     this.itensCarrinhoSubject.next(itensCarrinhoAtual);
+    this.salvarItensNoLocalStorage(itensCarrinhoAtual);
   }
 
   removerProduto(produtoId: number): void {
@@ -111,5 +112,14 @@ export class CarrinhoService {
 
   atualizarItensCarrinho(itens: ItemVenda[]): void {
     this.itensCarrinhoSubject.next(itens);
+  }
+
+  private salvarItensNoLocalStorage(itens: ItemVenda[]): void {
+    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(itens));
+  }
+
+  private carregarItensDoLocalStorage(): ItemVenda[] {
+    const itens = localStorage.getItem(this.LOCAL_STORAGE_KEY);
+    return itens ? JSON.parse(itens) : [];
   }
 }
