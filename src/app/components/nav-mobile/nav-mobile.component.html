@@ -7,7 +7,6 @@
       routerLinkActive="active"
     >
       <i nz-icon nzType="home"></i>
-      <span>Home</span>
     </li>
 
     <!-- Notificações -->
@@ -19,7 +18,6 @@
       <nz-badge [nzCount]="quantidadeNotificacoes" [nzShowZero]="false">
         <i nz-icon nzType="bell" class="icon-bell"></i>
       </nz-badge>
-      <span>Notificações</span>
     </li>
 
     <!-- Loja -->
@@ -29,7 +27,6 @@
       routerLinkActive="active"
     >
       <i nz-icon nzType="shop"></i>
-      <span>Loja</span>
     </li>
 
     <li *ngIf="roles.includes(ACESSO.CLIENTE)">
@@ -43,7 +40,6 @@
       routerLinkActive="active"
     >
       <i nz-icon nzType="profile"></i>
-      <span>Meus Pedidos</span>
     </li>
 
     <!-- Perfil -->
@@ -53,13 +49,11 @@
       routerLinkActive="active"
     >
       <i nz-icon nzType="user"></i>
-      <span>Perfil</span>
     </li>
 
     <!-- Logout -->
     <li (click)="deslogar()" (keydown)="onKeyDown($event)">
       <i nz-icon nzType="logout"></i>
-      <span>Sair</span>
     </li>
   </ul>
 </div>
