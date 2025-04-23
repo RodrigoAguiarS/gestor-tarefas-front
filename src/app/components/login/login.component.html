@@ -27,7 +27,6 @@
         autocomplete="current-password"
       />
     </nz-form-item>
-
     <!-- botão de login -->
     <button
       type="submit"
@@ -38,5 +37,9 @@
     >
       Login
     </button>
+
+    <div class="nao-cliente">
+      <p>Não é cliente? <a [routerLink]="['/cliente-create']">Cadastre-se aqui</a>.</p>
+    </div>
   </form>
 </div>

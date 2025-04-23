@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Credenciais } from '../../model/Credenciais';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -23,6 +23,7 @@ import { ACESSO } from '../../model/Acesso';
     CommonModule,
     ReactiveFormsModule,
     NzFormModule,
+    RouterModule,
     NzInputModule,
     NzButtonModule,
     NzSpinModule,

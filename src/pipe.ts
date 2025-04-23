@@ -15,6 +15,21 @@ export class CPFPipe implements PipeTransform {
 }
 
 @Pipe({
+  name: 'cep',
+})
+export class CEPPipe implements PipeTransform {
+  transform(value: string): string {
+    if (value) {
+      value = value.replace(/\D/g, '');
+      if (value.length === 8) {
+        return value.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+      }
+    }
+    return value;
+  }
+}
+
+@Pipe({
   name: 'categoriaFilter',
 })
 export class CategoriaFilterPipe implements PipeTransform {

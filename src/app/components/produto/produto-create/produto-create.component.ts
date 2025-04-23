@@ -103,6 +103,16 @@ export class ProdutoCreateComponent {
     }
   }
 
+  verificarTamanhoArquivo = (file: NzUploadFile): boolean => {
+    const tamanhoMaximoMB = 5;
+    const tamanhoMaximoBytes = tamanhoMaximoMB * 1024 * 1024;
+    if ((file.size ?? 0) > tamanhoMaximoBytes) {
+      this.message.error(`O arquivo ${file.name} excede o limite de ${tamanhoMaximoMB}MB.`);
+      return false;
+    }
+    return true;
+  };
+
   private carregarCategoria(): void {
     this.carregando = true;
     this.categoriaService.findAll().subscribe({

@@ -4,7 +4,7 @@
       <img [src]="itemVenda.produto.arquivosUrl[0]" [alt]="itemVenda.produto.nome">
     </div>
     <div class="miniaturas" *ngIf="itemVenda.produto.arquivosUrl.length > 1">
-      <img *ngFor="let imagem of itemVenda.produto.arquivosUrl"
+      <img *ngFor="let imagem of getMiniaturas()"
            [src]="imagem"
            [alt]="itemVenda.produto.nome"
            (keydown)="onKeyDown($event)"
