@@ -1,0 +1,8 @@
+<nz-card nzBordered="true" [nzTitle]="'Informações do Cliente'" class="cliente-info-card">
+  <div class="info-group" *ngFor="let info of clienteInfo">
+    <div class="info-item">
+      <label>{{ info.label }}</label>
+      <p>{{ info.value }}</p>
+    </div>
+  </div>
+</nz-card>

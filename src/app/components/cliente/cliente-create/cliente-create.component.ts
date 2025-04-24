@@ -22,6 +22,7 @@ import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
 import { AuthService } from '../../../services/auth.service';
 import { EnderecoResposta } from '../../../model/EnderecoReponse';
 import { EnderecoService } from '../../../services/endereco.service';
+import { ClienteInfoComponent } from '../cliente-info/cliente-info.component';
 
 @Component({
   selector: 'app-cliente-create',
@@ -29,9 +30,7 @@ import { EnderecoService } from '../../../services/endereco.service';
     CommonModule,
     ReactiveFormsModule,
     NzFormModule,
-    CPFPipe,
-    CEPPipe,
-    TelefonePipe,
+    ClienteInfoComponent,
     NzInputModule,
     NzButtonModule,
     NzCardModule,
@@ -168,6 +167,10 @@ export class ClienteCreateComponent {
 
   nextTab(): void {
     this.currentTabIndex++;
+  }
+
+   voltarTelaDeLogin(): void {
+    this.router.navigate(['/login']);
   }
 
   previousTab(): void {

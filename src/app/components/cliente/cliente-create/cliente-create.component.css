@@ -145,6 +145,32 @@
   }
 }
 
+/* Ajusta o tamanho do componente nz-date-picker */
+nz-date-picker {
+  width: 100%;
+}
+
+/* Ajusta o input dentro do date picker */
+.ant-picker {
+  width: 100%;
+  height: 32px;
+  padding: 4px 11px;
+  border-radius: 4px;
+}
+
+/* Opcional: ajusta o foco do date picker para manter consistência */
+.ant-picker:hover,
+.ant-picker:focus,
+.ant-picker-focused {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* Opcional: ajusta a altura do input para combinar com outros inputs */
+.ant-picker-input > input {
+  height: 22px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

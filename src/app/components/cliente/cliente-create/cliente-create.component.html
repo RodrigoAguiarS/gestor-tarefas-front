@@ -10,15 +10,13 @@
           (ngSubmit)="criar()"
           class="formulario"
         >
-          <!-- Abas para separar as seções -->
           <nz-tabset [(nzSelectedIndex)]="currentTabIndex">
-            <!-- Aba: Dados Pessoais -->
-            <nz-tab nzTitle="Dados Pessoais">
+            <!-- Aba: Dados Pessoais e Endereço -->
+            <nz-tab nzTitle="Dados Cadastrais">
               <div>
+                <!-- Dados Pessoais -->
+                <h3>Dados Pessoais</h3>
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="nome"
-                    >Nome</nz-form-label
-                  >
                   <nz-form-control>
                     <input
                       id="nome"
@@ -31,9 +29,6 @@
                 </nz-form-item>
 
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="email"
-                    >E-mail</nz-form-label
-                  >
                   <nz-form-control>
                     <input
                       id="email"
@@ -46,11 +41,7 @@
                   </nz-form-control>
                 </nz-form-item>
 
-                <div nz-row [nzGutter]="16"></div>
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="telefone"
-                    >Telefone</nz-form-label
-                  >
                   <nz-form-control>
                     <input
                       id="telefone"
@@ -64,9 +55,6 @@
                 </nz-form-item>
 
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="cpf"
-                    >CPF</nz-form-label
-                  >
                   <nz-form-control>
                     <input
                       id="cpf"
@@ -80,23 +68,124 @@
                 </nz-form-item>
 
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="dataNascimento"
-                    >Data de Nascimento</nz-form-label
-                  >
                   <nz-form-control>
                     <nz-date-picker
                       id="dataNascimento"
+                      nzFormat="dd/MM/yyyy"
+                      nzInputStyle="width: 100%"
                       formControlName="dataNascimento"
-                      nzPlaceHolder="Selecione a data de nascimento"
+                      nzPlaceHolder="Selecione ou digite a data de nascimento"
+                      [nzInputReadOnly]="false"
                       required
-                    ></nz-date-picker>
+                    >
+                    </nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <!-- Endereço -->
+                <h3>Endereço</h3>
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      id="cep"
+                      nz-input
+                      mask="00000-000"
+                      formControlName="cep"
+                      placeholder="Digite o CEP"
+                      required
+                    />
                   </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="senha"
-                    >Senha</nz-form-label
+                  <nz-form-control>
+                    <input
+                      id="rua"
+                      nz-input
+                      formControlName="rua"
+                      placeholder="Digite sua rua"
+                      required
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      id="numero"
+                      nz-input
+                      formControlName="numero"
+                      placeholder="Digite o número"
+                      required
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      id="bairro"
+                      nz-input
+                      formControlName="bairro"
+                      placeholder="Digite o bairro"
+                      required
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      id="cidade"
+                      nz-input
+                      formControlName="cidade"
+                      placeholder="Digite a cidade"
+                      required
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      id="estado"
+                      nz-input
+                      formControlName="estado"
+                      placeholder="Digite o estado"
+                      required
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+
+                <div class="form-actions">
+                  <button
+                    type="button"
+                    nz-button
+                    nzType="primary"
+                    (click)="nextTab()"
                   >
+                    Próximo
+                  </button>
+                  <button
+                    type="button"
+                    nz-button
+                    nzType="link"
+                    (click)="voltarTelaDeLogin()"
+                  >
+                    Já tem conta? Faça o login
+                  </button>
+                </div>
+              </div>
+            </nz-tab>
+
+            <!-- Aba: Confirmação -->
+            <nz-tab nzTitle="Confirmação">
+              <div class="confirmacao">
+                <app-cliente-info
+                  [clienteForm]="clienteForm"
+                ></app-cliente-info>
+
+                <nz-form-item>
                   <nz-form-control>
                     <nz-input-group [nzSuffix]="suffixIcon">
                       <input
@@ -120,9 +209,6 @@
                 </nz-form-item>
 
                 <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="confirmarSenha"
-                    >Confirmar Senha</nz-form-label
-                  >
                   <nz-form-control>
                     <input
                       id="confirmarSenha"
@@ -137,186 +223,8 @@
                 </nz-form-item>
 
                 <div class="form-actions">
-                  <button
-                    type="button"
-                    nz-button
-                    nzType="primary"
-                    (click)="nextTab()"
-                  >
-                    Próximo
-                  </button>
-                </div>
-              </div>
-            </nz-tab>
-
-            <!-- Aba: Endereço -->
-            <nz-tab nzTitle="Endereço">
-              <div>
-                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="cep"
-                    >CEP</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="cep"
-                      nz-input
-                      mask="00000-000"
-                      formControlName="cep"
-                      placeholder="Digite o CEP"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="numero"
-                    >Número</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="numero"
-                      nz-input
-                      formControlName="numero"
-                      placeholder="Digite o número"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="rua"
-                    >Rua</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="rua"
-                      nz-input
-                      formControlName="rua"
-                      placeholder="Digite sua rua"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="bairro"
-                    >Bairro</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="bairro"
-                      nz-input
-                      formControlName="bairro"
-                      placeholder="Digite o bairro"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="cidade"
-                    >Cidade</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="cidade"
-                      nz-input
-                      formControlName="cidade"
-                      placeholder="Digite a cidade"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item>
-                  <nz-form-label [nzRequired]="true" nzFor="estado"
-                    >Estado</nz-form-label
-                  >
-                  <nz-form-control>
-                    <input
-                      id="estado"
-                      nz-input
-                      formControlName="estado"
-                      placeholder="Digite o estado"
-                      required
-                    />
-                  </nz-form-control>
-                </nz-form-item>
-
-                <div class="form-actions">
                   <button type="button" nz-button (click)="previousTab()">
                     Voltar
-                  </button>
-                  <button
-                    type="button"
-                    nz-button
-                    nzType="primary"
-                    (click)="nextTab()"
-                  >
-                    Próximo
-                  </button>
-                </div>
-              </div>
-            </nz-tab>
-
-            <!-- Aba: Confirmação -->
-            <nz-tab nzTitle="Confirmação">
-              <div class="confirmacao">
-                <h3>Confirme os dados preenchidos:</h3>
-                <p>
-                  <strong>Nome:</strong> {{ clienteForm.get("nome")?.value }}
-                </p>
-                <p>
-                  <strong>E-mail:</strong> {{ clienteForm.get("email")?.value }}
-                </p>
-                <p>
-                  <strong>Telefone:</strong>
-                  {{ clienteForm.get("telefone")?.value | telefone }}
-                </p>
-                <p>
-                  <strong>CPF:</strong>
-                  {{ clienteForm.get("cpf")?.value | CPF }}
-                </p>
-                <p>
-                  <strong>Data de Nascimento:</strong>
-                  {{
-                    clienteForm.get("dataNascimento")?.value
-                      | date : "dd/MM/yyyy"
-                  }}
-                </p>
-                <p><strong>Rua:</strong> {{ clienteForm.get("rua")?.value }}</p>
-                <p>
-                  <strong>Número:</strong>
-                  {{ clienteForm.get("numero")?.value }}
-                </p>
-                <p>
-                  <strong>Bairro:</strong>
-                  {{ clienteForm.get("bairro")?.value }}
-                </p>
-                <p>
-                  <strong>Cidade:</strong>
-                  {{ clienteForm.get("cidade")?.value }}
-                </p>
-                <p>
-                  <strong>Estado:</strong>
-                  {{ clienteForm.get("estado")?.value }}
-                </p>
-                <p>
-                  <strong>CEP:</strong>
-                  {{ clienteForm.get("cep")?.value | cep }}
-                </p>
-
-                <div class="form-actions">
-                  <button type="button" nz-button (click)="previousTab()">
-                    Voltar
-                  </button>
-                  <button
-                    type="button"
-                    nz-button
-                    nzType="default"
-                    (click)="cancelar()"
-                  >
-                    Cancelar
                   </button>
                   <button
                     type="submit"
