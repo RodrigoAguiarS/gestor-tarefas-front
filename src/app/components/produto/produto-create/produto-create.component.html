@@ -117,6 +117,7 @@
                 [nzName]="'file'"
                 [nzShowUploadList]="true"
                 (nzChange)="aoMudarUpload($event)"
+                [nzBeforeUpload]="verificarTamanhoArquivo"
                 [(nzFileList)]="fileList"
                 [nzRemove]="removerArquivo.bind(this)"
                 nzListType="picture"

@@ -1,0 +1,39 @@
+/* Estilo do card */
+.cliente-info-card {
+  margin-top: 16px;
+  font-size: 14px; /* Reduz o tamanho da fonte */
+}
+
+/* Grupo de informações */
+.info-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas menores */
+  gap: 16px; /* Espaçamento entre os itens */
+  margin-bottom: 12px;
+}
+
+/* Cada item de informação */
+.info-item {
+  flex: 1 1 calc(50% - 16px); /* Cada item ocupa 50% da largura com espaçamento */
+  min-width: 200px; /* Define um tamanho mínimo para evitar colapsos */
+  background-color: #fafafa;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Label */
+label {
+  font-weight: 600;
+  color: #595959;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px; /* Reduz o tamanho da fonte do label */
+}
+
+/* Valor */
+p {
+  margin: 0;
+  color: #262626;
+  font-size: 14px; /* Reduz o tamanho da fonte do valor */
+}

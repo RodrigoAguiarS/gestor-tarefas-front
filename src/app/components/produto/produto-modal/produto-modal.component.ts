@@ -72,6 +72,11 @@ export class ProdutoModalComponent {
     }
   }
 
+  getMiniaturas(): string[] {
+
+    return this.itemVenda.produto.arquivosUrl.slice(1);
+  }
+
   onKeyDown(event: KeyboardEvent): void {
     console.log('Tecla pressionada:', event.key);
   }
