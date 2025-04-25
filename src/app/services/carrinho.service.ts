@@ -108,6 +108,7 @@ export class CarrinhoService {
 
   limparCarrinho(): void {
     this.itensCarrinhoSubject.next([]);
+    localStorage.removeItem(this.LOCAL_STORAGE_KEY);
   }
 
   atualizarItensCarrinho(itens: ItemVenda[]): void {
