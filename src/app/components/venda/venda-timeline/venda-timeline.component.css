@@ -1,0 +1,96 @@
+.timeline-container {
+  padding: 24px;
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-container h2 {
+  margin-bottom: 16px;
+  color: #1890ff;
+  font-size: 24px;
+  text-align: center;
+}
+
+.venda-info {
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #555;
+}
+
+.venda-info p {
+  margin: 4px 0;
+}
+
+.nz-timeline {
+  margin-top: 16px;
+}
+
+.nz-timeline-item {
+  font-size: 14px;
+  color: #333;
+}
+
+.nz-timeline-item p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.no-historico {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.action-buttons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.action-buttons button {
+  min-width: 150px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 16px;
+  }
+
+  .timeline-container h2 {
+    font-size: 20px;
+  }
+
+  .venda-info {
+    font-size: 12px;
+  }
+
+  .nz-timeline-item {
+    font-size: 12px;
+  }
+
+  .no-historico {
+    font-size: 12px;
+  }
+
+  .status-description {
+  font-size: 12px;
+  color: #666;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+}

@@ -3,15 +3,15 @@ import { Observable } from 'rxjs';
 import { Cliente } from '../model/Cliente';
 import { API_CONFIG } from '../config/api.config';
 import { HttpClient } from '@angular/common/http';
+import { ClienteRetorno } from '../model/ClienteRetorno';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClienteService {
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(private readonly http: HttpClient) { }
-
-findById(id: any): Observable<Cliente> {
+  findById(id: any): Observable<Cliente> {
     return this.http.get<Cliente>(`${API_CONFIG.baseUrl}/clientes/${id}`);
   }
 
@@ -67,5 +67,9 @@ findById(id: any): Observable<Cliente> {
     }
 
     return this.http.get<{ content: Cliente[]; totalElements: number }>(url);
+  }
+
+  usuarioLogado(): Observable<ClienteRetorno> {
+    return this.http.get<ClienteRetorno>(`${API_CONFIG.baseUrl}/clientes/logado`);
   }
 }

@@ -1,0 +1,72 @@
+<div class="venda-list-container">
+  <h2 class="title">Meus Pedidos</h2>
+
+  <nz-spin [nzSpinning]="carregando">
+    <div class="vendas-grid" *ngIf="vendas.length > 0; else noVendas">
+      <div class="venda-card" *ngFor="let venda of vendas">
+        <div class="venda-header">
+          <h3 class="pedido-numero">Pedido #{{ venda.id }}</h3>
+          <span
+            class="status-badge"
+            [ngClass]="venda.status.nome.toLowerCase()"
+          >
+            {{ venda.status.nome }}
+          </span>
+        </div>
+
+        <div class="venda-info">
+          <p class="data">
+            <i class="fas fa-calendar"></i>
+            {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}
+          </p>
+          <p class="valor">
+            <i class="fas fa-money-bill-wave"></i>
+            Total: {{ venda.valorTotal | currency : "BRL" }}
+          </p>
+        </div>
+
+        <nz-collapse>
+          <nz-collapse-panel
+            [nzHeader]="'Itens do Pedido'"
+            [nzActive]="false"
+            [nzShowArrow]="false"
+            class="itens-container"
+          >
+            <div class="itens-lista">
+              <div class="item" *ngFor="let item of venda.itens">
+                <span class="item-nome">{{ item.produto.nome }}</span>
+                <div class="item-detalhes">
+                  <span>Qtd: {{ item.quantidade }}</span>
+                  <span>{{ item.valorTotal | currency : "BRL" }}</span>
+                </div>
+              </div>
+            </div>
+          </nz-collapse-panel>
+        </nz-collapse>
+
+        <button
+          class="btn-detalhes"
+          nz-button
+          nzType="primary"
+          (click)="verDetalhesVenda(venda.id)"
+        >
+          Ver Detalhes
+        </button>
+      </div>
+    </div>
+  </nz-spin>
+
+  <nz-pagination
+    [nzPageIndex]="paginaAtual"
+    [nzTotal]="totalElementos"
+    [nzPageSize]="itensPorPagina"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  ></nz-pagination>
+
+  <ng-template #noVendas>
+    <div class="no-vendas">
+      <i class="fas fa-shopping-cart"></i>
+      <p>Você ainda não realizou nenhum pedido.</p>
+    </div>
+  </ng-template>
+</div>

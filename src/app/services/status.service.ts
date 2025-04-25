@@ -100,4 +100,10 @@ export class StatusService {
 
       return this.http.get<{ content: Status[]; totalElements: number }>(url);
     }
+
+    getProximosStatus(id: number, tipoVenda: string): Observable<Status[]> {
+      return this.http.get<Status[]>(
+        `${API_CONFIG.baseUrl}/status/${id}/proximos-status?tipoVenda=${tipoVenda}`
+      );
+    }
   }

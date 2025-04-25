@@ -1,0 +1,165 @@
+<div class="container">
+  <h1>Lista de Vendas</h1>
+
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
+  <div class="search-container">
+    <h2>Buscar Vendas</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarVenda()">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="6">
+          <input
+            nz-input
+            placeholder="Código"
+            formControlName="id"
+            type="number"
+          />
+        </div>
+        <div nz-col [nzSpan]="6">
+          <input
+            nz-input
+            placeholder="Nome do Cliente"
+            formControlName="nomeCliente"
+          />
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="Status"
+            formControlName="status"
+          >
+            <nz-option
+              *ngFor="let status of status"
+              [nzValue]="status.id"
+              [nzLabel]="status.nome"
+            ></nz-option>
+          </nz-select>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="Forma de Pagamento"
+            formControlName="formaPagamento"
+          >
+            <nz-option
+              *ngFor="let pagamento of pagamentos"
+              [nzValue]="pagamento.id"
+              [nzLabel]="pagamento.nome"
+            ></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16" class="mt-3">
+        <div nz-col [nzSpan]="6">
+          <input
+            nz-input
+            type="text"
+            [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+            formControlName="valorMinimo"
+            placeholder="Valor Mínimo"
+          />
+        </div>
+        <div nz-col [nzSpan]="6">
+          <input
+            nz-input
+            type="text"
+            [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+            formControlName="valorMaximo"
+            placeholder="Valor Máximo"
+          />
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-date-picker
+            nzFormat="dd/MM/yyyy"
+            formControlName="dataInicio"
+            nzPlaceHolder="Data Início"
+          ></nz-date-picker>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-date-picker
+            nzFormat="dd/MM/yyyy"
+            formControlName="dataFim"
+            nzPlaceHolder="Data Fim"
+          ></nz-date-picker>
+        </div>
+      </div>
+
+      <div class="form-actions mt-3">
+        <button
+          [nzLoading]="carregando"
+          nz-button
+          nzType="primary"
+          type="submit"
+        >
+          <i nz-icon nzType="search"></i> Buscar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <h2>Lista de Vendas</h2>
+  <nz-table
+    #basicTable
+    [nzData]="vendas"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Data Venda</th>
+        <th scope="col">Valor Total</th>
+        <th scope="col">Status</th>
+        <th scope="col">Forma Pagamento</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venda of vendas">
+        <td>{{ venda.id }}</td>
+        <td>{{ venda.cliente.nome }}</td>
+        <td>{{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}</td>
+        <td>{{ venda.valorTotal | currency : "BRL" }}</td>
+        <td>{{ venda.status.nome }}</td>
+        <td>{{ venda.pagamento.nome }}</td>
+        <td>
+          <a [routerLink]="['/vendas/detalhes', venda.id]">
+            <i
+              nz-icon
+              nzType="eye"
+              nzTheme="outline"
+              title="Visualizar venda"
+            ></i>
+          </a>
+          <a (click)="abrirModalStatus(venda)" *ngIf="podeAlterarStatus(venda)">
+            <i
+              nz-icon
+              nzType="sync"
+              nzTheme="outline"
+              title="Alterar status"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

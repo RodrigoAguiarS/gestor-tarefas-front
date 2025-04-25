@@ -1,0 +1,5 @@
+export enum TipoVenda {
+  VENDA_DIRETA = 'VENDA_DIRETA',
+  VENDA_ONLINE = 'VENDA_ONLINE',
+  VENDA_EXTERNA = 'VENDA_EXTERNA',
+}

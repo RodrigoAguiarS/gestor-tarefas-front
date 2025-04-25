@@ -1,0 +1,91 @@
+<div class="modal-content">
+  <div class="venda-info">
+    <h3>Informações da Venda #{{ venda.id }}</h3>
+
+    <div class="info-group">
+      <div class="info-item">
+        <label for="cliente">Cliente:</label>
+        <span id="cliente">{{ venda.cliente.nome }}</span>
+      </div>
+      <div class="info-item">
+        <label for="dataVenda">Data:</label>
+        <span id="dataVenda">{{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}</span>
+      </div>
+      <div class="info-item">
+        <label for="statusAtual">Status Atual:</label>
+        <span id="statusAtual" class="status-badge">{{ venda.status.nome }}</span>
+      </div>
+      <div class="info-item">
+        <label for="tipoVenda">Tipo de Venda:</label>
+        <span id="tipoVenda">{{ venda.tipoVenda }}</span>
+      </div>
+      <div class="info-item">
+        <label for="formaPagamento">Forma de Pagamento:</label>
+        <span id="formaPagamento">{{ venda.pagamento.nome }}</span>
+      </div>
+    </div>
+
+    <div class="info-group">
+      <div class="items-cards">
+        <h4>Itens da Venda</h4>
+        <ul>
+          <li *ngFor="let item of venda.itens">
+            <div class="card-field">
+              <span class="card-label">Produto:</span>
+              <span class="card-value">{{ item.produto.nome }}</span>
+            </div>
+            <div class="card-field">
+              <span class="card-label">Quantidade:</span>
+              <span class="card-value">{{ item.quantidade }}</span>
+            </div>
+            <div class="card-field">
+              <span class="card-label">Total:</span>
+              <span class="card-value">{{
+                item.valorTotal | currency : "BRL"
+              }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="total-value">
+      <label for="valorTotal">Valor Total:</label>
+      <span id="valorTotal">{{ venda.valorTotal | currency : "BRL" }}</span>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="alterarStatus()" class="status-form">
+    <h3 *ngIf="statusPossiveis.length < 0">Alterar Status</h3>
+    <!-- Exibe o select apenas se statusPossiveis não estiver vazio -->
+    <nz-select
+      *ngIf="statusPossiveis.length > 0"
+      formControlName="status"
+      nzPlaceHolder="Selecione o novo status"
+    >
+      <nz-option
+        *ngFor="let status of statusPossiveis"
+        [nzValue]="status.id"
+        [nzLabel]="status.nome"
+      >
+      </nz-option>
+    </nz-select>
+
+    <!-- Mensagem caso não existam status possíveis -->
+    <div *ngIf="statusPossiveis?.length === 0" class="no-status-message">
+      <p>Não há status disponíveis para alteração.</p>
+    </div>
+
+    <div class="modal-footer">
+      <button nz-button nzType="default" (click)="cancelar()">Cancelar</button>
+      <button
+        nz-button
+        [disabled]="carregando || !form.valid"
+        [nzLoading]="carregando"
+        nzType="primary"
+      >
+        Confirmar
+      </button>
+    </div>
+  </form>
+</div>

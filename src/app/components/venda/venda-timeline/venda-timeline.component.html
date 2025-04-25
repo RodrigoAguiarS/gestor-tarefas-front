@@ -1,0 +1,38 @@
+<div class="timeline-container">
+  <h2>Histórico da Venda #{{ vendaId }}</h2>
+
+  <div class="venda-info">
+    <p><strong>Cliente:</strong> {{ venda.cliente.nome }}</p>
+    <p>
+      <strong>Data da Venda:</strong>
+      {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}
+    </p>
+    <p>
+      <strong>Valor Total:</strong> {{ venda.valorTotal | currency : "BRL" }}
+    </p>
+  </div>
+
+  <nz-spin [nzSpinning]="carregando">
+    <nz-timeline *ngIf="historicoStatus.length > 0">
+      <nz-timeline-item
+        *ngFor="let historico of historicoStatus"
+        [nzColor]="getStatusColor(historico.status.nome)"
+      >
+        <p>
+          <strong>{{ historico.status.nome }}</strong>
+        </p>
+        <p class="status-description">
+          {{ historico.status.descricao }}
+        </p>
+        <p>
+          <strong>Criado em:</strong>
+          {{ historico.criadoEm | date: "dd/MM/yyyy HH:mm" }}
+        </p>
+      </nz-timeline-item>
+    </nz-timeline>
+
+    <p *ngIf="!carregando && historicoStatus.length === 0" class="no-historico">
+      Nenhum histórico disponível para esta venda.
+    </p>
+  </nz-spin>
+</div>

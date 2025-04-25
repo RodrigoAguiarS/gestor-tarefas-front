@@ -93,6 +93,23 @@
           </ul>
         </li>
 
+        <li
+          *ngIf="
+            roles.includes(ACESSO.ADMINISTRADOR) ||
+            roles.includes(ACESSO.OPERADOR)
+          "
+          nz-submenu
+          nzTitle="Vendas"
+          nzIcon="bell"
+        >
+          <ul>
+            <li nz-menu-item [nzMatchRouter]="true" routerLink="/vendas/list">
+              <i nz-icon nzType="bell"></i>
+              <span>Listar</span>
+            </li>
+          </ul>
+        </li>
+
         <!-- PRODUTOS -->
         <li
           *ngIf="

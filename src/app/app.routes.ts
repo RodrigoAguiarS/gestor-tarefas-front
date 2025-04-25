@@ -14,7 +14,7 @@ import { ClienteCreateComponent } from './components/cliente/cliente-create/clie
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: 'cliente-create',  component: ClienteCreateComponent },
+  { path: 'cliente-create', component: ClienteCreateComponent },
   {
     path: '',
     component: NavComponent,
@@ -44,6 +44,13 @@ export const routes: Routes = [
           ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR] },
+      },
+      {
+        path: 'vendas',
+        loadChildren: () =>
+          import('./components/venda/venda.routes').then((m) => m.vendaRoutes),
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.CLIENTE, ACESSO.ADMINISTRADOR] },
       },
       {
         path: 'perfis',

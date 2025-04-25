@@ -58,7 +58,7 @@ export class CarrinhoComponent {
 
   finalizarPedido() {
     this.close();
-    this.router.navigate(['/pedidos/finalizar']);
+    this.router.navigate(['/vendas/finalizar']);
   }
 
   limparCarrinho() {

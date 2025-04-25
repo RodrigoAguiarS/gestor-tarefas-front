@@ -110,7 +110,6 @@ export class PagamentoUpdateComponent {
       nome: ['', Validators.required],
       descricao: ['', Validators.required],
       porcentagemAcrescimo: [0, Validators.required],
-      ativo: [false, Validators.required],
     });
   }
 
