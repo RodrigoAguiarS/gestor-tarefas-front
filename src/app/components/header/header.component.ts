@@ -7,16 +7,25 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { UsuarioChangeService } from '../../services/usuario-change.service';
 import { CommonModule } from '@angular/common';
-import { BuscaBarComponent } from '../busca-bar/busca-bar.component';
-import { CategoriaService } from '../../services/categoria.service';
-import { Categoria } from '../../model/Categoria';
-import { BuscaService } from '../../services/busca.service';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { FormatarHorarioPipe } from '../../../pipe';
+
 @Component({
   selector: 'app-header',
   imports: [
     CommonModule,
+    FormatarHorarioPipe,
+    NzPageHeaderModule,
     ReactiveFormsModule,
     NzFormModule,
+    NzButtonModule,
+    NzCardModule,
+    NzIconModule,
+    NzCollapseModule,
     NzInputModule,
   ],
   templateUrl: './header.component.html',
@@ -26,6 +35,7 @@ export class HeaderComponent implements OnInit {
   usuario: Usuario = new Usuario();
   papel: string[] = [];
   impersonateAtivo: boolean = true;
+  mostrarDetalhes: boolean = false;
 
   constructor(
     private readonly message: NzMessageService,

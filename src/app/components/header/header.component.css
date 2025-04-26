@@ -8,6 +8,46 @@
   position: relative;
 }
 
+.empresa-header {
+  display: flex;
+  align-items: center;
+  background-color: #001529;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #001529;
+}
+
+.empresa-icon {
+  font-size: 24px;
+  color: #1890ff;
+  margin-right: 10px;
+}
+
+.empresa-info p {
+  margin: 0;
+  font-size: 14px;
+  color: white;
+  line-height: 1.5;
+}
+
+.empresa-nome {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.empresa-endereco {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.empresa-funcionamento {
+  font-size: 14px;
+  margin: 4px 0;
+  color: #52c41a; /* Verde para destacar o horário */
+}
+
+
 app-busca-bar {
   display: none;
 }
@@ -18,5 +58,12 @@ app-busca-bar {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+  }
+  .empresa-icon {
+    margin-bottom: 10px;
+  }
+
+  .empresa-info {
+    text-align: center;
   }
 }

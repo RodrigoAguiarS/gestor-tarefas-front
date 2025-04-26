@@ -15,6 +15,40 @@ export class CPFPipe implements PipeTransform {
 }
 
 @Pipe({
+  name: 'formatarHorario'
+})
+export class FormatarHorarioPipe implements PipeTransform {
+  transform(horario: { diasFuncionamento: string; horaAbertura: string; horaFechamento: string }): string {
+    const diasFormatados = this.formatarDias(horario.diasFuncionamento);
+    const horaAberturaFormatada = this.formatarHora(horario.horaAbertura);
+    const horaFechamentoFormatada = this.formatarHora(horario.horaFechamento);
+
+    return `${diasFormatados} | ${horaAberturaFormatada} às ${horaFechamentoFormatada}`;
+  }
+
+  private formatarDias(dias: string): string {
+    const diasMap = {
+      SEG: 'Segunda',
+      TER: 'Terça',
+      QUA: 'Quarta',
+      QUI: 'Quinta',
+      SEX: 'Sexta',
+      SAB: 'Sábado',
+      DOM: 'Domingo'
+    };
+
+    return dias
+      .split('-')
+      .map((dia) => diasMap[dia as keyof typeof diasMap] || dia)
+      .join(' a ');
+  }
+
+  private formatarHora(hora: string): string {
+    return hora.slice(0, 5);
+  }
+}
+
+@Pipe({
   name: 'cep',
 })
 export class CEPPipe implements PipeTransform {

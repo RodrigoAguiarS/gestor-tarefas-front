@@ -85,12 +85,12 @@ export class AdministracaoComponent {
       this.authService.logarComoUsuario(email).subscribe({
         next: () => {
           this.userChangeService.notifyUserChanged();
-          this.router.navigate(['home']);
+          this.router.navigate(['/produtos/card']);
+          this.message.success('Login realizado com sucesso!');
         },
         error: (error) => {
           this.message.error(error.message);
           console.error(error);
-          this.carregando = false;
         },
         complete: () => {
           this.carregando = false;

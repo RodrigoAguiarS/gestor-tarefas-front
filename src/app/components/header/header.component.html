@@ -1,3 +1,13 @@
-<div>
-  <p>{{ usuario.pessoa.nome }} Permissão: {{ papel }}</p>
+<div class="empresa-header">
+  <i nz-icon nzType="shop" nzTheme="outline" class="empresa-icon"></i>
+  <div class="empresa-info">
+    <p class="empresa-nome"><strong>{{ usuario.empresa.nome }}</strong></p>
+    <p class="empresa-endereco">
+      {{ usuario.empresa.endereco.rua }}, {{ usuario.empresa.endereco.numero }} -
+      {{ usuario.empresa.endereco.bairro }}, {{ usuario.empresa.endereco.cidade }}/{{ usuario.empresa.endereco.estado }}
+    </p>
+    <p class="empresa-funcionamento">
+      <strong>Funcionamento:</strong> {{ usuario.empresa.horarioAtendimento | formatarHorario }}
+    </p>
+  </div>
 </div>

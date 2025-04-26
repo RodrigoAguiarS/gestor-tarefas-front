@@ -13,6 +13,6 @@ export class AcessoNegadoComponent {
   constructor(private readonly roteador: Router) {}
 
   navegarParaHome(): void {
-    this.roteador.navigate(['/home']);
+    this.roteador.navigate(['/produtos/card']);
   }
 }

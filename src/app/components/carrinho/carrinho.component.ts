@@ -4,12 +4,11 @@ import { CarrinhoService } from '../../services/carrinho.service';
 import { ItemVenda } from '../../model/ItemVenda';
 import { Router } from '@angular/router';
 import { Produto } from '../../model/Produto';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-carrinho',

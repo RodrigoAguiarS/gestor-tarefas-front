@@ -24,6 +24,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TipoVenda } from '../../../model/TipoVenda';
 import { Router } from '@angular/router';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
+import { CarrinhoComponent } from "../../carrinho/carrinho.component";
 @Component({
   selector: 'app-venda-finalizar',
   imports: [
@@ -39,7 +40,8 @@ import { UsuarioChangeService } from '../../../services/usuario-change.service';
     NzSelectModule,
     NzStatisticModule,
     NzResultModule,
-  ],
+    CarrinhoComponent
+],
   templateUrl: './venda-finalizar.component.html',
   styleUrl: './venda-finalizar.component.css'
 })
@@ -159,7 +161,8 @@ export class VendaFinalizarComponent {
         },
         error: (ex) => {
           console.log(ex);
-          this.mensagemService.error(ex.error.errors[0].message);
+          this.carregando = false;
+          this.mensagemService.error(ex.error.message);
         },
       });
     } else {
