@@ -42,10 +42,10 @@
       <i nz-icon nzType="profile"></i>
     </li>
 
-    <!-- Perfil -->
+    <!-- Meu Perfil -->
     <li
       *ngIf="roles.includes(ACESSO.CLIENTE)"
-      routerLink="/usuario/info"
+      [routerLink]="['/clientes/update', cliente.id]"
       routerLinkActive="active"
     >
       <i nz-icon nzType="user"></i>

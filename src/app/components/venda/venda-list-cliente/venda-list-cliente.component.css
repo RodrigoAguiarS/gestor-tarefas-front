@@ -2,17 +2,22 @@
   padding: 16px;
   background-color: #f5f5f5;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .title {
   text-align: center;
   color: #1890ff;
-  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
 }
 
 .vendas-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
 }
 
@@ -21,13 +26,16 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .venda-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .pedido-numero {
@@ -97,6 +105,23 @@
 
 .venda-info p {
   margin: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.venda-info .valor-original {
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.venda-info .valor-total {
+  font-weight: bold;
+  color: #52c41a;
+}
+
+.venda-info .acrescimo {
+  color: #faad14;
 }
 
 .itens-container {
@@ -134,6 +159,9 @@
 .btn-detalhes {
   margin-top: 16px;
   width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .no-vendas {
@@ -146,6 +174,7 @@
 .no-vendas i {
   font-size: 48px;
   margin-bottom: 8px;
+  color: #d9d9d9;
 }
 
 nz-pagination {
@@ -155,6 +184,10 @@ nz-pagination {
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .vendas-grid {
+    grid-template-columns: 1fr;
+  }
+
   .venda-card {
     padding: 12px;
   }

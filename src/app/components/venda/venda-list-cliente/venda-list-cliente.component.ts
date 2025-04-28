@@ -9,6 +9,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
   selector: 'app-venda-list-cliente',
   imports: [
@@ -16,6 +17,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzSpinModule,
     NzCollapseModule,
     NzCardModule,
+    NzIconModule,
     NzPaginationModule,
     NzButtonModule,
   ],
@@ -49,6 +51,7 @@ export class VendaListClienteComponent {
     this.vendaService.getVendasCliente(params).subscribe({
       next: (response) => {
         this.vendas = response.content;
+        console.log(response);
         this.totalElementos = response.totalElements;
       },
       error: (error) => {

@@ -1,13 +1,69 @@
 <div class="empresa-header">
   <i nz-icon nzType="shop" nzTheme="outline" class="empresa-icon"></i>
+
   <div class="empresa-info">
-    <p class="empresa-nome"><strong>{{ usuario.empresa.nome }}</strong></p>
-    <p class="empresa-endereco">
+    <p class="empresa-nome">
+      <strong>{{ usuario.empresa.nome }}</strong>
+    </p>
+
+    <p class="empresa-endereco" *ngIf="usuario.empresa.endereco">
       {{ usuario.empresa.endereco.rua }}, {{ usuario.empresa.endereco.numero }} -
       {{ usuario.empresa.endereco.bairro }}, {{ usuario.empresa.endereco.cidade }}/{{ usuario.empresa.endereco.estado }}
     </p>
+
     <p class="empresa-funcionamento">
-      <strong>Funcionamento:</strong> {{ usuario.empresa.horarioAtendimento | formatarHorario }}
+      <strong>Funcionamento:</strong>
+      <i
+        nz-icon
+        [nzType]="empresaAberta ? 'check-circle' : 'close-circle'"
+        nzTheme="outline"
+        [ngClass]="empresaAberta ? 'icon-aberto' : 'icon-fechado'"
+        class="status-icon"
+        (click)="abrirModalHorarios()"
+      ></i>
+      {{ empresaAberta ? "Aberto" : "Fechado" }}
     </p>
   </div>
+
+  <nz-modal
+    [(nzVisible)]="modalVisivel"
+    (nzOnCancel)="fecharModalHorarios()"
+    [nzFooter]="null"
+  >
+    <ng-container *nzModalContent>
+      <div class="horarios-container">
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">Informações da Empresa</h3>
+          <div class="modal-section-content">
+            <p><strong>Nome:</strong> {{ usuario.empresa.nome }}</p>
+            <p><strong>CNPJ:</strong> {{ usuario.empresa.cnpj | cnpj }}</p>
+            <p><strong>Telefone:</strong> {{ usuario.empresa.telefone | telefone }}</p>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">Endereço</h3>
+          <div class="modal-section-content">
+            <p>
+              {{ usuario.empresa.endereco.rua }}, {{ usuario.empresa.endereco.numero }} -
+              {{ usuario.empresa.endereco.bairro }}, {{ usuario.empresa.endereco.cidade }}/{{ usuario.empresa.endereco.estado }}
+            </p>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">Horários de Funcionamento</h3>
+          <div class="modal-section-content">
+            <ul>
+              <li *ngFor="let horario of usuario.empresa.horariosFuncionamento">
+                {{ horario | formatarHorario }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </nz-modal>
 </div>

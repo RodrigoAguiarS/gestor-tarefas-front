@@ -18,7 +18,6 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ClienteService } from '../../../services/cliente.service';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgxMaskDirective } from 'ngx-mask';
-import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
 import { AuthService } from '../../../services/auth.service';
 import { EnderecoResposta } from '../../../model/EnderecoReponse';
 import { EnderecoService } from '../../../services/endereco.service';
@@ -157,14 +156,6 @@ export class ClienteCreateComponent {
     }
   }
 
-  lidarComTeclaPressionada(event: KeyboardEvent): void {
-    console.log('Tecla pressionada:', event.key);
-  }
-
-  alternarVisibilidadeSenha(): void {
-    this.hide = !this.hide;
-  }
-
   nextTab(): void {
     this.currentTabIndex++;
   }
@@ -196,13 +187,10 @@ export class ClienteCreateComponent {
   buscarCep(cep: string): void {
     this.enderecoService.buscaEnderecoPorCep(cep).subscribe({
       next: (dadosCep) => {
-        console.log('Resposta da API:', dadosCep); // Log para verificar a estrutura retornada
-
         if (Object.keys(dadosCep).length === 1 && 'erro' in dadosCep) {
           this.message.error('CEP não encontrado ou inválido.');
         } else {
           this.preencherCamposComCep(dadosCep);
-          console.log('Endereço encontrado:', dadosCep);
           this.message.success('Endereço encontrado com sucesso');
         }
       },

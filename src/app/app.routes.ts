@@ -62,6 +62,15 @@ export const routes: Routes = [
         data: { roles: [ACESSO.ADMINISTRADOR] },
       },
       {
+        path: 'clientes',
+        loadChildren: () =>
+          import('./components/cliente/cliente.routes').then(
+            (m) => m.clienteRoutes
+          ),
+        canActivate: [RoleGuard],
+        data: { roles: [ACESSO.CLIENTE] },
+      },
+      {
         path: 'status',
         loadChildren: () =>
           import('./components/status/status.routes').then(
@@ -87,15 +96,6 @@ export const routes: Routes = [
           ),
         canActivate: [RoleGuard],
         data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.CLIENTE] },
-      },
-      {
-        path: 'tarefas',
-        loadChildren: () =>
-          import('./components/tarefa/tarefa.routes').then(
-            (m) => m.tarefaRoutes
-          ),
-        canActivate: [RoleGuard],
-        data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] },
       },
       {
         path: 'result',

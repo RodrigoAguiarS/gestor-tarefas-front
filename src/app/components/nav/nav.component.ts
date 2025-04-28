@@ -15,6 +15,8 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NotificacaoService } from '../../services/notificacao.service';
 import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notificacao-view.component";
 import { NavMobileComponent } from '../nav-mobile/nav-mobile.component';
+import { ClienteService } from '../../services/cliente.service';
+import { ClienteRetorno } from '../../model/ClienteRetorno';
 @Component({
   selector: 'app-nav',
   imports: [
@@ -36,12 +38,14 @@ export class NavComponent implements OnInit {
   isCollapsed = false;
   roles: string[] = [];
   usuario: Usuario = new Usuario();
+  cliente: ClienteRetorno = new ClienteRetorno();
   quantidadeNotificacoes = 0;
 
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly usuarioService: UsuarioService,
+    private readonly clienteService: ClienteService,
     private readonly message: NzMessageService,
     private readonly usuarioChange: UsuarioChangeService,
     private readonly notificationService: NotificacaoService
@@ -50,9 +54,11 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuario();
     this.buscarNotificacoes();
+    this.carregarCliente();
     this.usuarioChange.userChanged$.subscribe(() => {
       this.carregarUsuario();
       this.buscarNotificacoes();
+      this.carregarCliente();
     });
   }
 
@@ -62,6 +68,19 @@ export class NavComponent implements OnInit {
         if (usuario) {
           this.usuario = usuario;
           this.roles = usuario.perfis.map((perfil) => perfil.nome);
+        }
+      },
+      error: (error) => {
+        this.message.error(error.error.message);
+      },
+    });
+  }
+
+  private carregarCliente(): void {
+    this.clienteService.usuarioLogado().subscribe({
+      next: (cliente: ClienteRetorno | null) => {
+        if (cliente) {
+          this.cliente = cliente;
         }
       },
       error: (error) => {

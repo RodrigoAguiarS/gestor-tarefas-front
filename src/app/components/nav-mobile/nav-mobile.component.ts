@@ -9,6 +9,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AuthService } from '../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CarrinhoComponent } from '../carrinho/carrinho.component';
+import { ClienteRetorno } from '../../model/ClienteRetorno';
 
 @Component({
   selector: 'app-nav-mobile',
@@ -30,6 +31,7 @@ export class NavMobileComponent {
 
   @Input() roles: string[] = [];
   @Input() quantidadeNotificacoes: number = 0;
+  @Input() cliente: ClienteRetorno = new ClienteRetorno();
 
   constructor(private readonly authService: AuthService,
               private readonly router: Router,

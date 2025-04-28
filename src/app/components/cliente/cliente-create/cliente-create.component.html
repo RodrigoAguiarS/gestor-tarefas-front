@@ -202,7 +202,7 @@
                         nz-icon
                         [nzType]="hide ? 'eye-invisible' : 'eye'"
                         (click)="hide = !hide"
-                        tabindex="0"
+                        (keydown)="hide = !hide"
                       ></i>
                     </ng-template>
                   </nz-form-control>

@@ -1,27 +1,47 @@
 <div class="venda-list-container">
-  <h2 class="title">Meus Pedidos</h2>
+  <h2 class="title">
+    <i class="fas fa-receipt"></i> Meus Pedidos
+  </h2>
 
   <nz-spin [nzSpinning]="carregando">
     <div class="vendas-grid" *ngIf="vendas.length > 0; else noVendas">
       <div class="venda-card" *ngFor="let venda of vendas">
         <div class="venda-header">
-          <h3 class="pedido-numero">Pedido #{{ venda.id }}</h3>
+          <h3 class="pedido-numero">
+            <i class="fas fa-hashtag"></i> Pedido #{{ venda.id }}
+          </h3>
           <span
             class="status-badge"
             [ngClass]="venda.status.nome.toLowerCase()"
           >
-            {{ venda.status.nome }}
+            <i class="fas fa-info-circle"></i> {{ venda.status.nome }}
           </span>
         </div>
 
         <div class="venda-info">
           <p class="data">
-            <i class="fas fa-calendar"></i>
+            <i class="fas fa-calendar-alt"></i>
             {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}
           </p>
-          <p class="valor">
+          <p class="valor-original">
             <i class="fas fa-money-bill-wave"></i>
-            Total: {{ venda.valorTotal | currency : "BRL" }}
+            Valor Original:
+            {{
+              venda.valorTotal / (1 + venda.pagamento.porcentagemAcrescimo / 100)
+                | currency : "BRL"
+            }}
+          </p>
+          <p class="pagamento">
+            <i class="fas fa-credit-card"></i>
+            Pagamento: {{ venda.pagamento.nome }}
+          </p>
+          <p class="acrescimo" *ngIf="venda.pagamento.porcentagemAcrescimo > 0">
+            <i class="fas fa-percentage"></i>
+            Acréscimo: {{ venda.pagamento.porcentagemAcrescimo }}%
+          </p>
+          <p class="valor-total">
+            <i class="fas fa-money-check-alt"></i>
+            Valor Total: {{ venda.valorTotal | currency : "BRL" }}
           </p>
         </div>
 
@@ -34,10 +54,16 @@
           >
             <div class="itens-lista">
               <div class="item" *ngFor="let item of venda.itens">
-                <span class="item-nome">{{ item.produto.nome }}</span>
+                <span class="item-nome">
+                  <i class="fas fa-box"></i> {{ item.produto.nome }}
+                </span>
                 <div class="item-detalhes">
-                  <span>Qtd: {{ item.quantidade }}</span>
-                  <span>{{ item.valorTotal | currency : "BRL" }}</span>
+                  <span>
+                    <i class="fas fa-cubes"></i> Qtd: {{ item.quantidade }}
+                  </span>
+                  <span>
+                    <i class="fas fa-tag"></i> {{ item.precoUnitario | currency : "BRL" }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -50,7 +76,7 @@
           nzType="primary"
           (click)="verDetalhesVenda(venda.id)"
         >
-          Ver Detalhes
+          <i class="fas fa-eye"></i> Ver Detalhes
         </button>
       </div>
     </div>

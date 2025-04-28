@@ -1,5 +1,5 @@
 import { Endereco } from "./Endereco";
-import { HorarioAtendimento } from "./HorarioFuncionamento";
+import { HorarioFuncionamento } from "./HorarioFuncionamento";
 
 
 export class Empresa {
@@ -8,5 +8,5 @@ export class Empresa {
   cnpj!: string;
   endereco!: Endereco;
   telefone!: string;
-  horarioAtendimento!: HorarioAtendimento;
+  horariosFuncionamento!: HorarioFuncionamento[];
 }

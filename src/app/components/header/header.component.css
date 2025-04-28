@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   background-color: #001529;
-  padding: 10px 15px;
+  padding: 10px 40px;
   border-radius: 5px;
   border: 1px solid #001529;
 }
@@ -21,6 +21,90 @@
   font-size: 24px;
   color: #1890ff;
   margin-right: 10px;
+}
+
+.status-icon {
+  margin-left: 8px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.icon-aberto {
+  color: #52c41a;
+}
+
+.icon-fechado {
+  color: #ff4d4f;
+}
+
+
+.empresa-modal-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+
+  h2 {
+    color: #595959;
+    margin-bottom: 8px;
+  }
+
+  .status {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1890ff;
+  }
+}
+
+.modal-section {
+  margin-bottom: 24px;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #262626;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 4px;
+}
+
+.modal-section-content {
+  font-size: 14px;
+  color: #595959;
+  line-height: 1.5;
+}
+
+.modal-section-content p {
+  margin: 4px 0;
+}
+
+.modal-section-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-section-content li {
+  margin-bottom: 8px;
+}
+
+.horarios-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.horarios-container li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #595959;
 }
 
 .empresa-info p {
@@ -47,23 +131,15 @@
   color: #52c41a; /* Verde para destacar o horário */
 }
 
-
-app-busca-bar {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  app-busca-bar {
-    display: block;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+@media (max-width: 576px) {
+  .empresa-modal-container {
+    padding: 8px;
   }
-  .empresa-icon {
-    margin-bottom: 10px;
-  }
-
   .empresa-info {
     text-align: center;
+  }
+
+  .modal-section {
+    padding: 12px;
   }
 }
