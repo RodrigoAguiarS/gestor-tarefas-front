@@ -20,6 +20,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { BuscaBarComponent } from '../../busca-bar/busca-bar.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { AuthService } from '../../../services/auth.service';
+import { UsuarioChangeService } from '../../../services/usuario-change.service';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-produto-card',
   imports: [
@@ -52,16 +56,23 @@ export class ProdutoCardComponent {
   categoriaSelecionada: string = '';
   loading: boolean = true;
   totalElementos = 0;
+  carregando = false;
+  impersonateAtivo: boolean = false;
 
   constructor(
     private readonly produtoService: ProdutoService,
     private readonly categoriaService: CategoriaService,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly message: NzMessageService,
+    private readonly userChangeService: UsuarioChangeService,
     private readonly modalService: NzModalService,
     private readonly buscaService: BuscaService,
     private readonly carrinhoService: CarrinhoService
   ) {}
 
   ngOnInit(): void {
+    this.verificarImpersonate();
     this.inscreverBusca();
     this.carregarProdutos();
     this.carregarCategorias();
@@ -142,5 +153,29 @@ export class ProdutoCardComponent {
 
   onKeyDown(event: KeyboardEvent): void {
     console.log('Tecla pressionada', event.key);
+  }
+
+  private verificarImpersonate(): void {
+    this.impersonateAtivo = !!localStorage.getItem('impersonateToken');
+  }
+
+  public pararImpersonate(): void {
+    this.carregando = true;
+    this.authService.voltarAoUsuarioAnterior().subscribe({
+      next: () => {
+        this.impersonateAtivo = false;
+        this.userChangeService.notifyUserChanged();
+        this.router.navigate(['home']);
+      },
+      error: (error) => {
+        this.message.error(error.message);
+        this.carregando = false;
+      },
+      complete: () => {
+        localStorage.removeItem('impersonateToken');
+        this.carregando = false;
+        this.message.success('Impersonate finalizado com sucesso!');
+      },
+    });
   }
 }

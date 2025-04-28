@@ -107,7 +107,7 @@ export class ClientePerfilComponent {
       this.clienteService.update(clienteAtualizado).subscribe({
         next: (cliente) => {
           this.router.navigate(['/produtos/card']);
-          this.message.success(cliente.usuario.pessoa.nome + ' atualizado com sucesso!');
+          this.message.success('Perfil atualizado com sucesso!');
         },
         error: (ex) => {
           if (ex.error?.errors) {

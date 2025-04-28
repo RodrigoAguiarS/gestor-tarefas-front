@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TarefaService } from '../../services/tarefa.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CommonModule } from '@angular/common';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
-import { UsuarioComTarefasConcluidas } from '../../model/UsuarioComTarefasConcluidas';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { AuthService } from '../../services/auth.service';
@@ -42,7 +40,6 @@ export class HomeComponent implements OnInit {
     [Situacao.PENDENTE]: 0,
     [Situacao.CONCLUIDA]: 0,
   };
-  usuarioComMaisTarefasConcluidas: UsuarioComTarefasConcluidas[] = [];
   carregando = false;
   impersonateAtivo: boolean = false;
 
@@ -74,7 +71,6 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(
-    private readonly tarefaService: TarefaService,
     private readonly message: NzMessageService,
     private readonly authService: AuthService,
     private readonly router: Router,
@@ -88,45 +84,10 @@ export class HomeComponent implements OnInit {
   }
 
   private carregarGrafico(): void {
-    this.carregando = true;
-    this.tarefaService.getUsuarioComMaisTarefasConcluidas().subscribe({
-      next: (data: UsuarioComTarefasConcluidas[]) => {
-        this.barChartData.labels = data.map((item) => item.usuario.pessoa.nome);
-        this.barChartData.datasets[0].data = data.map((item) => item.quantidadeTarefasEmAndamento);
-        this.barChartData.datasets[1].data = data.map((item) => item.quantidadeTarefasPendentes);
-        this.barChartData.datasets[2].data = data.map((item) => item.quantidadeTarefasConcluidas);
-      },
-      error: (error) => {
-        this.message.error(error.error.message);
-        this.carregando = false;
-      },
-      complete: () => {
-        this.carregando = false;
-        if (this.chart) {
-          this.chart.update();
-        }
-      }
-    });
   }
 
   private carregarTarefasCount(): void {
-    this.carregando = true;
-    this.tarefaService.getTarefasCountBySituacao().subscribe({
-      next: (count) => {
-        this.tarefasCount = {
-          [Situacao.EM_ANDAMENTO]: count.EM_ANDAMENTO || 0,
-          [Situacao.PENDENTE]: count.PENDENTE || 0,
-          [Situacao.CONCLUIDA]: count.CONCLUIDA || 0,
-        };
-      },
-      error: (error) => {
-        this.message.error(error.error.message);
-        this.carregando = false;
-      },
-      complete: () => {
-        this.carregando = false;
-      }
-    });
+
   }
 
   private verificarImpersonate(): void {
