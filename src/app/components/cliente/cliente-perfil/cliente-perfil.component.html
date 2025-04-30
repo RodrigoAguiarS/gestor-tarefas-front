@@ -1,0 +1,204 @@
+<div class="profile-container">
+  <nz-spin [nzSpinning]="carregando">
+    <nz-card class="profile-card" [nzBordered]="false">
+      <!-- Cabeçalho com Avatar -->
+
+      <form
+        nz-form
+        nzLayout="vertical"
+        [formGroup]="clienteForm"
+        class="perfil-form"
+      >
+        <!-- Seção: Informações Pessoais -->
+        <h3 class="section-title">Informações Pessoais</h3>
+        <div class="fields-grid">
+          <nz-form-item>
+            <nz-form-label nzFor="nome" [nzRequired]="true"
+              >Nome Completo</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="nome"
+                nz-input
+                formControlName="nome"
+                placeholder="Ex: João Silva"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="email" [nzRequired]="true"
+              >Email</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="email"
+                nz-input
+                type="email"
+                formControlName="email"
+                placeholder="exemplo@dominio.com"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="dataNascimento" [nzRequired]="true"
+              >Data de Nascimento</nz-form-label
+            >
+            <nz-form-control>
+              <nz-date-picker
+                id="dataNascimento"
+                formControlName="dataNascimento"
+                nzFormat="dd/MM/yyyy"
+                nzPlaceHolder="Selecione a data"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="telefone" [nzRequired]="true"
+              >Telefone</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="telefone"
+                nz-input
+                mask="(00) 0 0000-0000"
+                formControlName="telefone"
+                placeholder="(99) 99999-9999"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- Seção: Endereço de Entrega -->
+        <h3 class="section-title">Endereço de Entrega</h3>
+        <div class="fields-grid">
+          <nz-form-item>
+            <nz-form-label nzFor="cep" [nzRequired]="true">CEP</nz-form-label>
+            <nz-form-control>
+              <input
+                id="cep"
+                nz-input
+                formControlName="cep"
+                mask="00000-000"
+                placeholder="00000-000"
+                maxlength="9"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="rua" [nzRequired]="true">Rua</nz-form-label>
+            <nz-form-control>
+              <input
+                id="rua"
+                nz-input
+                formControlName="rua"
+                placeholder="Nome da Rua"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="numero" [nzRequired]="true"
+              >Número</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="numero"
+                nz-input
+                formControlName="numero"
+                placeholder="Nº"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="bairro" [nzRequired]="true"
+              >Bairro</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="bairro"
+                nz-input
+                formControlName="bairro"
+                placeholder="Nome do Bairro"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="cidade" [nzRequired]="true"
+              >Cidade</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="cidade"
+                nz-input
+                formControlName="cidade"
+                placeholder="Nome da Cidade"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzFor="estado" [nzRequired]="true"
+              >Estado</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                id="estado"
+                nz-input
+                formControlName="estado"
+                placeholder="Nome do estado"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-control>
+              <nz-input-group [nzSuffix]="suffixIcon">
+                <input
+                  id="senha"
+                  nz-input
+                  [type]="hide ? 'password' : 'text'"
+                  formControlName="senha"
+                  placeholder="Digite sua senha"
+                  required
+                />
+              </nz-input-group>
+              <ng-template #suffixIcon>
+                <i
+                  nz-icon
+                  [nzType]="hide ? 'eye-invisible' : 'eye'"
+                  (click)="hide = !hide"
+                  (keydown)="hide = !hide"
+                ></i>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- Ações do Formulário -->
+        <div class="form-actions">
+          <button
+            nz-button
+            (click)="cancelar()"
+            nzType="default"
+          >
+            Cancelar
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="atualizarPerfil()"
+            type="submit"
+          >
+            Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </nz-card>
+  </nz-spin>
+</div>

@@ -15,36 +15,55 @@ export class CPFPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'formatarHorario'
+  name: 'formatarHorario',
 })
 export class FormatarHorarioPipe implements PipeTransform {
-  transform(horario: { diasFuncionamento: string; horaAbertura: string; horaFechamento: string }): string {
-    const diasFormatados = this.formatarDias(horario.diasFuncionamento);
-    const horaAberturaFormatada = this.formatarHora(horario.horaAbertura);
-    const horaFechamentoFormatada = this.formatarHora(horario.horaFechamento);
-
-    return `${diasFormatados} | ${horaAberturaFormatada} às ${horaFechamentoFormatada}`;
-  }
-
-  private formatarDias(dias: string): string {
-    const diasMap = {
-      SEG: 'Segunda',
-      TER: 'Terça',
-      QUA: 'Quarta',
-      QUI: 'Quinta',
-      SEX: 'Sexta',
-      SAB: 'Sábado',
-      DOM: 'Domingo'
+  transform(horario: any): string {
+    const diasSemanaMap: { [key: string]: string } = {
+      MONDAY: 'Segunda-feira',
+      TUESDAY: 'Terça-feira',
+      WEDNESDAY: 'Quarta-feira',
+      THURSDAY: 'Quinta-feira',
+      FRIDAY: 'Sexta-feira',
+      SATURDAY: 'Sábado',
+      SUNDAY: 'Domingo',
     };
 
-    return dias
-      .split('-')
-      .map((dia) => diasMap[dia as keyof typeof diasMap] || dia)
-      .join(' a ');
-  }
+    const diaSemana = diasSemanaMap[horario.diaSemana.toUpperCase()] || horario.diaSemana;
+    const horaAbertura = horario.horaAbertura.slice(0, 5);
+    const horaFechamento = horario.horaFechamento.slice(0, 5);
 
-  private formatarHora(hora: string): string {
-    return hora.slice(0, 5);
+    if (horaAbertura === '00:00' && horaFechamento === '00:00') {
+      return `${diaSemana}: Fechado`;
+    }
+
+    return `${diaSemana}: ${horaAbertura} às ${horaFechamento}`;
+  }
+}
+
+@Pipe({
+  name: 'cnpj',
+})
+export class CnpjPipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) {
+      return '';
+    }
+    value = value.toString();
+    if (value.length === 14) {
+      return (
+        value.substring(0, 2) +
+        '.' +
+        value.substring(2, 5) +
+        '.' +
+        value.substring(5, 8) +
+        '/' +
+        value.substring(8, 12) +
+        '-' +
+        value.substring(12, 14)
+      );
+    }
+    return value;
   }
 }
 

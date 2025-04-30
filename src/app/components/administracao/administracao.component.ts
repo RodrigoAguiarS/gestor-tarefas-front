@@ -17,6 +17,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { ACESSO } from '../../model/Acesso';
 
 @Component({
   selector: 'app-administracao',
@@ -85,7 +86,11 @@ export class AdministracaoComponent {
       this.authService.logarComoUsuario(email).subscribe({
         next: () => {
           this.userChangeService.notifyUserChanged();
-          this.router.navigate(['/produtos/card']);
+          if (this.roles.includes(ACESSO.ADMINISTRADOR)) {
+            this.router.navigate(['/home']);
+          } else if (this.roles.includes(ACESSO.CLIENTE)) {
+            this.router.navigate(['/produtos/card']);
+          }
           this.message.success('Login realizado com sucesso!');
         },
         error: (error) => {

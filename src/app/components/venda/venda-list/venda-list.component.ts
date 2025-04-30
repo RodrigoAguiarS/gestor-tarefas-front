@@ -1,6 +1,5 @@
 import { VendaService } from './../../../services/venda.service';
 import { Component } from '@angular/core';
-import { Cliente } from '../../../model/Cliente';
 import { Status } from '../../../model/Status';
 import { Pagamento } from '../../../model/Pagamento';
 import {
@@ -30,6 +29,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { StatusModalComponent } from '../../status/status-modal/status-modal.component';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
+import { Cliente } from '../../../model/Cliente';
 
 @Component({
   selector: 'app-venda-list',

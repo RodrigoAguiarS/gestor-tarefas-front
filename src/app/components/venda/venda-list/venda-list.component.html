@@ -139,8 +139,8 @@
         <td>{{ venda.cliente.nome }}</td>
         <td>{{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}</td>
         <td>{{ venda.valorTotal | currency : "BRL" }}</td>
-        <td>{{ venda.status.nome }}</td>
-        <td>{{ venda.pagamento.nome }}</td>
+        <td *ngIf="venda.status">{{ venda.status.nome }}</td>
+        <td *ngIf="venda.pagamento">{{ venda.pagamento.nome }}</td>
         <td>
           <a [routerLink]="['/vendas/detalhes', venda.id]">
             <i

@@ -9,9 +9,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { Venda } from '../../../model/Venda';
 import { VendaService } from '../../../services/venda.service';
-import { ClienteRetorno } from '../../../model/ClienteRetorno';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
+import { ClienteRetorno } from '../../../model/ClienteRetorno';
+import { Cliente } from '../../../model/Cliente';
 
 @Component({
   selector: 'app-venda-timeline',

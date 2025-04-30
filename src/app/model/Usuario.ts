@@ -4,7 +4,7 @@ import { Pessoa } from './Pessoa';
 
 export class Usuario {
   id!: number;
-  pessoa: Pessoa = new Pessoa();
+  pessoa!: Pessoa;
   email!: string;
   senha!: string;
   empresa!: Empresa;

@@ -29,50 +29,6 @@
           <span>Home</span>
         </li>
 
-        <!-- TAREFAS -->
-        <li
-          *ngIf="
-            roles.includes(ACESSO.ADMINISTRADOR) ||
-            roles.includes(ACESSO.OPERADOR)
-          "
-          nz-submenu
-          nzTitle="Tarefas"
-          nzIcon="schedule"
-        >
-          <ul>
-            <li
-              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-              nz-menu-item
-              [nzMatchRouter]="true"
-              routerLink="/tarefas/create"
-            >
-              <i nz-icon nzType="file-add"></i>
-              <span>Cadastrar Tarefa</span>
-            </li>
-            <li
-              *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
-              nz-menu-item
-              [nzMatchRouter]="true"
-              routerLink="/tarefas/list"
-            >
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Listar Tarefas</span>
-            </li>
-            <li
-              *ngIf="
-                roles.includes(ACESSO.ADMINISTRADOR) ||
-                roles.includes(ACESSO.OPERADOR)
-              "
-              nz-menu-item
-              [nzMatchRouter]="true"
-              routerLink="/tarefas/usuario/list"
-            >
-              <i nz-icon nzType="unordered-list"></i>
-              <span>Minhas Tarefas</span>
-            </li>
-          </ul>
-        </li>
-
         <!-- NOTIFICAÇÕES -->
         <li
           *ngIf="
@@ -246,7 +202,7 @@
             </li>
 
             <!-- Usuário -->
-            <li nz-submenu nzTitle="Usuário" nzIcon="user">
+            <li nz-submenu nzTitle="Funcionários" nzIcon="user">
               <ul>
                 <li
                   nz-menu-item
@@ -262,7 +218,7 @@
                   routerLink="/usuarios/create"
                 >
                   <i nz-icon nzType="user-add"></i>
-                  <span>Cadastrar Usuário</span>
+                  <span>Cadastrar Funcionários</span>
                 </li>
                 <li
                   nz-menu-item
@@ -270,7 +226,7 @@
                   routerLink="/usuarios/list"
                 >
                   <i nz-icon nzType="unordered-list"></i>
-                  <span>Listar Usuários</span>
+                  <span>Listar Funcionários</span>
                 </li>
               </ul>
             </li>
@@ -297,6 +253,7 @@
   <!-- FOOTER -->
   <app-nav-mobile
     class="mobile-nav"
+    [pessoa]="pessoa"
     [quantidadeNotificacoes]="quantidadeNotificacoes"
     [roles]="roles"
   >

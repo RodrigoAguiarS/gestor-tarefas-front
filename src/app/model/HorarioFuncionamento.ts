@@ -1,5 +1,5 @@
-export class HorarioAtendimento {
+export class HorarioFuncionamento {
   horaAbertura!: string;
   horaFechamento!: string;
-  diasFuncionamento!: string;
+  diaSemana!: string;
 }

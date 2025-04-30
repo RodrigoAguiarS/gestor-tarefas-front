@@ -1,3 +1,17 @@
+<button
+  *ngIf="impersonateAtivo"
+  nzType="primary"
+  [nzLoading]="carregando"
+  nz-button
+  nzSize="large"
+  nzShape="round"
+  nzIcon="rollback"
+  (click)="pararImpersonate()"
+  class="impersonate-button"
+>
+  Voltar ao Usuário
+</button>
+
 <div class="container-resultado">
   <div class="conteudo">
     <!-- Componente de Busca -->

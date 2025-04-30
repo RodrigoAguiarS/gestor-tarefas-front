@@ -7,7 +7,7 @@ import { NzCardComponent } from 'ng-zorro-antd/card';
   selector: 'app-cliente-info',
   imports: [NzCardComponent, CommonModule],
   templateUrl: './cliente-info.component.html',
-  styleUrl: './cliente-info.component.css'
+  styleUrl: './cliente-info.component.css',
 })
 export class ClienteInfoComponent {
   @Input() clienteForm!: FormGroup;
@@ -19,12 +19,17 @@ export class ClienteInfoComponent {
       { label: 'Telefone', value: this.formatarTelefone(this.clienteForm?.get('telefone')?.value) },
       { label: 'CPF', value: this.formatarCPF(this.clienteForm?.get('cpf')?.value) },
       { label: 'Data de Nascimento', value: this.formatarData(this.clienteForm?.get('dataNascimento')?.value) },
-      { label: 'CEP', value: this.formatarCEP(this.clienteForm?.get('cep')?.value) },
-      { label: 'Rua', value: this.clienteForm?.get('rua')?.value },
-      { label: 'Número', value: this.clienteForm?.get('numero')?.value },
-      { label: 'Bairro', value: this.clienteForm?.get('bairro')?.value },
-      { label: 'Cidade', value: this.clienteForm?.get('cidade')?.value },
-      { label: 'Estado', value: this.clienteForm?.get('estado')?.value },
+      {
+        label: 'Endereço',
+        value: this.formatarEndereco(
+          this.clienteForm?.get('rua')?.value,
+          this.clienteForm?.get('numero')?.value,
+          this.clienteForm?.get('bairro')?.value,
+          this.clienteForm?.get('cidade')?.value,
+          this.clienteForm?.get('estado')?.value,
+          this.clienteForm?.get('cep')?.value
+        ),
+      },
     ];
   }
 
@@ -47,5 +52,17 @@ export class ClienteInfoComponent {
   private formatarTelefone(telefone: string): string {
     if (!telefone) return '';
     return telefone.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+  }
+
+  private formatarEndereco(
+    rua: string,
+    numero: string,
+    bairro: string,
+    cidade: string,
+    estado: string,
+    cep: string
+  ): string {
+    if (!rua || !numero || !cidade || !estado || !cep) return '';
+    return `${rua}, ${numero} ${bairro ? bairro + ',' : ''} ${cidade}/${estado} ${this.formatarCEP(cep)}`;
   }
 }

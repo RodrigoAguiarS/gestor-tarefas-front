@@ -16,6 +16,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-usuario-delete',
@@ -32,6 +33,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
         NzResultModule,
         NgxMaskDirective,
         NzSpinModule,
+        NgxCurrencyDirective,
       ],
   templateUrl: './usuario-delete.component.html',
   styleUrl: './usuario-delete.component.css',
@@ -133,12 +135,14 @@ export class UsuarioDeleteComponent {
           email: usuario.email,
           senha: '',
           confirmarSenha: '',
+          salario: usuario.salario,
+          cargo: usuario.cargo,
           perfil: usuario.perfis[0]?.id,
           ativo: usuario.ativo,
-          nome: usuario.pessoa.nome,
-          cpf: usuario.pessoa.cpf,
-          telefone: usuario.pessoa.telefone,
-          dataNascimento: usuario.pessoa.dataNascimento,
+          nome: usuario.nome,
+          cpf: usuario.cpf,
+          telefone: usuario.telefone,
+          dataNascimento: usuario.dataNascimento,
         });
         this.usuarioForm.disable();
       },

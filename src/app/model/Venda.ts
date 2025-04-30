@@ -1,7 +1,7 @@
-import { ClienteRetorno } from "./ClienteRetorno";
 import { ItemVenda } from "./ItemVenda";
 import { Pagamento } from "./Pagamento";
 import { Status } from "./Status";
+import { ClienteRetorno } from "./ClienteRetorno";
 
 export class Venda {
   id!: number;

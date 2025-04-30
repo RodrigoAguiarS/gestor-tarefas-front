@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../model/Usuario';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
+import { Funcionario } from '../model/Funcionario';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,14 @@ export class UsuarioService {
     sort?: string;
     nome?: string;
     cpf?: string;
+    cargo?: string;
+    matricula?: number;
     email?: string;
     perfilId?: number;
-  }): Observable<{ content: Usuario[]; totalElements: number }> {
 
-    let url = `${API_CONFIG.baseUrl}/usuarios/buscar?page=${params.page}&size=${params.size}`;
+  }): Observable<{ content: Funcionario[]; totalElements: number }> {
+
+    let url = `${API_CONFIG.baseUrl}/funcionarios/buscar?page=${params.page}&size=${params.size}`;
 
     if (params.sort) {
       url += `&sort=${params.sort}`;
@@ -43,6 +47,14 @@ export class UsuarioService {
       url += `&cpf=${encodeURIComponent(params.cpf)}`;
     }
 
+    if (params.cargo) {
+      url += `&cargo=${encodeURIComponent(params.cargo)}`;
+    }
+
+    if (params.matricula) {
+      url += `&matricula=${encodeURIComponent(params.matricula)}`;
+    }
+
     if (params.email) {
       url += `&email=${encodeURIComponent(params.email)}`;
     }
@@ -51,22 +63,22 @@ export class UsuarioService {
       url += `&perfilId=${params.perfilId}`;
     }
 
-    return this.http.get<{ content: Usuario[]; totalElements: number }>(url);
+    return this.http.get<{ content: Funcionario[]; totalElements: number }>(url);
   }
 
-  create(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${API_CONFIG.baseUrl}/usuarios`, usuario);
+  create(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.post<Funcionario>(`${API_CONFIG.baseUrl}/funcionarios`, funcionario);
   }
 
-  findById(id: any): Observable<Usuario> {
-    return this.http.get<Usuario>(`${API_CONFIG.baseUrl}/usuarios/${id}`);
+  findById(id: any): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${API_CONFIG.baseUrl}/funcionarios/${id}`);
   }
 
-  update(usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${API_CONFIG.baseUrl}/usuarios/${usuario.id}`, usuario);
+  update(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.put<Funcionario>(`${API_CONFIG.baseUrl}/funcionarios/${funcionario.id}`, funcionario);
   }
 
   delete(id: any): Observable<Usuario> {
-    return this.http.delete<Usuario>(`${API_CONFIG.baseUrl}/usuarios/${id}`);
+    return this.http.delete<Usuario>(`${API_CONFIG.baseUrl}/funcionarios/${id}`);
   }
 }

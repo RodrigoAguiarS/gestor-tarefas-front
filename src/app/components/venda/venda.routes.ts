@@ -10,5 +10,5 @@ export const vendaRoutes: Routes = [
   { path: 'finalizar', component: VendaFinalizarComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.CLIENTE, ACESSO.ADMINISTRADOR] } },
   { path: 'timeline/:id', component: VendaTimelineComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.CLIENTE] } },
   { path: 'meus-pedidos', component: VendaListClienteComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.CLIENTE] } },
-  { path: 'list', component: VendaListComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR] } },
+  { path: 'list', component: VendaListComponent, canActivate: [RoleGuard], data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] } },
 ];

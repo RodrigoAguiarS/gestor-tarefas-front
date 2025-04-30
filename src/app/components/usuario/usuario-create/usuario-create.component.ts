@@ -21,6 +21,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { PerfilService } from '../../../services/perfil.service';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   standalone: true,
@@ -40,6 +41,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzSpinModule,
     NzResultModule,
     NgxMaskDirective,
+    NgxCurrencyDirective,
   ],
 })
 export class UsuarioCreateComponent implements OnInit {
@@ -68,8 +70,8 @@ export class UsuarioCreateComponent implements OnInit {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Usuário de nome - ' + resposta.pessoa.nome,
-            message: 'O usuário foi criado com sucesso!',
+            title: 'Funcionário de nome - ' + resposta.nome,
+            message: 'O Funcionário foi criado com sucesso!',
             createRoute: '/usuarios/create',
             listRoute: '/usuarios/list',
           }
@@ -115,6 +117,8 @@ export class UsuarioCreateComponent implements OnInit {
       confirmarSenha: ['', [Validators.required, this.confirmValidator]],
       perfil: ['', Validators.required],
       ativo: [true],
+      cargo: ['', Validators.required],
+      salario: ['', Validators.required],
       nome: ['', [Validators.required, Validators.minLength(3)]],
       cpf: ['', [Validators.required, Validators.minLength(11)]],
       telefone: ['', Validators.required],
