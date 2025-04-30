@@ -10,16 +10,14 @@
           class="usuario-form"
         >
           <!-- Cabeçalho -->
-          <h2 class="form-title">Atualizar Usuário</h2>
+          <h2 class="form-title">Cadastrar Funcionários</h2>
 
           <!-- Informações Pessoais -->
           <h3 class="form-section-title">Informações Pessoais</h3>
           <div nz-row [nzGutter]="16">
             <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="nome"
-                  >Nome</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="nome">Nome</nz-form-label>
                 <nz-form-control>
                   <input
                     id="nome"
@@ -33,9 +31,7 @@
             </div>
             <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="cpf"
-                  >CPF</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="cpf">CPF</nz-form-label>
                 <nz-form-control>
                   <input
                     id="cpf"
@@ -70,9 +66,7 @@
           <div nz-row [nzGutter]="16">
             <div nz-col [nzXs]="24" [nzSm]="12">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="email"
-                  >E-mail</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="email">E-mail</nz-form-label>
                 <nz-form-control>
                   <input
                     id="email"
@@ -87,9 +81,7 @@
             </div>
             <div nz-col [nzXs]="24" [nzSm]="12">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="telefone"
-                  >Telefone</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="telefone">Telefone</nz-form-label>
                 <nz-form-control>
                   <input
                     id="telefone"
@@ -104,14 +96,47 @@
             </div>
           </div>
 
+          <!-- Cargo e Salário -->
+          <h3 class="form-section-title">Informações Profissionais</h3>
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="cargo">Cargo</nz-form-label>
+                <nz-form-control>
+                  <input
+                    id="cargo"
+                    nz-input
+                    formControlName="cargo"
+                    placeholder="Ex. Gerente"
+                    required
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label [nzRequired]="true" nzFor="salario">Salário</nz-form-label>
+                <nz-form-control>
+                  <input
+                    id="salario"
+                    type="text"
+                    nz-input
+                    [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                    formControlName="salario"
+                    placeholder="Ex. 5000.00"
+                    required
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
           <!-- Perfil -->
           <h3 class="form-section-title">Perfil</h3>
           <div nz-row [nzGutter]="16">
             <div nz-col [nzXs]="24" [nzSm]="12">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="perfil"
-                  >Perfil</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="perfil">Perfil</nz-form-label>
                 <nz-form-control>
                   <nz-select
                     id="perfil"
@@ -135,9 +160,7 @@
           <div nz-row [nzGutter]="16">
             <div nz-col [nzXs]="24" [nzSm]="12">
               <nz-form-item>
-                <nz-form-label [nzRequired]="true" nzFor="senha"
-                  >Senha</nz-form-label
-                >
+                <nz-form-label [nzRequired]="true" nzFor="senha">Senha</nz-form-label>
                 <nz-form-control>
                   <nz-input-group [nzSuffix]="suffixIcon">
                     <input
@@ -197,7 +220,7 @@
               [disabled]="!usuarioForm.valid || carregando"
               [nzLoading]="carregando"
             >
-              Atualizar
+              Cadastrar
             </button>
           </div>
         </form>

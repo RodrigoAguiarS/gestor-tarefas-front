@@ -1,64 +1,40 @@
-<button
-  *ngIf="impersonateAtivo"
-  nzType="primary"
-  [nzLoading]="carregando"
-  nz-button
-  nzSize="large"
-  nzShape="round"
-  nzIcon="rollback"
-  (click)="pararImpersonate()"
-  class="impersonate-button"
->
-  Voltar ao Usuário
-</button>
+<div class="chart-grid">
+  <div class="chart-container">
+    <h3>Produtos mais Vendidos</h3>
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [type]="barChartType"
+    >
+    </canvas>
+  </div>
 
-<nz-spin [nzSpinning]="carregando">
-  <section class="dashboard-summary">
-    <nz-card class="dashboard-card">
-      <nz-card-meta nzTitle="Tarefas em Andamento"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.EM_ANDAMENTO"
-        nzPrefix="🔄"
-        class="dashboard-statistic"
-      ></nz-statistic>
-    </nz-card>
-    <nz-card class="dashboard-card">
-      <nz-card-meta nzTitle="Tarefas Pendentes"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.PENDENTE"
-        nzPrefix="⏳"
-        class="dashboard-statistic"
-      ></nz-statistic>
-    </nz-card>
-    <nz-card class="dashboard-card">
-      <nz-card-meta nzTitle="Tarefas Concluídas"></nz-card-meta>
-      <nz-statistic
-        [nzValue]="tarefasCount.CONCLUIDA"
-        nzPrefix="✅"
-        class="dashboard-statistic"
-      ></nz-statistic>
-    </nz-card>
-  </section>
+  <div class="chart-container">
+    <h3>Categoria de Produto mais Vendido</h3>
+    <canvas
+      baseChart
+      [datasets]="pieChartData"
+      [labels]="pieChartLabels"
+      [options]="pieChartOptions"
+      [legend]="pieChartLegend"
+      [type]="pieChartType"
+    >
+    </canvas>
+  </div>
 
-  <section class="chart-section">
-    <h2>Gráfico de Tarefas Concluídas</h2>
-    <div class="chart-container">
-      <canvas
-        baseChart
-        [data]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [legend]="barChartLegend"
-        [type]="'bar'"
-      >
-      </canvas>
-    </div>
-  </section>
-
-  <!-- Estado vazio -->
-  <ng-template #emptyState>
-    <div class="empty-state">
-      <nz-empty></nz-empty>
-    </div>
-  </ng-template>
-</nz-spin>
+  <div class="chart-container">
+    <h3>Produtos com Maior Faturamento</h3>
+    <canvas
+      baseChart
+      [datasets]="revenueChartData"
+      [labels]="revenueChartLabels"
+      [options]="revenueChartOptions"
+      [legend]="revenueChartLegend"
+      [type]="revenueChartType"
+    >
+    </canvas>
+  </div>
+</div>

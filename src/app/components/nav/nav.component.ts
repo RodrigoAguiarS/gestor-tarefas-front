@@ -16,7 +16,7 @@ import { NotificacaoService } from '../../services/notificacao.service';
 import { NotificacaoViewComponent } from "../notificacao/notificacao-view/notificacao-view.component";
 import { NavMobileComponent } from '../nav-mobile/nav-mobile.component';
 import { ClienteService } from '../../services/cliente.service';
-import { ClienteRetorno } from '../../model/ClienteRetorno';
+import { Pessoa } from '../../model/Pessoa';
 @Component({
   selector: 'app-nav',
   imports: [
@@ -38,7 +38,7 @@ export class NavComponent implements OnInit {
   isCollapsed = false;
   roles: string[] = [];
   usuario: Usuario = new Usuario();
-  cliente: ClienteRetorno = new ClienteRetorno();
+  pessoa: Pessoa = new Pessoa();
   quantidadeNotificacoes = 0;
 
   constructor(
@@ -54,11 +54,9 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuario();
     this.buscarNotificacoes();
-    this.carregarCliente();
     this.usuarioChange.userChanged$.subscribe(() => {
       this.carregarUsuario();
       this.buscarNotificacoes();
-      this.carregarCliente();
     });
   }
 
@@ -67,20 +65,9 @@ export class NavComponent implements OnInit {
       next: (usuario: Usuario | null) => {
         if (usuario) {
           this.usuario = usuario;
+          this.pessoa = usuario.pessoa;
+          console.log('Usuário logado:', this.usuario);
           this.roles = usuario.perfis.map((perfil) => perfil.nome);
-        }
-      },
-      error: (error) => {
-        this.message.error(error.error.message);
-      },
-    });
-  }
-
-  private carregarCliente(): void {
-    this.clienteService.usuarioLogado().subscribe({
-      next: (cliente: ClienteRetorno | null) => {
-        if (cliente) {
-          this.cliente = cliente;
         }
       },
       error: (error) => {

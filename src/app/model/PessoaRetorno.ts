@@ -1,4 +1,5 @@
-export class  ClienteRetorno {
+
+export class  PessoaRetorno {
   id!: number;
   email!: string;
   nome!: string;

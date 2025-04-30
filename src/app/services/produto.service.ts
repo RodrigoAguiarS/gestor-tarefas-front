@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Produto } from '../model/Produto';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
+import { Grafico } from '../model/Grafico';
+import { GraficoFaturamento } from '../model/GraficoFaturamento';
 
 @Injectable({
   providedIn: 'root',
@@ -71,6 +73,18 @@ export class ProdutoService {
     }
 
     return this.http.get<{ content: Produto[]; totalElements: number }>(url);
+  }
+
+  getVendasParaGrafico(): Observable<Grafico[]> {
+    return this.http.get<Grafico[]>(`${API_CONFIG.baseUrl}/produtos/grafico`);
+  }
+
+  getCategoriasMaisVendidas(): Observable<Grafico[]> {
+    return this.http.get<Grafico[]>(`${API_CONFIG.baseUrl}/produtos/grafico/categorias`);
+  }
+
+  getFaturamentoPorProduto(): Observable<GraficoFaturamento[]> {
+    return this.http.get<GraficoFaturamento[]>(`${API_CONFIG.baseUrl}/produtos/grafico/futuramento`);
   }
 
   removerArquivo(arquivoUrl: string): Observable<void> {

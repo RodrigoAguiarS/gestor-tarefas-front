@@ -21,6 +21,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { EnderecoResposta } from '../../../model/EnderecoReponse';
 import { EnderecoService } from '../../../services/endereco.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-cliente-perfil',
@@ -46,6 +47,7 @@ export class ClientePerfilComponent {
     private readonly fb: FormBuilder,
     private readonly message: NzMessageService,
     private readonly router: Router,
+    private readonly authservice: AuthService,
     private readonly route: ActivatedRoute,
     private readonly enderecoService: EnderecoService,
     private readonly clienteService: ClienteService
@@ -101,30 +103,49 @@ export class ClientePerfilComponent {
   atualizarPerfil(): void {
     this.carregando = true;
     if (this.clienteForm.valid) {
-
       const clienteAtualizado = { ...this.clienteForm.value, id: this.id };
-      this.clienteForm.value.id = this.id;
+
       this.clienteService.update(clienteAtualizado).subscribe({
-        next: (cliente) => {
-          this.router.navigate(['/produtos/card']);
-          this.message.success('Perfil atualizado com sucesso!');
+        next: () => {
+          const email = this.clienteForm.get('email')?.value;
+          const senha = this.clienteForm.get('senha')?.value;
+
+          if (email && senha) {
+            this.authservice.authenticate({ email, senha }).subscribe({
+              next: (loginResponse) => {
+                const token =
+                  loginResponse.headers.get('Authorization')?.substring(7) ?? '';
+                this.authservice.successfulLogin(token);
+                this.router.navigate(['/produtos/card']);
+                this.message.success('Perfil atualizado e login realizado com sucesso!');
+              },
+              error: () => {
+                this.message.error(
+                  'Erro ao realizar login automático. Por favor, faça login manualmente.'
+                );
+                this.carregando = false;
+              },
+            });
+          } else {
+            this.message.error(
+              'Erro ao obter as credenciais para login automático.'
+            );
+            this.carregando = false;
+          }
         },
         error: (ex) => {
           if (ex.error?.errors) {
             ex.error.errors.forEach((element: { message: string }) => {
-              this.router.navigate(['home']);
-              this.carregando = false;
+              this.message.error(element.message);
             });
           } else {
             this.message.error(
               ex.error?.message ?? 'Erro ao atualizar o perfil.'
             );
-            this.carregando = false;
-            this.router.navigate(['home']);
           }
+          this.carregando = false;
         },
         complete: () => {
-          this.message.success('Perfil atualizado com sucesso!');
           this.carregando = false;
         },
       });

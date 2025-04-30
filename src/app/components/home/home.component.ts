@@ -11,6 +11,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { ChartType } from 'chart.js';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { ProdutoService } from '../../services/produto.service';
 
 enum Situacao {
   EM_ANDAMENTO = 'EM_ANDAMENTO',
@@ -35,60 +36,101 @@ enum Situacao {
 })
 export class HomeComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
-  tarefasCount: Record<Situacao, number> = {
-    [Situacao.EM_ANDAMENTO]: 0,
-    [Situacao.PENDENTE]: 0,
-    [Situacao.CONCLUIDA]: 0,
-  };
+
   carregando = false;
   impersonateAtivo: boolean = false;
 
+  chartOptions: any;
   public barChartOptions = {
     responsive: true,
   };
   public barChartLabels: string[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-  public barChartData = {
-    labels: [] as string[],
-    datasets: [
-      {
-        data: [] as number[],
-        label: 'Tarefas em Andamento',
-        backgroundColor: '#42A5F5',
-      },
-      {
-        data: [] as number[],
-        label: 'Tarefas Pendentes',
-        backgroundColor: '#FFA726',
-      },
-      {
-        data: [] as number[],
-        label: 'Tarefas Concluídas',
-        backgroundColor: '#66BB6A',
-      },
-    ],
+  public barChartData: {
+    data: number[];
+    label: string;
+    backgroundColor: string[];
+  }[] = [];
+
+  public pieChartOptions = {
+    responsive: true,
   };
+  public pieChartLabels: string[] = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartData: {
+    data: number[];
+    label: string;
+    backgroundColor: string[];
+    hoverOffset: 4
+  }[] = [];
+
+  public revenueChartOptions = {
+    responsive: true,
+  };
+  public revenueChartLabels: string[] = [];
+  public revenueChartType: ChartType = 'line';
+  public revenueChartLegend = true;
+  public revenueChartData: {
+    data: number[];
+    label: string;
+    backgroundColor: string[];
+  }[] = [];
 
   constructor(
     private readonly message: NzMessageService,
     private readonly authService: AuthService,
+    private readonly produtoService: ProdutoService,
     private readonly router: Router,
     private readonly userChangeService: UsuarioChangeService
   ) {}
 
   ngOnInit(): void {
-    this.carregarGrafico();
+    this.produtoService.getVendasParaGrafico().subscribe((data) => {
+      this.barChartLabels = data.map((item) => item.nome);
+      this.barChartData = [
+        {
+          data: data.map((item) => item.quantidade),
+          label: 'Produtos Mais Vendidos',
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        },
+      ];
+    });
+    this.carregarGraficoPizza();
+    this.carregarGraficoFaturamento();
     this.verificarImpersonate();
     this.carregarTarefasCount();
   }
 
-  private carregarGrafico(): void {
+  private carregarGraficoPizza(): void {
+    this.produtoService.getCategoriasMaisVendidas().subscribe((data) => {
+      this.pieChartLabels = data.map((item) => item.nome);
+      this.pieChartData = [
+        {
+          data: data.map((item) => item.quantidade),
+          label: 'Categoria de Produto mais vendido',
+          backgroundColor: ['#9966FF', '#4BC0C0', '#FFCE56', '#4BC0C0', '#9966FF'],
+          hoverOffset: 4,
+        },
+      ];
+    });
   }
 
-  private carregarTarefasCount(): void {
-
+  private carregarGraficoFaturamento(): void {
+    this.produtoService.getFaturamentoPorProduto().subscribe((data) => {
+      this.revenueChartLabels = data.map((item) => item.nome);
+      this.revenueChartData = [
+        {
+          data: data.map((item) => item.valor),
+          label: 'Produtos com Maior Faturamento',
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+        },
+      ];
+    });
   }
+
+  private carregarTarefasCount(): void {}
 
   private verificarImpersonate(): void {
     this.impersonateAtivo = !!localStorage.getItem('impersonateToken');

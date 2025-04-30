@@ -50,7 +50,7 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./components/venda/venda.routes').then((m) => m.vendaRoutes),
         canActivate: [RoleGuard],
-        data: { roles: [ACESSO.CLIENTE, ACESSO.ADMINISTRADOR] },
+        data: { roles: [ACESSO.CLIENTE, ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] },
       },
       {
         path: 'perfis',

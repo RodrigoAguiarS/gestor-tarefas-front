@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-usuario-update',
@@ -32,6 +33,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
       NzResultModule,
       NgxMaskDirective,
       NzSpinModule,
+      NgxCurrencyDirective,
     ],
   templateUrl: './usuario-update.component.html',
   styleUrl: './usuario-update.component.css'
@@ -69,7 +71,7 @@ export class UsuarioUpdateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Usuário de nome - ' + resposta.pessoa.nome,
+            title: 'Usuário de nome - ' + resposta.nome,
             message: 'O usuário foi atualizado com sucesso!',
             createRoute: '/usuarios/create',
             listRoute: '/usuarios/list',
@@ -116,6 +118,8 @@ export class UsuarioUpdateComponent {
       confirmarSenha: ['', [Validators.required, this.confirmValidator]],
       perfil: ['', Validators.required],
       ativo: [true],
+      cargo: ['', Validators.required],
+      salario: ['', Validators.required],
       nome: ['', [Validators.required, Validators.minLength(3)]],
       cpf: ['', [Validators.required, Validators.minLength(11)]],
       telefone: ['', Validators.required],
@@ -132,12 +136,14 @@ export class UsuarioUpdateComponent {
           email: usuario.email,
           senha: '',
           confirmarSenha: '',
+          salario: usuario.salario,
+          cargo: usuario.cargo,
           perfil: usuario.perfis[0]?.id,
           ativo: usuario.ativo,
-          nome: usuario.pessoa.nome,
-          cpf: usuario.pessoa.cpf,
-          telefone: usuario.pessoa.telefone,
-          dataNascimento: usuario.pessoa.dataNascimento,
+          nome: usuario.nome,
+          cpf: usuario.cpf,
+          telefone: usuario.telefone,
+          dataNascimento: usuario.dataNascimento,
         });
       },
       complete: () => {

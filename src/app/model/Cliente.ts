@@ -1,8 +1,8 @@
 import { Endereco } from "./Endereco";
-import { Usuario } from "./Usuario";
+import { Pessoa } from "./Pessoa";
 
 export class  Cliente {
   id!: number;
-  usuario!: Usuario;
+  pessoa!: Pessoa;
   endereco!: Endereco;
 }

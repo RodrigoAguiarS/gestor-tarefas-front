@@ -45,7 +45,7 @@
     <!-- Meu Perfil -->
     <li
       *ngIf="roles.includes(ACESSO.CLIENTE)"
-      [routerLink]="['/clientes/update', cliente.id]"
+      [routerLink]="['/clientes/update', pessoa.id]"
       routerLinkActive="active"
     >
       <i nz-icon nzType="user"></i>

@@ -202,7 +202,7 @@
             </li>
 
             <!-- Usuário -->
-            <li nz-submenu nzTitle="Usuário" nzIcon="user">
+            <li nz-submenu nzTitle="Funcionários" nzIcon="user">
               <ul>
                 <li
                   nz-menu-item
@@ -218,7 +218,7 @@
                   routerLink="/usuarios/create"
                 >
                   <i nz-icon nzType="user-add"></i>
-                  <span>Cadastrar Usuário</span>
+                  <span>Cadastrar Funcionários</span>
                 </li>
                 <li
                   nz-menu-item
@@ -226,7 +226,7 @@
                   routerLink="/usuarios/list"
                 >
                   <i nz-icon nzType="unordered-list"></i>
-                  <span>Listar Usuários</span>
+                  <span>Listar Funcionários</span>
                 </li>
               </ul>
             </li>
@@ -253,7 +253,7 @@
   <!-- FOOTER -->
   <app-nav-mobile
     class="mobile-nav"
-    [cliente]="cliente"
+    [pessoa]="pessoa"
     [quantidadeNotificacoes]="quantidadeNotificacoes"
     [roles]="roles"
   >

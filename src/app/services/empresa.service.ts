@@ -7,15 +7,10 @@ import { API_CONFIG } from '../config/api.config';
   providedIn: 'root'
 })
 export class EmpresaService {
-  [x: string]: any;
 
   constructor(private readonly http: HttpClient) { }
 
   verificarStatusEmopresa(): Observable<boolean> {
     return this.http.get<boolean>(`${API_CONFIG.baseUrl}/empresas/esta-aberto`);
   }
-
-
-
-
 }

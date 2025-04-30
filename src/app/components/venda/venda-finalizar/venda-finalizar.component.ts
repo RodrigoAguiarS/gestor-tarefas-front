@@ -19,11 +19,12 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-import { ClienteRetorno } from '../../../model/ClienteRetorno';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TipoVenda } from '../../../model/TipoVenda';
 import { Router } from '@angular/router';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
+import { Cliente } from '../../../model/Cliente';
+import { ClienteRetorno } from '../../../model/ClienteRetorno';
 @Component({
   selector: 'app-venda-finalizar',
   imports: [

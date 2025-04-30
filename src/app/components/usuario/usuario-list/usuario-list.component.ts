@@ -5,7 +5,6 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { PerfilService } from '../../../services/perfil.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { RouterModule } from '@angular/router';
-import { Usuario } from '../../../model/Usuario';
 import { Perfil } from '../../../model/Perfil';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -17,6 +16,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { AlertaService } from '../../../services/alerta.service';
+import { Funcionario } from '../../../model/Funcionario';
 @Component({
   selector: 'app-usuario-list',
   standalone: true,
@@ -39,7 +39,7 @@ import { AlertaService } from '../../../services/alerta.service';
   styleUrls: ['./usuario-list.component.css']
 })
 export class UsuarioListComponent implements OnInit {
-  usuarios: Usuario[] = [];
+  funcionarios: Funcionario[] = [];
   perfis: Perfil[] = [];
   carregando = false;
   totalElementos = 0;
@@ -79,16 +79,18 @@ export class UsuarioListComponent implements OnInit {
     const params = {
       page: this.paginaAtual - 1,
       size: this.itensPorPagina,
-      sort: 'email',
+      sort: 'id',
       nome: this.filtroForm.get('nome')?.value.trim().toLowerCase(),
       email: this.filtroForm.get('email')?.value.trim().toLowerCase(),
+      matricula: this.filtroForm.get('matricula')?.value,
+      cargo: this.filtroForm.get('cargo')?.value,
       cpf: this.filtroForm.get('cpf')?.value.replace(/\D/g, ''),
       perfilId: this.filtroForm.get('perfilId')?.value,
     };
 
     this.usuarioService.buscarPaginado(params).subscribe({
       next: (data) => {
-        this.usuarios = data.content;
+        this.funcionarios = data.content;
         this.totalElementos = data.totalElements;
         this.nenhumResultadoEncontrado = data.totalElements === 0;
         this.carregando = false;
