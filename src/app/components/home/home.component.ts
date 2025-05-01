@@ -13,12 +13,6 @@ import { ChartType } from 'chart.js';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { ProdutoService } from '../../services/produto.service';
 
-enum Situacao {
-  EM_ANDAMENTO = 'EM_ANDAMENTO',
-  PENDENTE = 'PENDENTE',
-  CONCLUIDA = 'CONCLUIDA',
-}
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -100,7 +94,6 @@ export class HomeComponent implements OnInit {
     this.carregarGraficoPizza();
     this.carregarGraficoFaturamento();
     this.verificarImpersonate();
-    this.carregarTarefasCount();
   }
 
   private carregarGraficoPizza(): void {
@@ -129,8 +122,6 @@ export class HomeComponent implements OnInit {
       ];
     });
   }
-
-  private carregarTarefasCount(): void {}
 
   private verificarImpersonate(): void {
     this.impersonateAtivo = !!localStorage.getItem('impersonateToken');

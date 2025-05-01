@@ -3,23 +3,28 @@
     <ng-container *ngIf="!pedidoRealizado">
       <!-- Header com total -->
       <div class="header-total">
-        <h2>Total a Pagar</h2>
-        <div class="valor-total">{{ valorTotal | currency : "BRL" }}</div>
+        <h2>Finalizar Compra</h2>
       </div>
 
       <form [formGroup]="vendaForm" (ngSubmit)="finalizarVenda()">
+        <!-- Dados Pessoais -->
+        <section class="dados-section" *ngIf="cliente">
+          <h3><i nz-icon nzType="user"></i> Dados Pessoais</h3>
+          <div class="info-card">
+            <div><strong>Nome:</strong> {{ cliente.nome }}</div>
+            <div><strong>CPF:</strong> {{ cliente.cpf | CPF }}</div>
+            <div><strong>Telefone:</strong> {{ cliente.telefone | telefone }}</div>
+          </div>
+        </section>
 
         <!-- Endereço -->
         <section class="endereco-section" *ngIf="cliente">
           <h3><i nz-icon nzType="environment"></i> Endereço de Entrega</h3>
-          <div class="endereco-card">
-            <div class="endereco-principal">
-              {{ cliente.rua }}, {{ cliente.numero }}
-            </div>
-            <div class="endereco-complemento">
-              {{ cliente.bairro }} - {{ cliente.cidade }}/{{ cliente.estado }}
-            </div>
-            <div class="endereco-cep">CEP: {{ cliente.cep }}</div>
+          <div class="info-card">
+            <div><strong>Rua:</strong> {{ cliente.rua }}, {{ cliente.numero }}</div>
+            <div><strong>Bairro:</strong> {{ cliente.bairro }}</div>
+            <div><strong>Cidade/Estado:</strong> {{ cliente.cidade }}/{{ cliente.estado }}</div>
+            <div><strong>CEP:</strong> {{ cliente.cep | cep }}</div>
           </div>
         </section>
 
@@ -31,8 +36,7 @@
               *ngFor="let pag of pagamentos"
               [nzValue]="pag"
               [nzLabel]="pag.nome"
-            >
-            </nz-option>
+            ></nz-option>
           </nz-select>
         </section>
 
@@ -42,7 +46,7 @@
             <span>Subtotal</span>
             <span>{{ valorParcial | currency : "BRL" }}</span>
           </div>
-          <div class="resumo-item" >
+          <div class="resumo-item">
             <span>Acréscimo</span>
             <span>{{ acrescimo }}%</span>
           </div>

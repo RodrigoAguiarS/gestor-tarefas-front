@@ -17,6 +17,8 @@ import { Empresa } from '../../model/Empresa';
 import { EmpresaService } from '../../services/empresa.service';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CnpjPipe, FormatarHorarioPipe, TelefonePipe } from '../../../pipe';
+import { CarrinhoComponent } from '../carrinho/carrinho.component';
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 @Component({
   selector: 'app-header',
   imports: [
@@ -26,6 +28,8 @@ import { CnpjPipe, FormatarHorarioPipe, TelefonePipe } from '../../../pipe';
     NzFormModule,
     NzModalModule,
     FormatarHorarioPipe,
+    CarrinhoComponent,
+    NzTimelineModule,
     CnpjPipe,
     TelefonePipe,
     NzButtonModule,

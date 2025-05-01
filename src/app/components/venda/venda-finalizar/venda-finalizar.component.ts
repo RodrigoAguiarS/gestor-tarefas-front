@@ -23,13 +23,16 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TipoVenda } from '../../../model/TipoVenda';
 import { Router } from '@angular/router';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
-import { Cliente } from '../../../model/Cliente';
 import { ClienteRetorno } from '../../../model/ClienteRetorno';
+import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
 @Component({
   selector: 'app-venda-finalizar',
   imports: [
     CommonModule,
     FormsModule,
+    CPFPipe,
+    CEPPipe,
+    TelefonePipe,
     ReactiveFormsModule,
     NzCardModule,
     NzCollapseModule,
@@ -70,6 +73,7 @@ export class VendaFinalizarComponent {
   ) {}
 
   ngOnInit(): void {
+    this.carregando = true;
     this.initForm();
     this.carregaUsuario();
     this.findAllPagamentos();
@@ -87,6 +91,7 @@ export class VendaFinalizarComponent {
           this.atualizarValores();
         }
       });
+      this.carregando = false;
   }
 
   initForm(): void {
@@ -104,6 +109,8 @@ export class VendaFinalizarComponent {
         this.vendaForm.patchValue({
           cliente: cliente,
         });
+      },
+      complete: () => {
       },
       error: (ex) => {
         this.messege.error(ex.error.message);

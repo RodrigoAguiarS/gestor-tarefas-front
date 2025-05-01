@@ -8,9 +8,20 @@
   position: relative;
 }
 
+.carrinho-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carrinho-container app-carrinho {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
 .empresa-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #001529;
   padding: 10px 40px;
   border-radius: 5px;
@@ -20,13 +31,11 @@
 .empresa-icon {
   font-size: 24px;
   color: #1890ff;
-  margin-right: 10px;
 }
 
 .status-icon {
   margin-left: 8px;
   font-size: 16px;
-  vertical-align: middle;
 }
 
 .icon-aberto {
@@ -36,7 +45,6 @@
 .icon-fechado {
   color: #ff4d4f;
 }
-
 
 .empresa-modal-container {
   max-width: 600px;
@@ -66,6 +74,14 @@
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nome-icon,
+.endereco-icon,
+.funcionamento-icon {
+  font-size: 16px;
+  color: #1890ff;
+  margin-right: 8px;
 }
 
 .modal-section-title {
@@ -131,7 +147,12 @@
   color: #52c41a; /* Verde para destacar o horário */
 }
 
-@media (max-width: 576px) {
+/* Estilos para telas menores */
+@media screen and (max-width: 1280px) {
+  .carrinho-container {
+    display: none;
+  }
+
   .empresa-modal-container {
     padding: 8px;
   }
