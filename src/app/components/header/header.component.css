@@ -1,5 +1,5 @@
 .header {
-  display: flex;
+  display: center;
   align-items: center;
   justify-content: center;
   padding: 16px;
@@ -131,20 +131,35 @@
 }
 
 .empresa-nome {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .empresa-endereco {
-  font-size: 14px;
-  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+
+.endereco-icon {
+  color: #40a9ff;
 }
 
 .empresa-funcionamento {
-  font-size: 14px;
-  margin: 4px 0;
-  color: #52c41a; /* Verde para destacar o horário */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 /* Estilos para telas menores */
@@ -152,9 +167,8 @@
   .carrinho-container {
     display: none;
   }
-
-  .empresa-modal-container {
-    padding: 8px;
+  .empresa-header {
+    justify-content: center;
   }
   .empresa-info {
     text-align: center;

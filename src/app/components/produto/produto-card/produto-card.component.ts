@@ -1,3 +1,4 @@
+import { CarrinhoComponent } from './../../carrinho/carrinho.component';
 import { BuscaService } from './../../../services/busca.service';
 import { Component } from '@angular/core';
 import { Produto } from '../../../model/Produto';
@@ -43,7 +44,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NzSpinModule,
     NzCardModule,
     CurrencyPipe,
-    BuscaBarComponent
+
 ],
   templateUrl: './produto-card.component.html',
   styleUrl: './produto-card.component.css',

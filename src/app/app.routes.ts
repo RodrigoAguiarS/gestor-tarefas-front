@@ -112,7 +112,7 @@ export const routes: Routes = [
         path: 'notificacao',
         component: NotificacaoListComponent,
         canActivate: [RoleGuard],
-        data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR] },
+        data: { roles: [ACESSO.ADMINISTRADOR, ACESSO.OPERADOR, ACESSO.CLIENTE] },
       },
       {
         path: 'acesso-negado',

@@ -56,7 +56,7 @@
 
 .container-imagem-produto {
   position: relative;
-  padding-top: 100%; /* Mantém aspect ratio 1:1 */
+  padding-top: 100%;
   background: #fff;
 }
 
@@ -127,6 +127,7 @@
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
