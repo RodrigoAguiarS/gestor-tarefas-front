@@ -35,7 +35,7 @@ export class NotificacaoViewComponent implements OnInit, OnDestroy {
 
         this.sseSubscription = this.sseService.conectar(usuario.id).subscribe({
           next: (mensagem) => {
-            this.notification.success('Nova Tarefa', mensagem);
+            this.notification.success('Nova Notificação', mensagem);
             this.usuarioChangeService.notifyUserChanged();
           },
           error: (err) => {

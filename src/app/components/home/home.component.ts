@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
     responsive: true,
   };
   public pieChartLabels: string[] = [];
-  public pieChartType: ChartType = 'pie';
+  public pieChartType: ChartType = 'bar';
   public pieChartLegend = true;
   public pieChartData: {
     data: number[];
