@@ -26,6 +26,10 @@ h2 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
 }
 
+.nz-pagination {
+  display: none;
+}
+
 form {
   display: flex;
   flex-wrap: wrap;
@@ -143,12 +147,6 @@ a i:hover {
   border-radius: 4px;
 }
 
-.nz-pagination {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
   .produtos-cards {
@@ -159,6 +157,12 @@ a i:hover {
 
   nz-table {
     display: none; /* Oculta a tabela em telas menores */
+  }
+
+  .nz-pagination {
+    display: flex; /* Exibe a paginação em telas menores */
+    justify-content: center;
+    margin-top: 16px;
   }
 }
 

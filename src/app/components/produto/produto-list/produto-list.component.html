@@ -1,6 +1,4 @@
 <div class="container">
-  <h1>Lista de Produtos</h1>
-
   <!-- Alerta -->
   <nz-alert
     *ngIf="
@@ -16,7 +14,7 @@
 
   <!-- Filtro de Busca -->
   <div class="search-container">
-    <h2>Buscar Vendas</h2>
+    <h2>Buscar Produtos</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarProduto()">
       <input nz-input placeholder="Nome" formControlName="nome" />
       <input

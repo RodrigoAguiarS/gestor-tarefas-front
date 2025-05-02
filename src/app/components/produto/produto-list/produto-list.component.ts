@@ -24,6 +24,10 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { AlertaService } from '../../../services/alerta.service';
 import { NgxCurrencyDirective } from "ngx-currency";
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @Component({
   selector: 'app-produto-list',
@@ -43,6 +47,10 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzModalModule,
     NgxCurrencyDirective,
     NzAlertModule,
+    NzInputNumberModule,
+    NzDatePickerModule,
+    NzFormModule,
+    NzInputModule,
   ],
   templateUrl: './produto-list.component.html',
   styleUrl: './produto-list.component.css',

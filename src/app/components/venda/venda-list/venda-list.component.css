@@ -7,11 +7,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  margin-bottom: 24px;
-  color: #1890ff;
-}
-
 h2 {
   margin: 16px 0;
   font-size: 18px;
@@ -129,9 +124,7 @@ a i:hover {
 }
 
 .nz-pagination {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
+  display: none;
 }
 
 /* Responsividade */
@@ -140,6 +133,12 @@ a i:hover {
     display: grid; /* Exibe os cards em telas menores */
     grid-template-columns: 1fr; /* Uma coluna */
     gap: 16px;
+  }
+
+  .nz-pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
   }
 
   nz-table {
