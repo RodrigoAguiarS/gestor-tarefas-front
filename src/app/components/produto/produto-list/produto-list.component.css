@@ -25,7 +25,7 @@
 }
 
 .image {
-  max-width: 100px; /* Aumente este valor para aumentar o tamanho da imagem */
+  max-width: 100px;
   height: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -112,4 +112,77 @@ a i:hover {
   object-fit: cover;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+/* Estilo para os cards */
+.produtos-cards {
+  display: none; /* Oculta os cards por padrão */
+}
+
+.produto-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.card-actions i {
+  font-size: 18px;
+  margin-left: 8px;
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.card-actions i:hover {
+  color: #0056b3;
+}
+
+.card-body p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #595959;
+}
+
+.card-body p strong {
+  color: #333;
+}
+
+.nz-pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .produtos-cards {
+    display: grid; /* Exibe os cards em telas menores */
+    grid-template-columns: 1fr; /* Uma coluna */
+    gap: 16px;
+  }
+
+  nz-table {
+    display: none; /* Oculta a tabela em telas menores */
+  }
+}
+
+@media (min-width: 769px) {
+  .produtos-cards {
+    display: none; /* Oculta os cards em telas maiores */
+  }
 }

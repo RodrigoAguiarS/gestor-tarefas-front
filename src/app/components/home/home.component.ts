@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregando = true;
     this.produtoService.getVendasParaGrafico().subscribe((data) => {
       this.barChartLabels = data.map((item) => item.nome);
       this.barChartData = [
@@ -90,6 +91,7 @@ export class HomeComponent implements OnInit {
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
         },
       ];
+      this.carregando = false;
     });
     this.carregarGraficoPizza();
     this.carregarGraficoFaturamento();

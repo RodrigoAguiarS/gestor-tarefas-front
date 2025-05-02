@@ -30,6 +30,7 @@ import { StatusModalComponent } from '../../status/status-modal/status-modal.com
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
 import { Cliente } from '../../../model/Cliente';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-venda-list',
@@ -44,6 +45,7 @@ import { Cliente } from '../../../model/Cliente';
     NzButtonModule,
     NzIconModule,
     NzSelectModule,
+    NzSpinModule,
     NgxCurrencyDirective,
     NzPaginationModule,
     RouterModule,
@@ -193,11 +195,6 @@ export class VendaListComponent {
   aoMudarPagina(pagina: number) {
     this.paginaAtual = pagina;
     this.findAllVendas();
-  }
-
-  podeAlterarStatus(venda: Venda): boolean {
-    // Implementar lógica de permissão
-    return true;
   }
 
   abrirModalStatus(venda: Venda): void {

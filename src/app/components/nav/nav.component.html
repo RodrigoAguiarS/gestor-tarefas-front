@@ -56,11 +56,38 @@
           "
           nz-submenu
           nzTitle="Vendas"
-          nzIcon="bell"
+          nzIcon="shopping"
         >
           <ul>
             <li nz-menu-item [nzMatchRouter]="true" routerLink="/vendas/list">
               <i nz-icon nzType="bell"></i>
+              <span>Listar</span>
+            </li>
+          </ul>
+        </li>
+
+        <!-- CLIENTES -->
+        <li
+          *ngIf="roles.includes(ACESSO.ADMINISTRADOR)"
+          nz-submenu
+          nzTitle="Clientes"
+          nzIcon="team"
+        >
+          <ul>
+            <li
+              nz-menu-item
+              [nzMatchRouter]="true"
+              routerLink="/clientes/create"
+            >
+              <i nz-icon nzType="user-add"></i>
+              <span>Cadastrar</span>
+            </li>
+            <li
+              nz-menu-item
+              [nzMatchRouter]="true"
+              routerLink="/clientes/list"
+            >
+              <i nz-icon nzType="unordered-list"></i>
               <span>Listar</span>
             </li>
           </ul>

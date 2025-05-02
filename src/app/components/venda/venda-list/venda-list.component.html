@@ -1,3 +1,4 @@
+
 <div class="container">
   <h1>Lista de Vendas</h1>
 
@@ -110,7 +111,7 @@
     </form>
   </div>
 
-  <h2>Lista de Vendas</h2>
+  <h2 *ngIf="totalElementos != 0">Lista de Vendas</h2>
   <nz-table
     #basicTable
     [nzData]="vendas"
@@ -150,7 +151,7 @@
               title="Visualizar venda"
             ></i>
           </a>
-          <a (click)="abrirModalStatus(venda)" *ngIf="podeAlterarStatus(venda)">
+          <a (click)="abrirModalStatus(venda)">
             <i
               nz-icon
               nzType="sync"
@@ -162,4 +163,36 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+  <div class="vendas-cards">
+    <nz-spin [nzSpinning]="carregando" nzTip="Carregando...">
+      <div class="venda-card" *ngFor="let venda of vendas">
+        <div class="card-header">
+          <span class="card-title">Venda #{{ venda.id }}</span>
+          <div class="card-actions">
+            <a [routerLink]="['/vendas/detalhes', venda.id]">
+              <i nz-icon nzType="eye" nzTheme="outline" title="Visualizar venda"></i>
+            </a>
+            <a (click)="abrirModalStatus(venda)">
+              <i nz-icon nzType="sync" nzTheme="outline" title="Alterar status"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p><strong>Cliente:</strong> {{ venda.cliente.nome }}</p>
+          <p><strong>Data:</strong> {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}</p>
+          <p><strong>Valor Total:</strong> {{ venda.valorTotal | currency : "BRL" }}</p>
+          <p><strong>Status:</strong> {{ venda.status.nome }}</p>
+          <p><strong>Forma Pagamento:</strong> {{ venda.pagamento.nome }}</p>
+        </div>
+      </div>
+    </nz-spin>
+  </div>
+<nz-pagination
+  class="nz-pagination"
+  [nzPageSize]="itensPorPagina"
+  [nzTotal]="totalElementos"
+  [(nzPageIndex)]="paginaAtual"
+  (nzPageIndexChange)="aoMudarPagina($event)"
+  [nzShowSizeChanger]="false"
+  [nzShowQuickJumper]="false"
+></nz-pagination>

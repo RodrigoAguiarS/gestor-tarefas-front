@@ -88,7 +88,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let produto of produtos" (click)="abrirModalProduto(produto)" (keydown)="onKeyDown($event)">
+      <tr
+        *ngFor="let produto of produtos"
+        (click)="abrirModalProduto(produto)"
+        (keydown)="onKeyDown($event)"
+      >
         <td>{{ produto.nome }}</td>
         <td>{{ produto.codigoBarras }}</td>
         <td>{{ produto.preco | currency : "BRL" }}</td>
@@ -122,6 +126,59 @@
     </tbody>
   </nz-table>
 
+  <div class="produtos-cards">
+    <nz-spin [nzSpinning]="carregando" nzTip="Carregando...">
+      <div
+        class="produto-card"
+        *ngFor="let produto of produtos"
+        (click)="abrirModalProduto(produto)"
+      >
+        <div class="card-header">
+          <span class="card-title">{{ produto.nome }}</span>
+          <div class="card-actions">
+            <a
+              [routerLink]="['/produtos/update', produto.id]"
+              (click)="$event.stopPropagation()"
+            >
+              <i
+                nz-icon
+                nzType="edit"
+                nzTheme="outline"
+                title="Atualizar Produto"
+              ></i>
+            </a>
+            <a
+              [routerLink]="['/produtos/delete', produto.id]"
+              (click)="$event.stopPropagation()"
+            >
+              <i
+                nz-icon
+                nzType="delete"
+                nzTheme="outline"
+                title="Deletar Produto"
+              ></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <p><strong>Código de Barras:</strong> {{ produto.codigoBarras }}</p>
+          <p><strong>Descrição:</strong> {{ produto.descricao }}</p>
+          <p><strong>Preço:</strong> {{ produto.preco | currency : "BRL" }}</p>
+          <p><strong>Quantidade:</strong> {{ produto.quantidade }}</p>
+          <p><strong>Categoria:</strong> {{ produto.categoria.nome }}</p>
+        </div>
+      </div>
+    </nz-spin>
+  </div>
+  <nz-pagination
+    class="nz-pagination"
+    [nzPageSize]="itensPorPagina"
+    [nzTotal]="totalElementos"
+    [(nzPageIndex)]="paginaAtual"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+    [nzShowSizeChanger]="false"
+    [nzShowQuickJumper]="false"
+  ></nz-pagination>
   <!-- Modal para exibir os detalhes do produto -->
   <nz-modal
     [(nzVisible)]="modalVisible"

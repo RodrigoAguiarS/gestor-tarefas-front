@@ -23,6 +23,7 @@ import { ProdutoService } from '../../../services/produto.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { AlertaService } from '../../../services/alerta.service';
 import { NgxCurrencyDirective } from "ngx-currency";
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-produto-list',
@@ -33,6 +34,7 @@ import { NgxCurrencyDirective } from "ngx-currency";
     NzTableModule,
     NzButtonModule,
     NzIconModule,
+    NzSpinModule,
     NzSelectModule,
     NzPaginationModule,
     RouterModule,

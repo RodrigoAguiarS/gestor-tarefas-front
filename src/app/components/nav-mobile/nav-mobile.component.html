@@ -10,10 +10,7 @@
     </li>
 
     <!-- Notificações -->
-    <li
-      routerLink="/notificacao"
-      routerLinkActive="active"
-    >
+    <li routerLink="/notificacao" routerLinkActive="active">
       <nz-badge [nzCount]="quantidadeNotificacoes" [nzShowZero]="false">
         <i nz-icon nzType="bell" class="icon-bell"></i>
       </nz-badge>
@@ -40,6 +37,28 @@
     >
       <i nz-icon nzType="profile"></i>
     </li>
+
+    <!-- Lista de Vendas -->
+    <li
+      *ngIf="
+        roles.includes(ACESSO.ADMINISTRADOR) || roles.includes(ACESSO.OPERADOR)
+      "
+      routerLink="/vendas/list"
+      routerLinkActive="active"
+    >
+      <i nz-icon nzType="unordered-list"></i>
+    </li>
+
+        <!-- Lista de Vendas -->
+        <li
+        *ngIf="
+          roles.includes(ACESSO.ADMINISTRADOR) || roles.includes(ACESSO.OPERADOR)
+        "
+        routerLink="/produtos/list"
+        routerLinkActive="active"
+      >
+        <i nz-icon nzType="unordered-list"></i>
+      </li>
 
     <!-- Meu Perfil -->
     <li

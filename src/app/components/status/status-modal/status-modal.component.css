@@ -8,25 +8,18 @@ h3 {
   font-size: 18px;
 }
 
-h4 {
-  margin: 16px 0;
-  color: #333;
-}
-
 .venda-info {
   margin-bottom: 24px;
 }
 
 .info-group {
   display: contents;
-  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 24px;
 }
 
 .info-item {
   display: grid;
-  flex-direction: column;
 }
 
 .info-item label {
@@ -39,7 +32,8 @@ h4 {
   font-size: 14px;
 }
 
-.status-badge {
+.status-badge,
+.tipo-badge {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 4px;
@@ -54,44 +48,35 @@ h4 {
   border-radius: 8px;
 }
 
-.items-cards h4 {
-  margin-bottom: 16px;
+.scroll-container {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
 }
 
-.items-cards ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+.tabela-itens {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
 }
 
-.items-cards ul li {
+.tabela-itens th,
+.tabela-itens td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tabela-itens th {
   background-color: #fafafa;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.items-cards ul li .card-field {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.items-cards ul li .card-field .card-label {
-  color: #8c8c8c;
-  font-size: 12px;
-}
-
-.items-cards ul li .card-field .card-value {
-  font-size: 14px;
   font-weight: 500;
+  color: #333;
+}
+
+.tabela-itens td:nth-child(2),
+.tabela-itens td:nth-child(3) {
+  text-align: center;
+  width: 80px;
 }
 
 .total-value {
@@ -135,18 +120,7 @@ h4 {
   font-size: 12px;
 }
 
-/* ===== MEDIA QUERIES PARA RESPONSIVIDADE ===== */
-
-@media (max-width: 992px) {
-  .info-group {
-    grid-template-columns: 1fr;
-  }
-
-  .items-cards ul {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-
+/* Responsividade */
 @media (max-width: 768px) {
   .modal-content {
     padding: 16px;
@@ -156,26 +130,8 @@ h4 {
     font-size: 16px;
   }
 
-  h4 {
-    font-size: 15px;
-  }
-
   .items-cards {
     padding: 12px;
-  }
-
-  .items-cards ul li {
-    padding: 10px;
-  }
-
-  .items-cards ul li .card-field {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .items-cards ul li .card-field .card-label,
-  .items-cards ul li .card-field .card-value {
-    font-size: 13px;
   }
 
   .total-value {
@@ -186,10 +142,6 @@ h4 {
   .total-value label,
   .total-value span {
     font-size: 16px;
-  }
-
-  .status-form {
-    padding-top: 16px;
   }
 
   .modal-footer {
@@ -222,9 +174,5 @@ h4 {
 
   .info-item span {
     font-size: 13px;
-  }
-
-  .items-cards ul {
-    grid-template-columns: 1fr;
   }
 }

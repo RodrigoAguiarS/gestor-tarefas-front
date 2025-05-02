@@ -15,8 +15,8 @@ export class ClienteService {
     return this.http.get<Cliente>(`${API_CONFIG.baseUrl}/clientes/${id}`);
   }
 
-  create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${API_CONFIG.baseUrl}/clientes`, cliente);
+  create(cliente: ClienteRetorno): Observable<ClienteRetorno> {
+    return this.http.post<ClienteRetorno>(`${API_CONFIG.baseUrl}/clientes`, cliente);
   }
 
   update(cliente: Cliente): Observable<Cliente> {
@@ -35,11 +35,12 @@ export class ClienteService {
     size: number;
     id?: string;
     nome?: string;
+    email?: string;
     cpf?: string;
     cidade?: string;
     estado?: number;
     cep?: string;
-  }): Observable<{ content: Cliente[]; totalElements: number }> {
+  }): Observable<{ content: ClienteRetorno[]; totalElements: number }> {
     let url = `${API_CONFIG.baseUrl}/clientes/buscar?page=${params.page}&size=${params.size}`;
 
     if (params.id) {
@@ -54,6 +55,10 @@ export class ClienteService {
       url += `&cpf=${encodeURIComponent(params.cpf)}`;
     }
 
+    if (params.email) {
+      url += `&email=${encodeURIComponent(params.email)}`;
+    }
+
     if (params.cidade) {
       url += `&cidade=${encodeURIComponent(params.cidade)}`;
     }
@@ -66,7 +71,7 @@ export class ClienteService {
       url += `&cep=${encodeURIComponent(params.cep)}`;
     }
 
-    return this.http.get<{ content: Cliente[]; totalElements: number }>(url);
+    return this.http.get<{ content: ClienteRetorno[]; totalElements: number }>(url);
   }
 
   usuarioLogado(): Observable<ClienteRetorno> {

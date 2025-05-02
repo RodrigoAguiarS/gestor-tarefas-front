@@ -10,11 +10,9 @@ import { NavComponent } from './components/nav/nav.component';
 import { ResultComponent } from './components/result/result.component';
 import { AcessoNegadoComponent } from './components/acesso-negado/acesso-negado.component';
 import { NotificacaoListComponent } from './components/notificacao/notificacao-list/notificacao-list.component';
-import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: 'cliente-create', component: ClienteCreateComponent },
   {
     path: '',
     component: NavComponent,
@@ -68,7 +66,7 @@ export const routes: Routes = [
             (m) => m.clienteRoutes
           ),
         canActivate: [RoleGuard],
-        data: { roles: [ACESSO.CLIENTE] },
+        data: { roles: [ACESSO.OPERADOR, ACESSO.ADMINISTRADOR, ACESSO.CLIENTE] },
       },
       {
         path: 'status',

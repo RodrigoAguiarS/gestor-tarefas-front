@@ -18,10 +18,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ClienteService } from '../../../services/cliente.service';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgxMaskDirective } from 'ngx-mask';
-import { AuthService } from '../../../services/auth.service';
 import { EnderecoResposta } from '../../../model/EnderecoReponse';
 import { EnderecoService } from '../../../services/endereco.service';
-import { ClienteInfoComponent } from '../cliente-info/cliente-info.component';
 
 @Component({
   selector: 'app-cliente-create',
@@ -29,7 +27,6 @@ import { ClienteInfoComponent } from '../cliente-info/cliente-info.component';
     CommonModule,
     ReactiveFormsModule,
     NzFormModule,
-    ClienteInfoComponent,
     NzInputModule,
     NzButtonModule,
     NzCardModule,
@@ -52,7 +49,6 @@ export class ClienteCreateComponent {
   constructor(
     private readonly message: NzMessageService,
     private readonly clienteService: ClienteService,
-    private readonly authservice: AuthService,
     private readonly enderecoService: EnderecoService,
     private readonly router: Router,
     private readonly formBuilder: FormBuilder
@@ -64,49 +60,35 @@ export class ClienteCreateComponent {
 
   criar(): void {
     this.carregando = true;
-
     this.clienteService.create(this.clienteForm.value).subscribe({
-      next: () => {
-        const email = this.clienteForm.get('email')?.value;
-        const senha = this.clienteForm.get('senha')?.value;
+      next: (resposta) => {
+        this.router.navigate(['/result'], {
+          queryParams: {
+            type: 'success',
+            title: 'Cliente de nome - ' + resposta.nome,
+            description: 'O cliente foi criado com sucesso!',
+            message: 'O cliente foi criado com sucesso!',
+            icon: 'check-circle',
+            createRoute: '/clientes/create',
+            listRoute: '/clientes/list',
+          }
+        });
+      },
 
-        if (email && senha) {
-          this.authservice.authenticate({ email, senha }).subscribe({
-            next: (loginResponse) => {
-              const token =
-                loginResponse.headers.get('Authorization')?.substring(7) ?? '';
-              this.authservice.successfulLogin(token);
-              this.router.navigate(['/produtos/card']);
-            },
-            error: () => {
-              this.message.error(
-                'Erro ao realizar login automático. Por favor, faça login manualmente.'
-              );
-              this.carregando = false;
-            },
+      error: (ex) => {
+        if (ex.error.errors) {
+          ex.error.errors.forEach((element: ErrorEvent) => {
+            this.message.error(element.message);
+            this.carregando = false;
           });
         } else {
-          this.message.error(
-            'Erro ao obter as credenciais para login automático.'
-          );
+          this.message.error(ex.error.message);
           this.carregando = false;
         }
       },
-      error: (ex) => {
-        if (ex.error?.errors) {
-          ex.error.errors.forEach((element: { message: string }) => {
-            this.message.error(element.message);
-          });
-        } else {
-          this.message.error(
-            ex.error?.message ?? 'Erro ao cadastrar o cliente.'
-          );
-        }
-        this.carregando = false;
-      },
       complete: () => {
         this.carregando = false;
-      },
+      }
     });
   }
 
@@ -156,34 +138,6 @@ export class ClienteCreateComponent {
     }
   }
 
-  nextTab(): void {
-    this.currentTabIndex++;
-  }
-
-   voltarTelaDeLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
-  previousTab(): void {
-    this.currentTabIndex--;
-  }
-
-  onTabChange(index: number): void {
-    this.currentTabIndex = index;
-
-    setTimeout(() => {
-      const activeTab = document.querySelector(
-        `#nz-tabs-${index}-tab-${index}`
-      );
-      if (activeTab) {
-        const focusableElement = activeTab.querySelector(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        (focusableElement as HTMLElement)?.focus();
-      }
-    }, 0);
-  }
-
   buscarCep(cep: string): void {
     this.enderecoService.buscaEnderecoPorCep(cep).subscribe({
       next: (dadosCep) => {
@@ -211,15 +165,7 @@ export class ClienteCreateComponent {
   }
 
   cancelar(): void {
+    this.router.navigate(['/home']);
     this.clienteForm.reset();
-    this.currentTabIndex = 0;
-  }
-
-  nextStep(): void {
-    this.currentStep++;
-  }
-
-  previousStep(): void {
-    this.currentStep--;
   }
 }

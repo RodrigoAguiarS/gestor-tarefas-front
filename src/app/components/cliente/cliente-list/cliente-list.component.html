@@ -1,0 +1,91 @@
+<div class="container">
+  <h1>Lista de Funcionários</h1>
+
+  <nz-alert
+    *ngIf="
+      (alertaService.tipoAlerta$ | async) &&
+      (alertaService.mensagemAlerta$ | async)
+    "
+    [nzType]="(alertaService.tipoAlerta$ | async) || 'info'"
+    [nzMessage]="alertaService.mensagemAlerta$ | async"
+    nzShowIcon
+    nzCloseable
+    (nzOnClose)="alertaService.limparAlerta()"
+  ></nz-alert>
+
+  <div class="search-container">
+    <h2>Buscar Funcionários</h2>
+    <form [formGroup]="filtroForm" (ngSubmit)="buscarUsuario()">
+      <input nz-input placeholder="Nome" formControlName="nome" />
+      <input nz-input placeholder="CPF" formControlName="cpf" />
+      <input nz-input placeholder="Email" formControlName="email" />
+      <input nz-input placeholder="Cidade" formControlName="cidade" />
+      <input nz-input placeholder="Estado" formControlName="estado" />
+      <input nz-input placeholder="Cep" formControlName="cep" />
+      <div class="form-actions">
+        <button
+          [nzLoading]="carregando"
+          nz-button
+          nzType="primary"
+          type="submit"
+        >
+          <i nz-icon nzType="search"></i> Buscar
+        </button>
+      </div>
+    </form>
+  </div>
+  <h2>Lista de Clientes</h2>
+  <nz-table
+    #basicTable
+    [nzData]="clientes"
+    [nzPageSize]="itensPorPagina"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="paginaAtual"
+    [nzLoading]="carregando"
+    [nzBordered]="true"
+    [nzTotal]="totalElementos"
+    (nzPageIndexChange)="aoMudarPagina($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Email</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cep</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.cpf | CPF }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.cidade }}</td>
+        <td>{{ cliente.estado }}</td>
+        <td>{{ cliente.cep }}</td>
+        <td>
+          <a [routerLink]="['/usuarios/update', cliente.id]">
+            <i
+              nz-icon
+              nzType="edit"
+              nzTheme="outline"
+              title="Atualizar usuário"
+            ></i>
+          </a>
+          <a [routerLink]="['/usuarios/delete', cliente.id]">
+            <i
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+              title="Deletar usuário"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,40 +1,42 @@
-<div class="chart-grid">
-  <div class="chart-container">
-    <h3>Produtos mais Vendidos</h3>
-    <canvas
-      baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [legend]="barChartLegend"
-      [type]="barChartType"
-    >
-    </canvas>
-  </div>
+<nz-spin [nzSpinning]="carregando" nzTip="Carregando...">
+  <div class="chart-grid">
+    <div class="chart-container">
+      <h3>Produtos mais Vendidos</h3>
+      <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="barChartType"
+      >
+      </canvas>
+    </div>
 
-  <div class="chart-container">
-    <h3>Categoria de Produto mais Vendido</h3>
-    <canvas
-      baseChart
-      [datasets]="pieChartData"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      [legend]="pieChartLegend"
-      [type]="pieChartType"
-    >
-    </canvas>
-  </div>
+    <div class="chart-container">
+      <h3>Categoria de Produto mais Vendido</h3>
+      <canvas
+        baseChart
+        [datasets]="pieChartData"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        [legend]="pieChartLegend"
+        [type]="pieChartType"
+      >
+      </canvas>
+    </div>
 
-  <div class="chart-container">
-    <h3>Produtos com Maior Faturamento</h3>
-    <canvas
-      baseChart
-      [datasets]="revenueChartData"
-      [labels]="revenueChartLabels"
-      [options]="revenueChartOptions"
-      [legend]="revenueChartLegend"
-      [type]="revenueChartType"
-    >
-    </canvas>
+    <div class="chart-container">
+      <h3>Produtos com Maior Faturamento</h3>
+      <canvas
+        baseChart
+        [datasets]="revenueChartData"
+        [labels]="revenueChartLabels"
+        [options]="revenueChartOptions"
+        [legend]="revenueChartLegend"
+        [type]="revenueChartType"
+      >
+      </canvas>
+    </div>
   </div>
-</div>
+</nz-spin>
