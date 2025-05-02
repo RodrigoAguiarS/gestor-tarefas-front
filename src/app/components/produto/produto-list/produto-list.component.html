@@ -16,35 +16,14 @@
 
   <!-- Filtro de Busca -->
   <div class="search-container">
-    <h2>Buscar Produtos</h2>
+    <h2>Buscar Vendas</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarProduto()">
-      <input nz-input type="text" placeholder="Nome" formControlName="nome" />
+      <input nz-input placeholder="Nome" formControlName="nome" />
       <input
         nz-input
-        type="text"
-        placeholder="Descrição"
-        formControlName="descricao"
-      />
-      <input
-        nz-input
-        type="number"
-        placeholder="Quantidade"
-        formControlName="quantidade"
-      />
-      <input
-        nz-input
-        type="text"
-        [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-        type="text"
-        placeholder="Preço"
-        formControlName="preco"
-      />
-      <input
-        nz-input
-        type="text"
-        maxlength="13"
         placeholder="Código de Barras"
         formControlName="codigoBarras"
+        type="text"
       />
       <nz-select
         nzShowSearch
@@ -58,6 +37,26 @@
           [nzLabel]="categoria.nome"
         ></nz-option>
       </nz-select>
+      <input
+        nz-input
+        type="text"
+        [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+        formControlName="valorMinimo"
+        placeholder="Valor Mínimo"
+      />
+      <input
+        nz-input
+        type="text"
+        [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+        placeholder="Preço"
+        formControlName="preco"
+      />
+      <input
+        nz-input
+        type="number"
+        placeholder="Quantidade"
+        formControlName="quantidade"
+      />
       <button [nzLoading]="carregando" nz-button nzType="primary" type="submit">
         <i nz-icon nzType="search"></i> Buscar
       </button>
@@ -65,7 +64,7 @@
   </div>
 
   <!-- Tabela de Produtos -->
-  <h2>Lista de Produtos</h2>
+  <h2 *ngIf="totalElementos != 0">Lista de Produtos</h2>
   <nz-table
     #basicTable
     [nzData]="produtos"

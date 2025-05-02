@@ -1,6 +1,6 @@
 <div class="modal-content">
   <div class="venda-info">
-    <h3>Venda #{{ venda.id }}</h3>
+    <h3>Venda de Número #{{ venda.id }}</h3>
 
     <div class="info-group">
       <div class="info-row">
@@ -27,7 +27,11 @@
 
       <div class="info-item full-width">
         <label>Pagamento</label>
-        <span>{{ venda.pagamento.nome }} ({{ venda.pagamento.porcentagemAcrescimo }}%)</span>
+        <span
+          >{{ venda.pagamento.nome }} ({{
+            venda.pagamento.porcentagemAcrescimo
+          }}%)</span
+        >
       </div>
     </div>
 
@@ -47,7 +51,7 @@
               <td>{{ item.produto.nome }}</td>
               <td>{{ item.quantidade }}</td>
               <td>{{ item.precoUnitario | currency : "BRL" }}</td>
-              <td> {{ item.valorTotal | currency : "BRL" }}</td>
+              <td>{{ item.valorTotal | currency : "BRL" }}</td>
             </tr>
           </tbody>
         </table>
@@ -77,8 +81,8 @@
       Venda fechada não pode ser alterada.
     </div>
 
-    <div class="modal-footer">
-      <button nz-button nzType="default">Cancelar</button>
+    <div *ngIf="statusPossiveis?.length != 0" class="modal-footer">
+      <button nz-button (click)="cancelar()" nzType="default">Cancelar</button>
       <button
         nz-button
         nzType="primary"

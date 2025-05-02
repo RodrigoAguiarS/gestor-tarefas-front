@@ -1,173 +1,154 @@
 .container {
-  padding: 24px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-  h1 {
-    margin-bottom: 24px;
-    color: #1890ff;
-  }
+h1 {
+  margin-bottom: 24px;
+  color: #1890ff;
+}
 
-  h2 {
-    margin: 16px 0;
-    font-size: 18px;
-    color: #333;
-  }
+h2 {
+  margin: 16px 0;
+  font-size: 18px;
+  color: #333;
+}
 
-  .search-container {
-    background: #fff;
-    padding: 24px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-    margin-bottom: 24px;
+.search-container {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
 
-    form {
-      [nz-row] {
-        margin-bottom: 16px;
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
+form input,
+form nz-select,
+form nz-date-picker {
+  flex: 1;
+  min-width: 180px;
+}
 
-      [nz-col] {
-        padding: 8px;
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-width: 120px;
+}
 
-        nz-input-number,
-        input,
-        nz-select,
-        nz-date-picker {
-          width: 100%;
-        }
+nz-table {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
 
-        button {
-          min-width: 120px;
-        }
-      }
-    }
+thead {
+  background: #fafafa;
+}
 
-    nz-table {
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
 
-      th {
-        background: #fafafa;
-        font-weight: 500;
-      }
+td:last-child {
+  display: flex;
+  gap: 10px;
+}
 
-      td {
-        .anticon {
-          font-size: 16px;
-          margin-right: 16px;
-          color: #1890ff;
-          cursor: pointer;
+a i {
+  font-size: 18px;
+  color: #1890ff;
+  cursor: pointer;
+  transition: color 0.3s;
+}
 
-          &:hover {
-            color: #40a9ff;
-          }
+a i:hover {
+  color: #0056b3;
+}
 
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-      }
-    }
-  }
+/* Estilo para os cards */
+.vendas-cards {
+  display: none; /* Oculta os cards por padrão */
+}
 
-  /* Estilo para os cards */
+.venda-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.card-actions i {
+  font-size: 18px;
+  margin-left: 8px;
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.card-actions i:hover {
+  color: #0056b3;
+}
+
+.card-body p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #595959;
+}
+
+.card-body p strong {
+  color: #333;
+}
+
+.nz-pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
   .vendas-cards {
-    display: none; /* Oculta os cards por padrão */
+    display: grid; /* Exibe os cards em telas menores */
+    grid-template-columns: 1fr; /* Uma coluna */
+    gap: 16px;
   }
 
-  .venda-card {
-    background: #fff;
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 16px;
+  nz-table {
+    display: none; /* Oculta a tabela em telas menores */
   }
+}
 
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .card-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #1890ff;
-  }
-
-  .card-actions i {
-    font-size: 18px;
-    margin-left: 8px;
-    color: #1890ff;
-    cursor: pointer;
-  }
-
-  .card-actions i:hover {
-    color: #0056b3;
-  }
-
-  .card-body p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #595959;
-  }
-
-  .card-body p strong {
-    color: #333;
-  }
-
-  .nz-pagination {
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-  }
-
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .vendas-cards {
-      display: grid; /* Exibe os cards em telas menores */
-      grid-template-columns: 1fr; /* Uma coluna */
-      gap: 16px;
-    }
-
-    nz-table {
-      display: none; /* Oculta a tabela em telas menores */
-    }
-  }
-
-  @media (min-width: 769px) {
-    .vendas-cards {
-      display: none; /* Oculta os cards em telas maiores */
-    }
-  }
-
-  .mt-3 {
-    margin-top: 16px;
-  }
-
-  :host ::ng-deep {
-    .ant-input,
-    .ant-select-selector,
-    .ant-picker {
-      border-radius: 4px;
-    }
-
-    .ant-input:hover,
-    .ant-select-selector:hover,
-    .ant-picker:hover {
-      border-color: #40a9ff;
-    }
-
-    .ant-input:focus,
-    .ant-select-focused .ant-select-selector,
-    .ant-picker-focused {
-      border-color: #1890ff;
-      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-    }
+@media (min-width: 769px) {
+  .vendas-cards {
+    display: none; /* Oculta os cards em telas maiores */
   }
 }
