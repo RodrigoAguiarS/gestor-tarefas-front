@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ItemVenda } from '../../../model/ItemVenda';
 import { Pagamento } from '../../../model/Pagamento';
 import { ClienteService } from '../../../services/cliente.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CarrinhoService } from '../../../services/carrinho.service';
 import { PagamentoService } from '../../../services/pagamento.service';
-import { Produto } from '../../../model/Produto';
 import { Status } from '../../../model/Status';
 import { Venda } from '../../../model/Venda';
 import { VendaService } from '../../../services/venda.service';
@@ -25,6 +30,9 @@ import { Router } from '@angular/router';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
 import { ClienteRetorno } from '../../../model/ClienteRetorno';
 import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 @Component({
   selector: 'app-venda-finalizar',
   imports: [
@@ -37,18 +45,20 @@ import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
     NzCardModule,
     NzCollapseModule,
     NzListModule,
+    NzCheckboxModule,
+    NzInputModule,
     NzButtonModule,
     NzIconModule,
     NzFormModule,
+    NgxCurrencyDirective,
     NzSelectModule,
     NzStatisticModule,
-    NzResultModule
-],
+    NzResultModule,
+  ],
   templateUrl: './venda-finalizar.component.html',
-  styleUrl: './venda-finalizar.component.css'
+  styleUrl: './venda-finalizar.component.css',
 })
 export class VendaFinalizarComponent {
-
   vendaForm!: FormGroup;
   itensCarrinho: ItemVenda[] = [];
   pagamentos: Pagamento[] = [];
@@ -59,6 +69,7 @@ export class VendaFinalizarComponent {
   formaPagamentoLabel: string = '';
   pedidoRealizado: boolean = false;
   carregando: boolean = false;
+  troco: number = 0;
 
   constructor(
     private readonly messege: NzMessageService,
@@ -89,15 +100,20 @@ export class VendaFinalizarComponent {
           this.formaPagamentoLabel = value.nome || '';
           this.acrescimo = value.porcentagemAcrescimo || 0;
           this.atualizarValores();
+          this.vendaForm.get('precisaTroco')?.setValue(false);
+          this.vendaForm.get('valorRecebido')?.reset();
+          this.troco = 0;
         }
       });
-      this.carregando = false;
+    this.carregando = false;
   }
 
   initForm(): void {
     this.vendaForm = this.formBuilder.group({
       cliente: [null, Validators.required],
       pagamento: [null, Validators.required],
+      precisaTroco: [false],
+      valorRecebido: [null],
       itens: [null, Validators.required],
     });
   }
@@ -110,8 +126,7 @@ export class VendaFinalizarComponent {
           cliente: cliente,
         });
       },
-      complete: () => {
-      },
+      complete: () => {},
       error: (ex) => {
         this.messege.error(ex.error.message);
       },
@@ -124,23 +139,16 @@ export class VendaFinalizarComponent {
     });
   }
 
-  aumentarQuantidade(produto: Produto) {
-    this.carrinhoService.adicionarProduto(produto, 1);
-    this.atualizarValores();
-  }
-
-  diminuirQuantidade(produto: Produto) {
-    this.carrinhoService.diminuirQuantidade(produto.id, 1);
-    this.atualizarValores();
-  }
-
-  removerItem(produtoId: number) {
-    this.carrinhoService.removerProduto(produtoId);
-    this.atualizarValores();
-  }
-
   finalizarVenda(): void {
     this.carregando = true;
+
+    if (
+      this.formaPagamentoLabel === 'Dinheiro' &&
+      !this.validarPagamentoDinheiro()
+    ) {
+      return;
+    }
+
     if (this.vendaForm.valid) {
       const venda: Venda = {
         id: 0,
@@ -184,5 +192,50 @@ export class VendaFinalizarComponent {
       this.valorParcial +
       (this.valorParcial * this.acrescimo) / 100
     ).toFixed(2);
+  }
+
+  calcularTroco(): void {
+    const valorRecebido = this.vendaForm.get('valorRecebido')?.value ?? 0;
+    if (valorRecebido < this.valorTotal) {
+
+      this.troco = 0;
+    } else {
+      this.troco = Math.max(
+        0,
+        Math.round((valorRecebido - this.valorTotal) * 100) / 100
+      );
+    }
+  }
+
+  private validarPagamentoDinheiro(): boolean {
+    const precisaTroco = this.vendaForm.get('precisaTroco')?.value ?? false;
+
+    if (!precisaTroco) {
+      return true;
+    }
+    const valorRecebido = this.vendaForm.get('valorRecebido')?.value ?? 0;
+
+    if (valorRecebido < this.valorTotal) {
+      this.carregando = false;
+      this.messege.error(
+        'O valor recebido deve ser maior ou igual ao total da compra.'
+      );
+      return false;
+    }
+
+    const trocoCalculado = Math.max(
+      0,
+      Math.round((valorRecebido - this.valorTotal) * 100) / 100
+    );
+
+    if (this.troco !== trocoCalculado) {
+      this.carregando = false;
+      this.messege.error(
+        'O troco calculado está incorreto. Verifique os valores.'
+      );
+      return false;
+    }
+
+    return true;
   }
 }

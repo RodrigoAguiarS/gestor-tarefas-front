@@ -12,6 +12,8 @@ import { VendaService } from '../../../services/venda.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
 import { ClienteRetorno } from '../../../model/ClienteRetorno';
+import { Usuario } from '../../../model/Usuario';
+import { Pessoa } from '../../../model/Pessoa';
 
 @Component({
   selector: 'app-venda-timeline',
@@ -42,6 +44,8 @@ export class VendaTimelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.venda.cliente = new ClienteRetorno();
+    this.venda.cliente.usuario = new Usuario();
+    this.venda.cliente.usuario.pessoa = new Pessoa();
     this.vendaId = +this.route.snapshot.paramMap.get('id')!;
     this.carregarVenda();
     this.carregarHistorico();

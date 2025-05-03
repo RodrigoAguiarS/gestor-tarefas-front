@@ -6,7 +6,7 @@
 
 .venda-container nz-card {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header-total {
@@ -19,15 +19,10 @@
   margin-bottom: 8px;
 }
 
-.pagamento-section {
-  nz-select {
-    width: 100%;
-  }
-}
-
 .dados-section,
 .endereco-section,
-.pagamento-section {
+.pagamento-section,
+.resumo-section {
   margin-bottom: 24px;
 }
 
@@ -46,6 +41,48 @@ section h3 i {
   background: #fafafa;
   border-radius: 8px;
   padding: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagamento-section {
+  nz-select {
+    width: 100%;
+  }
+}
+
+.precisa-troco-section {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.precisa-troco-section label {
+  font-size: 14px;
+  color: #595959;
+}
+
+.troco-section {
+  margin-top: 10px;
+}
+
+.troco-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #595959;
+}
+
+.troco-info {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #1890ff;
+}
+
+.erro-troco {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #ff4d4f;
 }
 
 .resumo-section {

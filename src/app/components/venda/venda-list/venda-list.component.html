@@ -106,12 +106,12 @@
         <td *ngIf="venda.status">{{ venda.status.nome }}</td>
         <td *ngIf="venda.pagamento">{{ venda.pagamento.nome }}</td>
         <td>
-          <a [routerLink]="['/vendas/detalhes', venda.id]">
+          <a (click)="gerarCupomVenda(venda.id)">
             <i
               nz-icon
-              nzType="eye"
+              nzType="printer"
               nzTheme="outline"
-              title="Visualizar venda"
+              title="Imprimir cupom de venda"
             ></i>
           </a>
           <a (click)="abrirModalStatus(venda)">
@@ -135,7 +135,7 @@
             <a (click)="gerarCupomVenda(venda.id)">
               <i
                 nz-icon
-                nzType="eye"
+                nzType="printer"
                 nzTheme="outline"
                 title="Visualizar venda"
               ></i>

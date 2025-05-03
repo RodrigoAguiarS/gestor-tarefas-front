@@ -98,6 +98,7 @@ export class ProdutoListComponent {
       nome: [''],
       descricao: [''],
       preco: [0],
+      valorMinimo: [0],
       codigoBarras: [''],
       quantidade: [null],
       categoriaId: [null],

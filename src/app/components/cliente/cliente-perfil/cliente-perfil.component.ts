@@ -86,9 +86,20 @@ export class ClientePerfilComponent {
     this.carregando = true;
     this.clienteService.usuarioLogado().subscribe({
       next: (cliente) => {
-        this.clienteForm.patchValue(cliente);
-        console.log(cliente);
-        this.id = cliente.id;
+        this.clienteForm.patchValue({
+          nome: cliente.usuario.pessoa.nome,
+          cpf: cliente.usuario.pessoa.cpf,
+          senha: cliente.usuario.senha,
+          dataNascimento: cliente.usuario.pessoa.dataNascimento,
+          email: cliente.usuario.email,
+          telefone: cliente.usuario.pessoa.telefone,
+          cep: cliente.endereco.cep,
+          rua: cliente.endereco.rua,
+          numero: cliente.endereco.numero,
+          bairro: cliente.endereco.bairro,
+          cidade: cliente.endereco.cidade,
+          estado: cliente.endereco.estado,
+        });
       },
       error: (ex) => {
         this.message.error(ex.error.message);
