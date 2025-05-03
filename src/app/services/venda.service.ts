@@ -96,4 +96,9 @@ export class VendaService {
       {}
     );
   }
+
+  gerarCupomVenda(vendaId: number) {
+    const url = `${API_CONFIG.baseUrl}/${vendaId}/cupom`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
 }

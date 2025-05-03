@@ -2,7 +2,7 @@
   <h2>Histórico da Venda #{{ vendaId }}</h2>
 
   <div class="venda-info">
-    <p><strong>Cliente:</strong> {{ venda.cliente.nome }}</p>
+    <p><strong>Cliente:</strong> {{ venda.cliente.usuario.pessoa.nome }}</p>
     <p>
       <strong>Data da Venda:</strong>
       {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}

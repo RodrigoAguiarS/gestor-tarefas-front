@@ -228,4 +228,24 @@ export class VendaListComponent {
       },
     });
   }
+
+  gerarCupomVenda(vendaId: number): void {
+    this.carregando = true;
+    this.vendaService.gerarCupomVenda(vendaId).subscribe(
+      (response) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `cupom-venda-${vendaId}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.carregando = false;
+      },
+      (error) => {
+        console.error('Erro ao gerar o cupom:', error);
+        this.carregando = false;
+      }
+    );
+  }
 }

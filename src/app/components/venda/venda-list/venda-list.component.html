@@ -100,7 +100,7 @@
     <tbody>
       <tr *ngFor="let venda of vendas">
         <td>{{ venda.id }}</td>
-        <td>{{ venda.cliente.nome }}</td>
+        <td>{{ venda.cliente.usuario.pessoa.nome }}</td>
         <td>{{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}</td>
         <td>{{ venda.valorTotal | currency : "BRL" }}</td>
         <td *ngIf="venda.status">{{ venda.status.nome }}</td>
@@ -132,7 +132,7 @@
         <div class="card-header">
           <span class="card-title">Venda #{{ venda.id }}</span>
           <div class="card-actions">
-            <a [routerLink]="['/vendas/detalhes', venda.id]">
+            <a (click)="gerarCupomVenda(venda.id)">
               <i
                 nz-icon
                 nzType="eye"
@@ -151,7 +151,7 @@
           </div>
         </div>
         <div class="card-body">
-          <p><strong>Cliente:</strong> {{ venda.cliente.nome }}</p>
+          <p><strong>Cliente:</strong> {{ venda.cliente.usuario.pessoa.nome }}</p>
           <p>
             <strong>Data:</strong>
             {{ venda.dataVenda | date : "dd/MM/yyyy HH:mm" }}

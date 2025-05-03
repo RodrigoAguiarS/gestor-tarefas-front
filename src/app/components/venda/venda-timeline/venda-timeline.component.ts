@@ -12,7 +12,6 @@ import { VendaService } from '../../../services/venda.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
 import { ClienteRetorno } from '../../../model/ClienteRetorno';
-import { Cliente } from '../../../model/Cliente';
 
 @Component({
   selector: 'app-venda-timeline',

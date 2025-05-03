@@ -51,9 +51,9 @@
     <tbody>
       <tr *ngFor="let funcionario of funcionarios">
         <td>{{ funcionario.id }}</td>
-        <td>{{ funcionario.nome }}</td>
-        <td>{{ funcionario.cpf | CPF }}</td>
-        <td>{{ funcionario.email }}</td>
+        <td>{{ funcionario.usuario.pessoa.nome }}</td>
+        <td>{{ funcionario.usuario.pessoa.cpf | CPF }}</td>
+        <td>{{ funcionario.usuario.email }}</td>
         <td>
           <ng-container *ngFor="let perfil of funcionario.perfis; let i = index">
             {{ perfil.nome }}<span *ngIf="i < funcionario.perfis.length - 1">, </span>

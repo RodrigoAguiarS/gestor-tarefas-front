@@ -65,7 +65,7 @@ export class ClienteCreateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Cliente de nome - ' + resposta.nome,
+            title: 'Cliente de nome - ' + resposta.usuario.pessoa.nome,
             description: 'O cliente foi criado com sucesso!',
             message: 'O cliente foi criado com sucesso!',
             icon: 'check-circle',

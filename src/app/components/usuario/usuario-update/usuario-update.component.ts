@@ -71,7 +71,7 @@ export class UsuarioUpdateComponent {
         this.router.navigate(['/result'], {
           queryParams: {
             type: 'success',
-            title: 'Usuário de nome - ' + resposta.nome,
+            title: 'Usuário de nome - ' + resposta.usuario.pessoa.nome,
             message: 'O usuário foi atualizado com sucesso!',
             createRoute: '/usuarios/create',
             listRoute: '/usuarios/list',
@@ -130,20 +130,19 @@ export class UsuarioUpdateComponent {
   private carregarUsuario(): void {
     this.carregando = true;
     this.usuarioService.findById(this.id).subscribe({
-      next: (usuario) => {
-        console.log(' aquiUsuario:', usuario);
+      next: (funcionario) => {
         this.usuarioForm.patchValue({
-          email: usuario.email,
+          email: funcionario.usuario.email,
           senha: '',
           confirmarSenha: '',
-          salario: usuario.salario,
-          cargo: usuario.cargo,
-          perfil: usuario.perfis[0]?.id,
-          ativo: usuario.ativo,
-          nome: usuario.nome,
-          cpf: usuario.cpf,
-          telefone: usuario.telefone,
-          dataNascimento: usuario.dataNascimento,
+          salario: funcionario.salario,
+          cargo: funcionario.cargo,
+          perfil: funcionario.perfis[0]?.id,
+          ativo: funcionario.ativo,
+          nome: funcionario.usuario.pessoa.nome,
+          cpf: funcionario.usuario.pessoa.cpf,
+          telefone: funcionario.usuario.pessoa.telefone,
+          dataNascimento: funcionario.usuario.pessoa.dataNascimento,
         });
       },
       complete: () => {

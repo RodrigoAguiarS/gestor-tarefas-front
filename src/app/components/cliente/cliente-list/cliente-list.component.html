@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Lista de Funcionários</h1>
+  <h1>Lista de Clientes</h1>
 
   <nz-alert
     *ngIf="
@@ -14,7 +14,7 @@
   ></nz-alert>
 
   <div class="search-container">
-    <h2>Buscar Funcionários</h2>
+    <h2>Buscar Clientes</h2>
     <form [formGroup]="filtroForm" (ngSubmit)="buscarUsuario()">
       <input nz-input placeholder="Nome" formControlName="nome" />
       <input nz-input placeholder="CPF" formControlName="cpf" />
@@ -61,12 +61,12 @@
     <tbody>
       <tr *ngFor="let cliente of clientes">
         <td>{{ cliente.id }}</td>
-        <td>{{ cliente.nome }}</td>
-        <td>{{ cliente.cpf | CPF }}</td>
-        <td>{{ cliente.email }}</td>
-        <td>{{ cliente.cidade }}</td>
-        <td>{{ cliente.estado }}</td>
-        <td>{{ cliente.cep }}</td>
+        <td>{{ cliente.usuario.pessoa.nome }}</td>
+        <td>{{ cliente.usuario.pessoa.cpf| CPF }}</td>
+        <td>{{ cliente.usuario.email }}</td>
+        <td>{{ cliente.endereco.cidade }}</td>
+        <td>{{ cliente.endereco.estado }}</td>
+        <td>{{ cliente.endereco.cep }}</td>
         <td>
           <a [routerLink]="['/usuarios/update', cliente.id]">
             <i
