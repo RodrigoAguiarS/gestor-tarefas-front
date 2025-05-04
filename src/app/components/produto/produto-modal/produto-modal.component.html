@@ -43,6 +43,15 @@
       </div>
     </div>
 
+    <div class="campo-observacao">
+      <label for="observacao">Observação:</label>
+      <textarea
+        id="observacao"
+        [(ngModel)]="itemVenda.observacao"
+        placeholder="Adicione uma observação ao produto"
+      ></textarea>
+    </div>
+
     <div class="total">
       <span>Total:</span>
       <span class="valor-total">
@@ -52,7 +61,7 @@
 
     <button
       class="adicionar-carrinho"
-      (click)="adicionarAoCarrinho(itemVenda.produto, itemVenda.quantidade)">
+      (click)="adicionarAoCarrinho(itemVenda.produto, itemVenda.quantidade, itemVenda.observacao)">
       <i nz-icon nzType="shopping-cart"></i>
       Adicionar ao Carrinho
     </button>

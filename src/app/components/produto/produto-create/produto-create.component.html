@@ -65,7 +65,11 @@
                 <input
                   id="preco"
                   nz-input
-                  [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                  [currencyMask]="{
+                    prefix: 'R$ ',
+                    thousands: '.',
+                    decimal: ','
+                  }"
                   type="text"
                   formControlName="preco"
                   placeholder="Digite o preço do produto"
@@ -102,6 +106,23 @@
                   nz-input
                   type="number"
                   formControlName="quantidade"
+                  placeholder="Digite a quantidade"
+                  required
+                />
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Quantidade -->
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true" nzFor="quantidadeMinima"
+                >Quantidade Minima</nz-form-label
+              >
+              <nz-form-control>
+                <input
+                  id="quantidadeMinima"
+                  nz-input
+                  type="number"
+                  formControlName="quantidadeMinima"
                   placeholder="Digite a quantidade"
                   required
                 />

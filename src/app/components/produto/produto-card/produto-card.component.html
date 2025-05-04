@@ -19,7 +19,7 @@
 
     <!-- Conteúdo principal com rolagem -->
     <div class="conteudo-principal">
-      <nz-spin [nzSpinning]="loading">
+      <nz-spin [nzSpinning]="loading"  nzTip="Carregando...">
         <div *ngIf="produtosFiltrados.length > 0; else nenhumProdutoEncontrado">
           <div *ngFor="let categoria of categorias" class="secao-categoria">
             <h2 class="titulo-categoria">{{ categoria.nome }}</h2>
@@ -55,6 +55,12 @@
                   </div>
                   <div class="info-produto">
                     <h3 class="nome-produto">{{ produto.nome }}</h3>
+                    <nz-tag
+                      *ngIf="getProdutoTag(produto).texto"
+                      [nzColor]="getProdutoTag(produto).cor"
+                    >
+                      {{ getProdutoTag(produto).texto }}
+                    </nz-tag>
                     <p class="descricao-produto">{{ produto.descricao }}</p>
                     <p class="preco-produto">
                       {{ produto.preco | currency : "BRL" }}

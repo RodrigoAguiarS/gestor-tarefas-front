@@ -75,6 +75,7 @@ export class ProdutoListComponent {
     ativo: false,
     categoria: { nome: '', id: 0, descricao: '', ativo: false },
     quantidade: 0,
+    quantidadeMinima: 0,
   };
   nenhumResultadoEncontrado = false;
 
@@ -101,6 +102,7 @@ export class ProdutoListComponent {
       valorMinimo: [0],
       codigoBarras: [''],
       quantidade: [null],
+      quantidadeMinima: [null],
       categoriaId: [null],
       arquivosUrl: [[]],
     });

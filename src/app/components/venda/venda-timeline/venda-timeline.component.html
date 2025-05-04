@@ -12,7 +12,7 @@
     </p>
   </div>
 
-  <nz-spin [nzSpinning]="carregando">
+  <nz-spin [nzSpinning]="carregando" nzTip="Carregando...">
     <nz-timeline *ngIf="historicoStatus.length > 0">
       <nz-timeline-item
         *ngFor="let historico of historicoStatus"

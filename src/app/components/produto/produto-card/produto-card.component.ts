@@ -1,4 +1,4 @@
-import { CarrinhoComponent } from './../../carrinho/carrinho.component';
+
 import { BuscaService } from './../../../services/busca.service';
 import { Component } from '@angular/core';
 import { Produto } from '../../../model/Produto';
@@ -25,6 +25,7 @@ import { AuthService } from '../../../services/auth.service';
 import { UsuarioChangeService } from '../../../services/usuario-change.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 @Component({
   selector: 'app-produto-card',
   imports: [
@@ -37,6 +38,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     CategoriaFilterPipe,
     ReactiveFormsModule,
     CommonModule,
+    NzTagModule,
     NzPageHeaderModule,
     NzButtonModule,
     NzFormModule,
@@ -178,5 +180,16 @@ export class ProdutoCardComponent {
         this.message.success('Impersonate finalizado com sucesso!');
       },
     });
+  }
+
+  getProdutoTag(produto: any): { texto: string; cor: string } {
+    if (produto.quantidade === 0) {
+      return { texto: 'Indisponível', cor: 'red' };
+    } else if (produto.quantidade > produto.quantidadeMinima) {
+      return { texto: 'Em Estoque', cor: 'green' };
+    } else if (produto.quantidade <= produto.quantidadeMinima && produto.quantidade > 0) {
+      return { texto: 'Quantidade Baixa', cor: 'orange' };
+    }
+    return { texto: '', cor: '' };
   }
 }

@@ -3,7 +3,7 @@
     <i class="fas fa-receipt"></i> Meus Pedidos
   </h2>
 
-  <nz-spin [nzSpinning]="carregando">
+  <nz-spin [nzSpinning]="carregando"  nzTip="Carregando...">
     <div class="vendas-grid" *ngIf="vendas.length > 0; else noVendas">
       <div class="venda-card" *ngFor="let venda of vendas">
         <div class="venda-header">

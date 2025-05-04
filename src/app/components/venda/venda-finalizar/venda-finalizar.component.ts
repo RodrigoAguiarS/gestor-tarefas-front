@@ -33,6 +33,7 @@ import { CEPPipe, CPFPipe, TelefonePipe } from '../../../../pipe';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-venda-finalizar',
   imports: [
@@ -41,6 +42,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     CPFPipe,
     CEPPipe,
     TelefonePipe,
+    NzSpinModule,
     ReactiveFormsModule,
     NzCardModule,
     NzCollapseModule,
@@ -69,7 +71,6 @@ export class VendaFinalizarComponent {
   formaPagamentoLabel: string = '';
   pedidoRealizado: boolean = false;
   carregando: boolean = false;
-  troco: number = 0;
 
   constructor(
     private readonly messege: NzMessageService,
@@ -100,11 +101,16 @@ export class VendaFinalizarComponent {
           this.formaPagamentoLabel = value.nome || '';
           this.acrescimo = value.porcentagemAcrescimo || 0;
           this.atualizarValores();
-          this.vendaForm.get('precisaTroco')?.setValue(false);
-          this.vendaForm.get('valorRecebido')?.reset();
-          this.troco = 0;
         }
       });
+    this.vendaForm.get('precisaTroco')?.valueChanges.subscribe((value) => {
+      this.atualizarValores();
+      this.vendaForm.get('valorRecebido')?.reset();
+      this.vendaForm.get('troco')?.reset();
+    });
+    this.vendaForm.get('valorRecebido')?.valueChanges.subscribe((value) => {
+      this.calcularTroco();
+    });
     this.carregando = false;
   }
 
@@ -112,8 +118,10 @@ export class VendaFinalizarComponent {
     this.vendaForm = this.formBuilder.group({
       cliente: [null, Validators.required],
       pagamento: [null, Validators.required],
+      troco: [0],
       precisaTroco: [false],
-      valorRecebido: [null],
+      observacao: [''],
+      valorRecebido: [0],
       itens: [null, Validators.required],
     });
   }
@@ -156,6 +164,7 @@ export class VendaFinalizarComponent {
         itens: this.itensCarrinho,
         status: new Status(),
         tipoVenda: TipoVenda.VENDA_ONLINE,
+        observacao: this.vendaForm.get('observacao')?.value,
         dataVenda: new Date(),
         valorTotal: this.valorTotal,
         pagamento: this.vendaForm.value.pagamento.id,
@@ -197,22 +206,29 @@ export class VendaFinalizarComponent {
   calcularTroco(): void {
     const valorRecebido = this.vendaForm.get('valorRecebido')?.value ?? 0;
     if (valorRecebido < this.valorTotal) {
-
-      this.troco = 0;
+      this.vendaForm.get('troco')?.setValue(0);
     } else {
-      this.troco = Math.max(
+      const trocoCalculado = Math.max(
         0,
         Math.round((valorRecebido - this.valorTotal) * 100) / 100
       );
+      this.vendaForm.get('troco')?.setValue(trocoCalculado);
     }
+
+    const troco = this.vendaForm.get('troco')?.value ?? 0;
+    const observacao = `Valor Recebido: R$ ${valorRecebido.toFixed(
+      2
+    )}, Troco: R$ ${troco.toFixed(2)}`;
+    this.vendaForm.patchValue({ observacao });
   }
 
-  private validarPagamentoDinheiro(): boolean {
+  validarPagamentoDinheiro(): boolean {
     const precisaTroco = this.vendaForm.get('precisaTroco')?.value ?? false;
 
     if (!precisaTroco) {
       return true;
     }
+
     const valorRecebido = this.vendaForm.get('valorRecebido')?.value ?? 0;
 
     if (valorRecebido < this.valorTotal) {
@@ -228,7 +244,8 @@ export class VendaFinalizarComponent {
       Math.round((valorRecebido - this.valorTotal) * 100) / 100
     );
 
-    if (this.troco !== trocoCalculado) {
+    const trocoAtual = this.vendaForm.get('troco')?.value ?? 0;
+    if (trocoAtual !== trocoCalculado) {
       this.carregando = false;
       this.messege.error(
         'O troco calculado está incorreto. Verifique os valores.'

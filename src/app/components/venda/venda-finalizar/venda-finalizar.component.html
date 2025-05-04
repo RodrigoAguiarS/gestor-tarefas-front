@@ -1,114 +1,117 @@
 <div class="venda-container">
   <nz-card>
-    <ng-container *ngIf="!pedidoRealizado">
-      <!-- Header com total -->
-      <div class="header-total">
-        <h2>Finalizar Compra</h2>
-      </div>
+    <nz-spin [nzSpinning]="carregando"  nzTip="Carregando...">
+      <ng-container *ngIf="!pedidoRealizado">
+        <!-- Header com total -->
+        <div class="header-total">
+          <h2>Finalizar Compra</h2>
+        </div>
 
-      <form [formGroup]="vendaForm" (ngSubmit)="finalizarVenda()">
-        <!-- Dados Pessoais -->
-        <section class="dados-section" *ngIf="cliente">
-          <h3><i nz-icon nzType="user"></i> Dados Pessoais</h3>
-          <div class="info-card">
-            <div><strong>Nome:</strong> {{ cliente.usuario.pessoa.nome }}</div>
-            <div>
-              <strong>CPF:</strong> {{ cliente.usuario.pessoa.cpf | CPF }}
+        <form [formGroup]="vendaForm" (ngSubmit)="finalizarVenda()">
+          <!-- Dados Pessoais -->
+          <section class="dados-section" *ngIf="cliente">
+            <h3><i nz-icon nzType="user"></i> Dados Pessoais</h3>
+            <div class="info-card">
+              <div><strong>Nome:</strong> {{ cliente.usuario.pessoa.nome }}</div>
+              <div>
+                <strong>CPF:</strong> {{ cliente.usuario.pessoa.cpf | CPF }}
+              </div>
+              <div>
+                <strong>Telefone:</strong>
+                {{ cliente.usuario.pessoa.telefone | telefone }}
+              </div>
             </div>
-            <div>
-              <strong>Telefone:</strong>
-              {{ cliente.usuario.pessoa.telefone | telefone }}
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- Endereço -->
-        <section class="endereco-section" *ngIf="cliente">
-          <h3><i nz-icon nzType="environment"></i> Endereço de Entrega</h3>
-          <div class="info-card">
-            <div>
-              <strong>Rua:</strong> {{ cliente.endereco.rua }},
-              {{ cliente.endereco.numero }}
+          <!-- Endereço -->
+          <section class="endereco-section" *ngIf="cliente">
+            <h3><i nz-icon nzType="environment"></i> Endereço de Entrega</h3>
+            <div class="info-card">
+              <div>
+                <strong>Rua:</strong> {{ cliente.endereco.rua }},
+                {{ cliente.endereco.numero }}
+              </div>
+              <div><strong>Bairro:</strong> {{ cliente.endereco.bairro }}</div>
+              <div>
+                <strong>Cidade/Estado:</strong> {{ cliente.endereco.cidade }}/{{
+                  cliente.endereco.estado
+                }}
+              </div>
+              <div><strong>CEP:</strong> {{ cliente.endereco.cep | cep }}</div>
             </div>
-            <div><strong>Bairro:</strong> {{ cliente.endereco.bairro }}</div>
-            <div>
-              <strong>Cidade/Estado:</strong> {{ cliente.endereco.cidade }}/{{
-                cliente.endereco.estado
-              }}
+          </section>
+
+          <!-- Pagamento -->
+          <section class="pagamento-section">
+            <h3><i nz-icon nzType="credit-card"></i> Forma de Pagamento</h3>
+            <nz-select formControlName="pagamento" nzBlock>
+              <nz-option
+                *ngFor="let pag of pagamentos"
+                [nzValue]="pag"
+                [nzLabel]="pag.nome"
+              ></nz-option>
+            </nz-select>
+
+            <div
+              *ngIf="formaPagamentoLabel === 'Dinheiro'"
+              class="precisa-troco-section"
+            >
+              <label nz-checkbox formControlName="precisaTroco">
+                Precisa de Troco?
+              </label>
             </div>
-            <div><strong>CEP:</strong> {{ cliente.endereco.cep | cep }}</div>
-          </div>
-        </section>
 
-        <!-- Pagamento -->
-        <section class="pagamento-section">
-          <h3><i nz-icon nzType="credit-card"></i> Forma de Pagamento</h3>
-          <nz-select formControlName="pagamento" nzBlock>
-            <nz-option
-              *ngFor="let pag of pagamentos"
-              [nzValue]="pag"
-              [nzLabel]="pag.nome"
-            ></nz-option>
-          </nz-select>
+            <div
+              *ngIf="vendaForm.get('precisaTroco')?.value"
+              class="troco-section"
+            >
+              <label for="valorRecebido">Informe o valor em dinheiro:</label>
+              <input
+                nz-input
+                id="valorRecebido"
+                [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                type="text"
+                formControlName="valorRecebido"
+                (input)="calcularTroco()"
+                placeholder="Informe o valor recebido"
+              />
+            </div>
+          </section>
 
-          <div
-            *ngIf="formaPagamentoLabel === 'Dinheiro'"
-            class="precisa-troco-section"
+          <!-- Resumo -->
+          <section class="resumo-section">
+            <div *ngIf="vendaForm.get('precisaTroco')?.value" class="resumo-item">
+              <strong>Troco:</strong>
+              <span>{{ vendaForm.get('troco')?.value | currency : "BRL" }}</span>
+            </div>
+            <div class="resumo-item">
+              <span>Subtotal</span>
+              <span>{{ valorParcial | currency : "BRL" }}</span>
+            </div>
+            <div class="resumo-item">
+              <span>Acréscimo</span>
+              <span>{{ acrescimo }}%</span>
+            </div>
+            <div class="resumo-item total">
+              <span>Total</span>
+              <span>{{ valorTotal | currency : "BRL" }}</span>
+            </div>
+          </section>
+
+          <!-- Botão Finalizar -->
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            [nzLoading]="carregando"
+            [disabled]="carregando || !vendaForm.valid"
+            type="submit"
+            class="btn-finalizar"
           >
-            <label nz-checkbox formControlName="precisaTroco">
-              Precisa de Troco?
-            </label>
-          </div>
-
-          <div
-            *ngIf="vendaForm.get('precisaTroco')?.value"
-            class="troco-section"
-          >
-            <label for="valorRecebido">Informe o valor em dinheiro:</label>
-            <input
-              nz-input
-              id="valorRecebido"
-              [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-              type="text"
-              formControlName="valorRecebido"
-              (input)="calcularTroco()"
-              placeholder="Informe o valor recebido"
-            />
-          </div>
-        </section>
-
-        <!-- Resumo -->
-        <section class="resumo-section">
-          <div *ngIf="vendaForm.get('precisaTroco')?.value" class="resumo-item">
-            <strong>Troco:</strong> {{ troco | currency : "BRL" }}
-          </div>
-          <div class="resumo-item">
-            <span>Subtotal</span>
-            <span>{{ valorParcial | currency : "BRL" }}</span>
-          </div>
-          <div class="resumo-item">
-            <span>Acréscimo</span>
-            <span>{{ acrescimo }}%</span>
-          </div>
-          <div class="resumo-item total">
-            <span>Total</span>
-            <span>{{ valorTotal | currency : "BRL" }}</span>
-          </div>
-        </section>
-
-        <!-- Botão Finalizar -->
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="large"
-          [nzLoading]="carregando"
-          [disabled]="carregando || !vendaForm.valid"
-          type="submit"
-          class="btn-finalizar"
-        >
-          Finalizar Compra
-        </button>
-      </form>
-    </ng-container>
+            Finalizar Compra
+          </button>
+        </form>
+      </ng-container>
+    </nz-spin>
   </nz-card>
 </div>

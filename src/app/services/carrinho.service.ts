@@ -18,7 +18,7 @@ export class CarrinhoService {
 
   constructor(private readonly mensagemService: NzMessageService) {}
 
-  adicionarProduto(produto: Produto, quantidade: number = 1): void {
+  adicionarProduto(produto: Produto, quantidade: number = 1, observacao: string = ''): void {
     const itensCarrinhoAtual = this.itensCarrinhoSubject.value;
     const itemIndex = itensCarrinhoAtual.findIndex(
       (item) => item.produto.id === produto.id
@@ -32,6 +32,7 @@ export class CarrinhoService {
         itensCarrinhoAtual[itemIndex].valorTotal =
           itensCarrinhoAtual[itemIndex].quantidade *
           itensCarrinhoAtual[itemIndex].precoUnitario;
+        itensCarrinhoAtual[itemIndex].observacao = observacao;
       } else {
         this.mensagemService.error(
           'Não é possível adicionar mais deste produto devido à limitação de estoque.'
@@ -45,6 +46,7 @@ export class CarrinhoService {
       const novoItem: ItemVenda = {
         produto,
         quantidade,
+        observacao, // Adiciona a observação ao novo item
         venda: new Venda(),
         precoUnitario,
         valorTotal,

@@ -9,6 +9,7 @@ export class Venda {
   itens!: ItemVenda[];
   status!: Status;
   tipoVenda!: string;
+  observacao!: string;
   dataVenda!: Date;
   valorTotal!: number;
   pagamento!: Pagamento;

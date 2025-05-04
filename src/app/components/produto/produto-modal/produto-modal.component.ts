@@ -7,10 +7,12 @@ import { Venda } from '../../../model/Venda';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-produto-modal',
-  imports: [CurrencyPipe, CommonModule, NzIconModule, NzButtonModule],
+  imports: [CurrencyPipe, CommonModule, NzIconModule, NzButtonModule, CommonModule,
+    FormsModule],
   templateUrl: './produto-modal.component.html',
   styleUrl: './produto-modal.component.css',
 })
@@ -34,6 +36,7 @@ export class ProdutoModalComponent {
       produto: this.produto,
       quantidade: 1,
       precoUnitario: this.produto.preco,
+      observacao: '',
       valorTotal: this.produto.preco,
       venda: {} as Venda,
     };
@@ -59,8 +62,9 @@ export class ProdutoModalComponent {
     this.itemVenda.quantidade += 1;
   }
 
-  adicionarAoCarrinho(produto: Produto, quantidade: number): void {
-    this.carrinhoService.adicionarProduto(produto, quantidade);
+  adicionarAoCarrinho(produto: Produto, quantidade: number, observacao: string): void {
+    this.carrinhoService.adicionarProduto(produto, quantidade, observacao);
+    console.log('Produto adicionado ao carrinho:', produto, quantidade, observacao);
     this.modalService.closeAll();
   }
 

@@ -141,6 +141,7 @@ export class ProdutoUpdateComponent {
       preco: [0, [Validators.required, Validators.min(0)]],
       codigoBarras: ['', Validators.required],
       quantidade: [null, [Validators.required, Validators.min(0)]],
+      quantidadeMinima: [null, [Validators.required, Validators.min(0)]],
       categoriaId: [null, Validators.required],
       arquivosUrl: [[]],
     });
